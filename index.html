@@ -1,0 +1,1503 @@
+<!doctype html>
+<html lang="pl">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>ENEV.TECH — Budowa Sieci Światłowodowych</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			:root {
+				--deep: #050f1a;
+				--navy: #071e34;
+				--blue: #0a4d8c;
+				--mid: #1a6eb5;
+				--cyan: #00c8e8;
+				--light-cyan: #5ee8ff;
+				--white: #f0faff;
+				--glass: rgba(0, 200, 232, 0.08);
+				--glass-border: rgba(0, 200, 232, 0.18);
+			}
+
+			*,
+			*::before,
+			*::after {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+
+			html {
+				scroll-behavior: smooth;
+			}
+
+			body {
+				background: var(--deep);
+				color: var(--white);
+				font-family: "DM Sans", sans-serif;
+				font-weight: 300;
+				overflow-x: hidden;
+			}
+
+			/* ─── ANIMATED BACKGROUND ─── */
+			.bg-grid {
+				position: fixed;
+				inset: 0;
+				z-index: 0;
+				background-image:
+					linear-gradient(
+						rgba(0, 200, 232, 0.04) 1px,
+						transparent 1px
+					),
+					linear-gradient(
+						90deg,
+						rgba(0, 200, 232, 0.04) 1px,
+						transparent 1px
+					);
+				background-size: 60px 60px;
+				pointer-events: none;
+			}
+
+			.bg-glow {
+				position: fixed;
+				width: 700px;
+				height: 700px;
+				border-radius: 50%;
+				background: radial-gradient(
+					circle,
+					rgba(0, 200, 232, 0.12) 0%,
+					transparent 70%
+				);
+				top: -200px;
+				left: -150px;
+				pointer-events: none;
+				animation: drift 12s ease-in-out infinite alternate;
+				z-index: 0;
+			}
+			.bg-glow2 {
+				position: fixed;
+				width: 500px;
+				height: 500px;
+				border-radius: 50%;
+				background: radial-gradient(
+					circle,
+					rgba(10, 77, 140, 0.25) 0%,
+					transparent 70%
+				);
+				bottom: -100px;
+				right: -100px;
+				pointer-events: none;
+				animation: drift 16s ease-in-out infinite alternate-reverse;
+				z-index: 0;
+			}
+
+			@keyframes drift {
+				from {
+					transform: translate(0, 0);
+				}
+				to {
+					transform: translate(60px, 40px);
+				}
+			}
+
+			/* ─── NAV ─── */
+			nav {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				z-index: 100;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 20px 60px;
+				background: rgba(5, 15, 26, 0.85);
+				backdrop-filter: blur(12px);
+				border-bottom: 1px solid var(--glass-border);
+			}
+
+			.logo {
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-size: 1.5rem;
+				letter-spacing: -0.5px;
+			}
+			.logo span {
+				color: var(--cyan);
+			}
+
+			nav ul {
+				list-style: none;
+				display: flex;
+				gap: 36px;
+			}
+			nav ul a {
+				color: rgba(240, 250, 255, 0.7);
+				text-decoration: none;
+				font-size: 0.9rem;
+				letter-spacing: 0.5px;
+				transition: color 0.2s;
+			}
+			nav ul a:hover {
+				color: var(--cyan);
+			}
+
+			.nav-cta {
+				background: var(--cyan);
+				color: var(--deep) !important;
+				font-weight: 500;
+				padding: 10px 24px;
+				border-radius: 4px;
+				transition:
+					background 0.2s,
+					transform 0.2s !important;
+			}
+			.nav-cta:hover {
+				background: var(--light-cyan);
+				transform: translateY(-1px);
+			}
+
+			/* ─── HERO ─── */
+			.hero {
+				position: relative;
+				z-index: 1;
+				min-height: 100vh;
+				display: flex;
+				align-items: center;
+				padding: 140px 60px 80px;
+				overflow: hidden;
+			}
+
+			.hero-fiber {
+				position: absolute;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				width: 55%;
+				pointer-events: none;
+			}
+			.fiber-svg {
+				width: 100%;
+				height: 100%;
+			}
+
+			.hero-content {
+				max-width: 580px;
+				position: relative;
+				z-index: 2;
+			}
+
+			.hero-badge {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				background: var(--glass);
+				border: 1px solid var(--glass-border);
+				border-radius: 100px;
+				padding: 6px 16px;
+				font-size: 0.78rem;
+				letter-spacing: 1px;
+				text-transform: uppercase;
+				color: var(--cyan);
+				margin-bottom: 28px;
+			}
+			.badge-dot {
+				width: 6px;
+				height: 6px;
+				border-radius: 50%;
+				background: var(--cyan);
+				animation: pulse 2s infinite;
+			}
+			@keyframes pulse {
+				0%,
+				100% {
+					opacity: 1;
+				}
+				50% {
+					opacity: 0.3;
+				}
+			}
+
+			h1 {
+				font-family: "Syne", sans-serif;
+				font-size: clamp(2.8rem, 5.5vw, 4.8rem);
+				font-weight: 800;
+				line-height: 1.05;
+				letter-spacing: -2px;
+				margin-bottom: 24px;
+			}
+			h1 em {
+				font-style: normal;
+				color: transparent;
+				-webkit-text-stroke: 1.5px var(--cyan);
+			}
+
+			.hero-desc {
+				font-size: 1.05rem;
+				line-height: 1.7;
+				color: rgba(240, 250, 255, 0.65);
+				max-width: 460px;
+				margin-bottom: 40px;
+			}
+
+			.hero-btns {
+				display: flex;
+				gap: 16px;
+				flex-wrap: wrap;
+			}
+
+			.btn-primary {
+				background: var(--cyan);
+				color: var(--deep);
+				font-family: "DM Sans", sans-serif;
+				font-weight: 500;
+				font-size: 0.95rem;
+				padding: 14px 32px;
+				border: none;
+				border-radius: 4px;
+				cursor: pointer;
+				transition: all 0.2s;
+				text-decoration: none;
+			}
+			.btn-primary:hover {
+				background: var(--light-cyan);
+				transform: translateY(-2px);
+				box-shadow: 0 12px 30px rgba(0, 200, 232, 0.3);
+			}
+
+			.btn-outline {
+				background: transparent;
+				color: var(--white);
+				font-family: "DM Sans", sans-serif;
+				font-weight: 400;
+				font-size: 0.95rem;
+				padding: 13px 32px;
+				border: 1px solid var(--glass-border);
+				border-radius: 4px;
+				cursor: pointer;
+				transition: all 0.2s;
+				text-decoration: none;
+			}
+			.btn-outline:hover {
+				border-color: var(--cyan);
+				color: var(--cyan);
+			}
+
+			.hero-stats {
+				display: flex;
+				gap: 48px;
+				margin-top: 56px;
+				padding-top: 40px;
+				border-top: 1px solid var(--glass-border);
+			}
+			.stat-num {
+				font-family: "Syne", sans-serif;
+				font-size: 2.2rem;
+				font-weight: 800;
+				color: var(--cyan);
+				line-height: 1;
+			}
+			.stat-label {
+				font-size: 0.8rem;
+				color: rgba(240, 250, 255, 0.5);
+				margin-top: 4px;
+			}
+
+			/* ─── USŁUGI ─── */
+			section {
+				position: relative;
+				z-index: 1;
+			}
+
+			.section-inner {
+				padding: 100px 60px;
+				max-width: 1200px;
+				margin: 0 auto;
+			}
+
+			.section-tag {
+				display: inline-block;
+				font-size: 0.75rem;
+				letter-spacing: 2px;
+				text-transform: uppercase;
+				color: var(--cyan);
+				margin-bottom: 16px;
+			}
+
+			h2 {
+				font-family: "Syne", sans-serif;
+				font-size: clamp(2rem, 3.5vw, 3rem);
+				font-weight: 700;
+				letter-spacing: -1px;
+				margin-bottom: 16px;
+			}
+
+			.section-sub {
+				color: rgba(240, 250, 255, 0.55);
+				font-size: 1rem;
+				line-height: 1.7;
+				max-width: 500px;
+				margin-bottom: 60px;
+			}
+
+			.services-grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 24px;
+			}
+
+			.service-card {
+				background: var(--glass);
+				border: 1px solid var(--glass-border);
+				border-radius: 12px;
+				padding: 36px 32px;
+				transition: all 0.3s;
+				position: relative;
+				overflow: hidden;
+			}
+			.service-card::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 2px;
+				background: linear-gradient(
+					90deg,
+					transparent,
+					var(--cyan),
+					transparent
+				);
+				opacity: 0;
+				transition: opacity 0.3s;
+			}
+			.service-card:hover {
+				background: rgba(0, 200, 232, 0.1);
+				border-color: rgba(0, 200, 232, 0.35);
+				transform: translateY(-4px);
+				box-shadow: 0 20px 40px rgba(0, 200, 232, 0.1);
+			}
+			.service-card:hover::before {
+				opacity: 1;
+			}
+
+			.service-icon {
+				width: 52px;
+				height: 52px;
+				background: rgba(0, 200, 232, 0.12);
+				border: 1px solid rgba(0, 200, 232, 0.25);
+				border-radius: 10px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin-bottom: 24px;
+				font-size: 1.5rem;
+			}
+
+			.service-card h3 {
+				font-family: "Syne", sans-serif;
+				font-size: 1.1rem;
+				font-weight: 700;
+				margin-bottom: 12px;
+			}
+
+			.service-card p {
+				font-size: 0.9rem;
+				color: rgba(240, 250, 255, 0.55);
+				line-height: 1.7;
+			}
+
+			/* ─── O NAS ─── */
+			.about-section {
+				background: rgba(7, 30, 52, 0.5);
+			}
+
+			.about-inner {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 80px;
+				align-items: center;
+				padding: 100px 60px;
+				max-width: 1200px;
+				margin: 0 auto;
+			}
+
+			.about-visual {
+				position: relative;
+			}
+
+			.about-box {
+				background: var(--glass);
+				border: 1px solid var(--glass-border);
+				border-radius: 16px;
+				padding: 50px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				min-height: 320px;
+				position: relative;
+				overflow: hidden;
+			}
+
+			.circuit-svg {
+				width: 100%;
+				opacity: 0.8;
+			}
+
+			.about-content h2 {
+				margin-bottom: 20px;
+			}
+
+			.about-text {
+				color: rgba(240, 250, 255, 0.6);
+				line-height: 1.8;
+				margin-bottom: 16px;
+			}
+
+			.about-features {
+				list-style: none;
+				display: flex;
+				flex-direction: column;
+				gap: 12px;
+				margin-top: 32px;
+			}
+			.about-features li {
+				display: flex;
+				align-items: center;
+				gap: 12px;
+				font-size: 0.95rem;
+			}
+			.check {
+				width: 22px;
+				height: 22px;
+				background: rgba(0, 200, 232, 0.12);
+				border: 1px solid rgba(0, 200, 232, 0.4);
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 0.7rem;
+				color: var(--cyan);
+				flex-shrink: 0;
+			}
+
+			/* ─── PROCES ─── */
+			.process-grid {
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				gap: 2px;
+				position: relative;
+			}
+
+			.process-step {
+				background: var(--glass);
+				border: 1px solid var(--glass-border);
+				padding: 36px 28px;
+				position: relative;
+				transition: background 0.3s;
+			}
+			.process-step:hover {
+				background: rgba(0, 200, 232, 0.08);
+			}
+
+			.step-num {
+				font-family: "Syne", sans-serif;
+				font-size: 3rem;
+				font-weight: 800;
+				color: transparent;
+				-webkit-text-stroke: 1px rgba(0, 200, 232, 0.3);
+				line-height: 1;
+				margin-bottom: 20px;
+			}
+
+			.process-step h3 {
+				font-family: "Syne", sans-serif;
+				font-size: 1rem;
+				font-weight: 700;
+				margin-bottom: 10px;
+			}
+
+			.process-step p {
+				font-size: 0.85rem;
+				color: rgba(240, 250, 255, 0.5);
+				line-height: 1.7;
+			}
+
+			/* ─── CTA ─── */
+			.cta-section {
+				background: linear-gradient(
+					135deg,
+					rgba(10, 77, 140, 0.3) 0%,
+					rgba(0, 200, 232, 0.1) 100%
+				);
+				border-top: 1px solid var(--glass-border);
+				border-bottom: 1px solid var(--glass-border);
+			}
+
+			.cta-inner {
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 100px 60px;
+				display: grid;
+				grid-template-columns: 1fr auto;
+				align-items: center;
+				gap: 60px;
+			}
+
+			.cta-inner h2 {
+				font-size: clamp(2rem, 3vw, 2.8rem);
+			}
+			.cta-inner p {
+				color: rgba(240, 250, 255, 0.55);
+				margin-top: 12px;
+				font-size: 0.95rem;
+			}
+
+			.cta-actions {
+				display: flex;
+				flex-direction: column;
+				gap: 12px;
+				min-width: 220px;
+			}
+
+			.contact-info {
+				font-size: 0.85rem;
+				color: rgba(240, 250, 255, 0.4);
+				text-align: center;
+			}
+			.contact-info a {
+				color: var(--cyan);
+				text-decoration: none;
+			}
+
+			/* ─── FOOTER ─── */
+			footer {
+				position: relative;
+				z-index: 1;
+				background: var(--navy);
+				border-top: 1px solid var(--glass-border);
+				padding: 60px 60px 32px;
+			}
+
+			.footer-top {
+				display: grid;
+				grid-template-columns: 2fr 1fr 1fr 1fr;
+				gap: 60px;
+				margin-bottom: 48px;
+			}
+
+			.footer-brand p {
+				color: rgba(240, 250, 255, 0.45);
+				font-size: 0.85rem;
+				line-height: 1.7;
+				margin-top: 12px;
+				max-width: 260px;
+			}
+
+			.footer-col h4 {
+				font-family: "Syne", sans-serif;
+				font-size: 0.85rem;
+				font-weight: 700;
+				letter-spacing: 1px;
+				text-transform: uppercase;
+				margin-bottom: 20px;
+				color: var(--cyan);
+			}
+
+			.footer-col ul {
+				list-style: none;
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+			}
+			.footer-col ul a {
+				color: rgba(240, 250, 255, 0.45);
+				font-size: 0.85rem;
+				text-decoration: none;
+				transition: color 0.2s;
+			}
+			.footer-col ul a:hover {
+				color: var(--white);
+			}
+
+			.footer-bottom {
+				border-top: 1px solid var(--glass-border);
+				padding-top: 28px;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+
+			.footer-bottom p {
+				color: rgba(240, 250, 255, 0.3);
+				font-size: 0.8rem;
+			}
+
+			/* ─── FIBER ANIMATION ─── */
+			.fiber-line {
+				stroke-dasharray: 400;
+				stroke-dashoffset: 400;
+				animation: drawLine 3s ease forwards;
+			}
+			@keyframes drawLine {
+				to {
+					stroke-dashoffset: 0;
+				}
+			}
+
+			/* ─── SCROLL FADE ─── */
+			.fade-in {
+				opacity: 0;
+				transform: translateY(30px);
+				transition: all 0.7s ease;
+			}
+			.fade-in.visible {
+				opacity: 1;
+				transform: none;
+			}
+
+			@media (max-width: 900px) {
+				nav {
+					padding: 16px 24px;
+				}
+				nav ul {
+					display: none;
+				}
+				.hero {
+					padding: 120px 24px 60px;
+				}
+				.hero-fiber {
+					opacity: 0.3;
+					width: 100%;
+				}
+				.section-inner {
+					padding: 70px 24px;
+				}
+				.services-grid {
+					grid-template-columns: 1fr;
+				}
+				.about-inner {
+					grid-template-columns: 1fr;
+					padding: 70px 24px;
+				}
+				.about-visual {
+					display: none;
+				}
+				.process-grid {
+					grid-template-columns: 1fr 1fr;
+				}
+				.cta-inner {
+					grid-template-columns: 1fr;
+					padding: 70px 24px;
+				}
+				.footer-top {
+					grid-template-columns: 1fr 1fr;
+					gap: 32px;
+					padding: 0 0;
+				}
+				footer {
+					padding: 48px 24px 24px;
+				}
+				.footer-bottom {
+					flex-direction: column;
+					gap: 12px;
+				}
+				.hero-stats {
+					gap: 28px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="bg-grid"></div>
+		<div class="bg-glow"></div>
+		<div class="bg-glow2"></div>
+
+		<!-- NAV -->
+		<nav>
+			<div class="logo">ENEV<span>TECH</span></div>
+			<ul>
+				<li><a href="#uslugi">Usługi</a></li>
+				<li><a href="#o-nas">O nas</a></li>
+				<li><a href="#proces">Proces</a></li>
+				<li><a href="#kontakt" class="nav-cta">Kontakt</a></li>
+			</ul>
+		</nav>
+
+		<!-- HERO -->
+		<section class="hero">
+			<div class="hero-fiber" aria-hidden="true">
+				<svg
+					class="fiber-svg"
+					viewBox="0 0 700 800"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<!-- Fiber optic cables abstract art -->
+					<path
+						d="M600 0 Q 500 200 450 400 Q 400 600 500 800"
+						stroke="url(#fiber1)"
+						stroke-width="2"
+						fill="none"
+						class="fiber-line"
+						style="animation-delay: 0s"
+					/>
+					<path
+						d="M650 0 Q 520 250 480 450 Q 450 600 560 800"
+						stroke="url(#fiber2)"
+						stroke-width="1.5"
+						fill="none"
+						class="fiber-line"
+						style="animation-delay: 0.3s"
+					/>
+					<path
+						d="M580 0 Q 460 180 420 380 Q 380 580 460 800"
+						stroke="url(#fiber3)"
+						stroke-width="1"
+						fill="none"
+						class="fiber-line"
+						style="animation-delay: 0.6s"
+					/>
+					<path
+						d="M700 100 Q 600 300 560 500 Q 520 680 620 800"
+						stroke="url(#fiber4)"
+						stroke-width="1.5"
+						fill="none"
+						class="fiber-line"
+						style="animation-delay: 0.2s"
+					/>
+					<path
+						d="M550 0 Q 440 200 400 430 Q 370 620 420 800"
+						stroke="url(#fiber5)"
+						stroke-width="1"
+						fill="none"
+						class="fiber-line"
+						style="animation-delay: 0.8s"
+					/>
+					<path
+						d="M680 0 Q 580 220 540 460 Q 500 670 580 800"
+						stroke="url(#fiber6)"
+						stroke-width="0.8"
+						fill="none"
+						class="fiber-line"
+						style="animation-delay: 1s"
+					/>
+
+					<!-- Glowing nodes -->
+					<circle
+						cx="450"
+						cy="400"
+						r="6"
+						fill="#00c8e8"
+						opacity="0.8"
+					>
+						<animate
+							attributeName="opacity"
+							values="0.8;0.2;0.8"
+							dur="2s"
+							repeatCount="indefinite"
+						/>
+						<animate
+							attributeName="r"
+							values="6;10;6"
+							dur="2s"
+							repeatCount="indefinite"
+						/>
+					</circle>
+					<circle
+						cx="480"
+						cy="450"
+						r="4"
+						fill="#00c8e8"
+						opacity="0.6"
+					>
+						<animate
+							attributeName="opacity"
+							values="0.6;0.1;0.6"
+							dur="2.5s"
+							repeatCount="indefinite"
+						/>
+					</circle>
+					<circle
+						cx="560"
+						cy="500"
+						r="5"
+						fill="#5ee8ff"
+						opacity="0.7"
+					>
+						<animate
+							attributeName="opacity"
+							values="0.7;0.2;0.7"
+							dur="1.8s"
+							repeatCount="indefinite"
+						/>
+					</circle>
+					<circle
+						cx="420"
+						cy="380"
+						r="3"
+						fill="#00c8e8"
+						opacity="0.5"
+					>
+						<animate
+							attributeName="opacity"
+							values="0.5;0.1;0.5"
+							dur="3s"
+							repeatCount="indefinite"
+						/>
+					</circle>
+
+					<!-- Data packet animations -->
+					<circle r="3" fill="#00c8e8" opacity="0.9">
+						<animateMotion
+							dur="4s"
+							repeatCount="indefinite"
+							path="M600 0 Q 500 200 450 400 Q 400 600 500 800"
+						/>
+						<animate
+							attributeName="opacity"
+							values="0;1;1;0"
+							dur="4s"
+							repeatCount="indefinite"
+						/>
+					</circle>
+					<circle r="2" fill="#5ee8ff" opacity="0.7">
+						<animateMotion
+							dur="5s"
+							repeatCount="indefinite"
+							begin="1.5s"
+							path="M650 0 Q 520 250 480 450 Q 450 600 560 800"
+						/>
+						<animate
+							attributeName="opacity"
+							values="0;0.8;0.8;0"
+							dur="5s"
+							repeatCount="indefinite"
+							begin="1.5s"
+						/>
+					</circle>
+					<circle r="2.5" fill="#00c8e8" opacity="0.8">
+						<animateMotion
+							dur="3.5s"
+							repeatCount="indefinite"
+							begin="0.8s"
+							path="M700 100 Q 600 300 560 500 Q 520 680 620 800"
+						/>
+					</circle>
+
+					<defs>
+						<linearGradient
+							id="fiber1"
+							x1="0%"
+							y1="0%"
+							x2="0%"
+							y2="100%"
+						>
+							<stop
+								offset="0%"
+								stop-color="#00c8e8"
+								stop-opacity="0.8"
+							/>
+							<stop
+								offset="100%"
+								stop-color="#0a4d8c"
+								stop-opacity="0.2"
+							/>
+						</linearGradient>
+						<linearGradient
+							id="fiber2"
+							x1="0%"
+							y1="0%"
+							x2="0%"
+							y2="100%"
+						>
+							<stop
+								offset="0%"
+								stop-color="#5ee8ff"
+								stop-opacity="0.6"
+							/>
+							<stop
+								offset="100%"
+								stop-color="#1a6eb5"
+								stop-opacity="0.1"
+							/>
+						</linearGradient>
+						<linearGradient
+							id="fiber3"
+							x1="0%"
+							y1="0%"
+							x2="0%"
+							y2="100%"
+						>
+							<stop
+								offset="0%"
+								stop-color="#00c8e8"
+								stop-opacity="0.4"
+							/>
+							<stop
+								offset="100%"
+								stop-color="#0a4d8c"
+								stop-opacity="0"
+							/>
+						</linearGradient>
+						<linearGradient
+							id="fiber4"
+							x1="0%"
+							y1="0%"
+							x2="0%"
+							y2="100%"
+						>
+							<stop
+								offset="0%"
+								stop-color="#1a6eb5"
+								stop-opacity="0.7"
+							/>
+							<stop
+								offset="100%"
+								stop-color="#00c8e8"
+								stop-opacity="0.2"
+							/>
+						</linearGradient>
+						<linearGradient
+							id="fiber5"
+							x1="0%"
+							y1="0%"
+							x2="0%"
+							y2="100%"
+						>
+							<stop
+								offset="0%"
+								stop-color="#5ee8ff"
+								stop-opacity="0.3"
+							/>
+							<stop
+								offset="100%"
+								stop-color="#0a4d8c"
+								stop-opacity="0.1"
+							/>
+						</linearGradient>
+						<linearGradient
+							id="fiber6"
+							x1="0%"
+							y1="0%"
+							x2="0%"
+							y2="100%"
+						>
+							<stop
+								offset="0%"
+								stop-color="#00c8e8"
+								stop-opacity="0.5"
+							/>
+							<stop
+								offset="100%"
+								stop-color="#1a6eb5"
+								stop-opacity="0"
+							/>
+						</linearGradient>
+					</defs>
+				</svg>
+			</div>
+
+			<div class="hero-content">
+				<div class="hero-badge">
+					<span class="badge-dot"></span>
+					Profesjonalne sieci światłowodowe
+				</div>
+				<h1>Budujemy<br /><em>Szybkość</em><br />Przyszłości</h1>
+				<p class="hero-desc">
+					Kompleksowa budowa, instalacja i serwis sieci
+					światłowodowych dla firm, deweloperów i samorządów.
+					Gwarantujemy najwyższą jakość wykonania.
+				</p>
+				<div class="hero-btns">
+					<a href="#kontakt" class="btn-primary">Bezpłatna wycena</a>
+					<a href="#uslugi" class="btn-outline">Nasze usługi</a>
+				</div>
+				<div class="hero-stats">
+					<div>
+						<div class="stat-num">850+</div>
+						<div class="stat-label">Km ułożonego kabla</div>
+					</div>
+					<div>
+						<div class="stat-num">320</div>
+						<div class="stat-label">Zrealizowanych projektów</div>
+					</div>
+					<div>
+						<div class="stat-num">5 lat</div>
+						<div class="stat-label">Doświadczenia</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- USŁUGI -->
+		<section id="uslugi">
+			<div class="section-inner">
+				<span class="section-tag">Co oferujemy</span>
+				<h2>Kompleksowe Usługi<br />Światłowodowe</h2>
+				<p class="section-sub">
+					Od projektu po odbiór techniczny — realizujemy każdy etap
+					inwestycji w infrastrukturę sieciową.
+				</p>
+
+				<div class="services-grid">
+					<div class="service-card fade-in">
+						<div class="service-icon">🔧</div>
+						<h3>Budowa Infrastruktury</h3>
+						<p>
+							Projektowanie i budowa sieci szkieletowych,
+							dystrybucyjnych i dostępowych. Kompleksowa
+							realizacja od wykopu po spawanie.
+						</p>
+					</div>
+					<div
+						class="service-card fade-in"
+						style="transition-delay: 0.1s"
+					>
+						<div class="service-icon">🏗️</div>
+						<h3>Instalacje w Budynkach</h3>
+						<p>
+							Okablowanie wewnętrzne FTTH/FTTB. Instalacje w
+							biurowcach, halach przemysłowych i kompleksach
+							mieszkaniowych.
+						</p>
+					</div>
+					<div
+						class="service-card fade-in"
+						style="transition-delay: 0.2s"
+					>
+						<div class="service-icon">📡</div>
+						<h3>Sieci Telekomunikacyjne</h3>
+						<p>
+							Budowa sieci dla operatorów telekomunikacyjnych.
+							Integracja z istniejącą infrastrukturą i systemami
+							zarządzania siecią.
+						</p>
+					</div>
+					<div
+						class="service-card fade-in"
+						style="transition-delay: 0.3s"
+					>
+						<div class="service-icon">⚙️</div>
+						<h3>Spawanie Optyczne</h3>
+						<p>
+							Precyzyjne spawanie włókien optycznych z pomiarem
+							OTDR. Certyfikowane spawarki i doświadczeni
+							technicy.
+						</p>
+					</div>
+					<div
+						class="service-card fade-in"
+						style="transition-delay: 0.4s"
+					>
+						<div class="service-icon">📋</div>
+						<h3>Projektowanie Sieci</h3>
+						<p>
+							Kompleksowe projekty techniczne i budowlane.
+							Uzgodnienia z gestorami sieci, opracowanie
+							dokumentacji powykonawczej.
+						</p>
+					</div>
+					<div
+						class="service-card fade-in"
+						style="transition-delay: 0.5s"
+					>
+						<div class="service-icon">🔍</div>
+						<h3>Serwis i Pomiary</h3>
+						<p>
+							Lokalizacja uszkodzeń, pomiary reflektometryczne
+							OTDR, okresowe przeglądy techniczne i usuwanie
+							awarii 24/7.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- O NAS -->
+		<section id="o-nas" class="about-section">
+			<div class="about-inner">
+				<div class="about-visual">
+					<div class="about-box">
+						<svg
+							class="circuit-svg"
+							viewBox="0 0 400 300"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<!-- Circuit board pattern -->
+							<line
+								x1="50"
+								y1="150"
+								x2="150"
+								y2="150"
+								stroke="#00c8e8"
+								stroke-width="1.5"
+								opacity="0.6"
+							/>
+							<line
+								x1="150"
+								y1="150"
+								x2="150"
+								y2="80"
+								stroke="#00c8e8"
+								stroke-width="1.5"
+								opacity="0.6"
+							/>
+							<line
+								x1="150"
+								y1="80"
+								x2="250"
+								y2="80"
+								stroke="#00c8e8"
+								stroke-width="1.5"
+								opacity="0.6"
+							/>
+							<line
+								x1="250"
+								y1="80"
+								x2="250"
+								y2="150"
+								stroke="#00c8e8"
+								stroke-width="1.5"
+								opacity="0.6"
+							/>
+							<line
+								x1="250"
+								y1="150"
+								x2="350"
+								y2="150"
+								stroke="#00c8e8"
+								stroke-width="1.5"
+								opacity="0.6"
+							/>
+							<line
+								x1="150"
+								y1="150"
+								x2="150"
+								y2="220"
+								stroke="#1a6eb5"
+								stroke-width="1.5"
+								opacity="0.5"
+							/>
+							<line
+								x1="150"
+								y1="220"
+								x2="250"
+								y2="220"
+								stroke="#1a6eb5"
+								stroke-width="1.5"
+								opacity="0.5"
+							/>
+							<line
+								x1="250"
+								y1="220"
+								x2="250"
+								y2="150"
+								stroke="#1a6eb5"
+								stroke-width="1.5"
+								opacity="0.5"
+							/>
+							<line
+								x1="100"
+								y1="150"
+								x2="100"
+								y2="50"
+								stroke="#0a4d8c"
+								stroke-width="1"
+								opacity="0.4"
+							/>
+							<line
+								x1="300"
+								y1="150"
+								x2="300"
+								y2="250"
+								stroke="#0a4d8c"
+								stroke-width="1"
+								opacity="0.4"
+							/>
+							<!-- Nodes -->
+							<circle
+								cx="150"
+								cy="150"
+								r="8"
+								fill="#00c8e8"
+								opacity="0.8"
+							/>
+							<circle
+								cx="250"
+								cy="150"
+								r="8"
+								fill="#00c8e8"
+								opacity="0.8"
+							/>
+							<circle
+								cx="150"
+								cy="80"
+								r="5"
+								fill="#5ee8ff"
+								opacity="0.7"
+							/>
+							<circle
+								cx="250"
+								cy="80"
+								r="5"
+								fill="#5ee8ff"
+								opacity="0.7"
+							/>
+							<circle
+								cx="150"
+								cy="220"
+								r="5"
+								fill="#1a6eb5"
+								opacity="0.7"
+							/>
+							<circle
+								cx="250"
+								cy="220"
+								r="5"
+								fill="#1a6eb5"
+								opacity="0.7"
+							/>
+							<!-- Center element -->
+							<rect
+								x="165"
+								y="130"
+								width="70"
+								height="40"
+								rx="4"
+								fill="none"
+								stroke="#00c8e8"
+								stroke-width="1.5"
+								opacity="0.8"
+							/>
+							<text
+								x="200"
+								y="154"
+								text-anchor="middle"
+								fill="#00c8e8"
+								font-size="10"
+								font-family="monospace"
+								opacity="0.9"
+							>
+								ENEV.TECH
+							</text>
+							<!-- Moving data -->
+							<circle r="3" fill="#00c8e8" opacity="0.9">
+								<animateMotion
+									dur="3s"
+									repeatCount="indefinite"
+									path="M50 150 L150 150 L150 80 L250 80 L250 150 L350 150"
+								/>
+							</circle>
+							<circle r="2" fill="#5ee8ff" opacity="0.7">
+								<animateMotion
+									dur="4s"
+									repeatCount="indefinite"
+									begin="1s"
+									path="M150 220 L250 220 L250 150 L150 150 L150 220"
+								/>
+							</circle>
+						</svg>
+					</div>
+				</div>
+
+				<div class="about-content fade-in">
+					<span class="section-tag">O Firmie</span>
+					<h2>5 Lat<br />Doświadczenia</h2>
+					<p class="about-text">
+						ENEV.TECH to zespół doświadczonych techników
+						specjalizujących się w budowie sieci światłowodowych. Od
+						2020 roku realizujemy projekty dla operatorów telekomów,
+						samorządów i przedsiębiorstw w całej Polsce.
+					</p>
+					<p class="about-text">
+						Posiadamy pełne zaplecze techniczne, flotę pojazdów
+						specjalistycznych oraz certyfikowanych spawaczy z
+						wieloletnim doświadczeniem w pracy ze złączami
+						optycznymi.
+					</p>
+					<ul class="about-features">
+						<li>
+							<span class="check">✓</span> Certyfikat ISO
+							9001:2015 i uprawnienia budowlane
+						</li>
+						<li>
+							<span class="check">✓</span> Autoryzowany partner
+							Corning i Prysmian Group
+						</li>
+						<li>
+							<span class="check">✓</span> Własny sprzęt pomiarowy
+							— reflektometry OTDR
+						</li>
+						<li>
+							<span class="check">✓</span> Pogotowie techniczne
+							24/7 przez cały rok
+						</li>
+						<li>
+							<span class="check">✓</span> Realizacje na terenie
+							całej Polski i Niemiec
+						</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<!-- PROCES -->
+		<section id="proces">
+			<div class="section-inner">
+				<span class="section-tag">Jak pracujemy</span>
+				<h2>Nasz Proces Realizacji</h2>
+				<p class="section-sub">
+					Każdy projekt prowadzimy przez cztery etapy zapewniające
+					najwyższą jakość i terminowość.
+				</p>
+
+				<div class="process-grid">
+					<div class="process-step fade-in">
+						<div class="step-num">01</div>
+						<h3>Analiza & Projekt</h3>
+						<p>
+							Oględziny terenu, inwentaryzacja infrastruktury,
+							opracowanie projektu technicznego i kosztorysu.
+						</p>
+					</div>
+					<div
+						class="process-step fade-in"
+						style="transition-delay: 0.15s"
+					>
+						<div class="step-num">02</div>
+						<h3>Uzgodnienia</h3>
+						<p>
+							Pozyskanie decyzji administracyjnych, uzgodnienia z
+							gestorami sieci i właścicielami terenów.
+						</p>
+					</div>
+					<div
+						class="process-step fade-in"
+						style="transition-delay: 0.3s"
+					>
+						<div class="step-num">03</div>
+						<h3>Realizacja</h3>
+						<p>
+							Roboty ziemne, układanie kabli, spawanie włókien,
+							montaż szaf i urządzeń aktywnych.
+						</p>
+					</div>
+					<div
+						class="process-step fade-in"
+						style="transition-delay: 0.45s"
+					>
+						<div class="step-num">04</div>
+						<h3>Odbiór & Serwis</h3>
+						<p>
+							Pomiary OTDR, dokumentacja powykonawcza, szkolenie
+							personelu i kontrakt serwisowy.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- CTA -->
+		<section id="kontakt" class="cta-section">
+			<div class="cta-inner">
+				<div>
+					<h2>Gotowi na<br />szybką sieć?</h2>
+					<p>
+						Skontaktuj się z nami — przygotujemy bezpłatną wycenę i
+						harmonogram prac w ciągu 48 godzin.
+					</p>
+				</div>
+				<div class="cta-actions">
+					<a
+						href="mailto:kontakt@.pl"
+						class="btn-primary"
+						style="text-align: center"
+						>Napisz do nas</a
+					>
+					<a
+						href="tel:+48100100200"
+						class="btn-outline"
+						style="text-align: center"
+						>+48 100 100 200</a
+					>
+					<div class="contact-info">
+						lub wyślij zapytanie na<br /><a href="mailto:mail@.pl"
+							>mail@.pl</a
+						>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- FOOTER -->
+		<footer>
+			<div class="footer-top">
+				<div class="footer-brand">
+					<div class="logo">ENEV<span>TECH</span></div>
+					<p>
+						Profesjonalna budowa i serwis sieci światłowodowych dla
+						firm, operatorów i samorządów na terenie Polski i
+						Europy.
+					</p>
+				</div>
+				<div class="footer-col">
+					<h4>Usługi</h4>
+					<ul>
+						<li><a href="#">Budowa sieci</a></li>
+						<li><a href="#">Instalacje FTTH</a></li>
+						<li><a href="#">Spawanie optyczne</a></li>
+						<li><a href="#">Pomiary OTDR</a></li>
+						<li><a href="#">Projektowanie</a></li>
+					</ul>
+				</div>
+				<div class="footer-col">
+					<h4>Firma</h4>
+					<ul>
+						<li><a href="#">O nas</a></li>
+						<li><a href="#">Realizacje</a></li>
+						<li><a href="#">Certyfikaty</a></li>
+						<li><a href="#">Kariera</a></li>
+					</ul>
+				</div>
+				<div class="footer-col">
+					<h4>Kontakt</h4>
+					<ul>
+						<li><a href="#">ul. Światłowodowa 12</a></li>
+						<li><a href="#">80-001 Gdańsk</a></li>
+						<li><a href="tel:+48800100200">+48 800 100 200</a></li>
+						<li>
+							<a href="mailto:kontakt@.pl">kontakt@.pl</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="footer-bottom">
+				<p>© 2026 ENEV.TECH Sp. z o.o. Wszelkie prawa zastrzeżone.</p>
+				<p>Polityka prywatności · Regulamin</p>
+			</div>
+		</footer>
+
+		<script>
+			// Intersection Observer for fade-in animations
+			const observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((el) => {
+						if (el.isIntersecting) {
+							el.target.classList.add("visible");
+						}
+					});
+				},
+				{ threshold: 0.1 },
+			);
+
+			document
+				.querySelectorAll(".fade-in")
+				.forEach((el) => observer.observe(el));
+		</script>
+	</body>
+</html>

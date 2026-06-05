@@ -1,0 +1,3591 @@
+<!doctype html>
+<html lang="pl" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>FibraTech – Projektowanie i Budowa Sieci Światłowodowych</title>
+		<!-- Tailwind CSS -->
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script>
+			tailwind.config = {
+				theme: {
+					extend: {
+						colors: {
+							brand: {
+								deep: "#165ca3", // Głęboki błękit z pliku image_4931a4.png
+								cyan: "#31b1d3", // Jasny cyjan z pliku image_4931a4.png
+								dark: "#0e3e70", // Bardzo ciemny błękit do tekstów i ciemnych teł
+								light: "#f0f7fc", // Bardzo jasny błękit jako tło sekcji
+								accent: "#e6f4f8", // Lekki odcień cyjanu do akcentów tła
+							},
+						},
+						fontFamily: {
+							sans: ["Inter", "sans-serif"],
+						},
+					},
+				},
+			};
+		</script>
+		<!-- Google Fonts - Inter -->
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
+		<!-- Font Awesome Icons -->
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+		/>
+		<style>
+			.glow-effect {
+				box-shadow: 0 0 15px rgba(49, 177, 211, 0.4);
+			}
+			.gradient-bg {
+				background: linear-gradient(135deg, #165ca3 0%, #0e3e70 100%);
+			}
+			.hero-pattern {
+				background-image: radial-gradient(
+					rgba(49, 177, 211, 0.15) 1.5px,
+					transparent 1.5px
+				);
+				background-size: 24px 24px;
+			}
+		</style>
+	</head>
+	<body
+		class="font-sans bg-white text-gray-800 antialiased overflow-x-hidden"
+	>
+		<!-- Nawigacja -->
+		<header
+			class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-brand-light shadow-sm transition-all duration-300"
+		>
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="flex items-center justify-between h-20">
+					<!-- Logo -->
+					<div class="flex items-center space-x-3">
+						<div
+							class="relative w-10 h-10 flex items-center justify-center rounded-lg bg-brand-deep text-white shadow-md overflow-hidden"
+						>
+							<!-- Ikona nawiązująca do grafiki z image_4931a4.png -->
+							<div
+								class="absolute inset-0 bg-gradient-to-tr from-brand-deep to-brand-cyan opacity-80"
+							></div>
+							<i
+								class="fa-solid fa-circle-nodes relative z-10 text-xl animate-pulse"
+							></i>
+						</div>
+						<div>
+							<span
+								class="text-2xl font-black tracking-wider text-brand-dark flex items-center"
+							>
+								FIBRA<span class="text-brand-cyan">TECH</span>
+							</span>
+							<span
+								data-i18n="nav-sub"
+								class="text-[9px] block text-gray-500 uppercase tracking-widest font-bold -mt-1.5"
+								>Budowa Światłowodów</span
+							>
+						</div>
+					</div>
+
+					<!-- Menu Desktop -->
+					<nav
+						class="hidden md:flex space-x-6 lg:space-x-8 font-medium"
+					>
+						<a
+							href="#o-nas"
+							data-i18n="nav-about"
+							class="text-gray-600 hover:text-brand-deep transition-colors"
+							>O nas</a
+						>
+						<a
+							href="#uslugi"
+							data-i18n="nav-services"
+							class="text-gray-600 hover:text-brand-deep transition-colors"
+							>Usługi</a
+						>
+						<a
+							href="#maszyny"
+							data-i18n="nav-tech"
+							class="text-gray-600 hover:text-brand-deep transition-colors"
+							>Technologia</a
+						>
+						<a
+							href="#kalkulator"
+							data-i18n="nav-calc"
+							class="text-gray-600 hover:text-brand-deep transition-colors"
+							>Wycena</a
+						>
+						<a
+							href="#faq"
+							data-i18n="nav-faq"
+							class="text-gray-600 hover:text-brand-deep transition-colors"
+							>FAQ</a
+						>
+					</nav>
+
+					<!-- Przyciski akcji & Przełącznik Języków -->
+					<div class="hidden md:flex items-center space-x-4">
+						<!-- Wybór języka -->
+						<div
+							class="flex items-center space-x-1 bg-brand-light p-1 rounded-lg border border-brand-accent"
+						>
+							<button
+								onclick="changeLanguage('pl')"
+								id="lang-pl"
+								class="px-2 py-1 text-xs font-bold rounded transition-all bg-brand-deep text-white"
+							>
+								PL
+							</button>
+							<button
+								onclick="changeLanguage('en')"
+								id="lang-en"
+								class="px-2 py-1 text-xs font-bold rounded transition-all text-gray-600 hover:text-brand-deep"
+							>
+								EN
+							</button>
+							<button
+								onclick="changeLanguage('de')"
+								id="lang-de"
+								class="px-2 py-1 text-xs font-bold rounded transition-all text-gray-600 hover:text-brand-deep"
+							>
+								DE
+							</button>
+						</div>
+
+						<a
+							href="tel:+48123456789"
+							class="text-brand-deep font-semibold flex items-center space-x-2 text-sm whitespace-nowrap"
+						>
+							<i
+								class="fa-solid fa-phone-volume text-brand-cyan"
+							></i>
+							<span>+48 123 456 789</span>
+						</a>
+						<a
+							href="#kontakt"
+							data-i18n="nav-contact-btn"
+							class="bg-brand-deep hover:bg-brand-dark text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 shadow-md shadow-brand-deep/20 hover:shadow-brand-deep/40 whitespace-nowrap"
+						>
+							Napisz do nas
+						</a>
+					</div>
+
+					<!-- Menu mobilne (Przycisk) -->
+					<div class="flex items-center space-x-2 md:hidden">
+						<!-- Mobilny wybór języka -->
+						<div
+							class="flex items-center space-x-1 bg-brand-light p-1 rounded-lg border border-brand-accent text-xs"
+						>
+							<button
+								onclick="changeLanguage('pl')"
+								id="mob-lang-pl"
+								class="px-1.5 py-0.5 font-bold rounded transition-all bg-brand-deep text-white"
+							>
+								PL
+							</button>
+							<button
+								onclick="changeLanguage('en')"
+								id="mob-lang-en"
+								class="px-1.5 py-0.5 font-bold rounded transition-all text-gray-600"
+							>
+								EN
+							</button>
+							<button
+								onclick="changeLanguage('de')"
+								id="mob-lang-de"
+								class="px-1.5 py-0.5 font-bold rounded transition-all text-gray-600"
+							>
+								DE
+							</button>
+						</div>
+						<button
+							id="mobile-menu-btn"
+							class="text-brand-dark hover:text-brand-cyan focus:outline-none p-2"
+							aria-label="Toggle Menu"
+						>
+							<i
+								class="fa-solid fa-bars text-2xl"
+								id="menu-icon"
+							></i>
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- Panel mobilny -->
+			<div
+				id="mobile-menu"
+				class="hidden md:hidden bg-white border-t border-gray-100 px-4 pt-3 pb-6 space-y-3 shadow-lg absolute w-full left-0 transition-all duration-300"
+			>
+				<a
+					href="#o-nas"
+					data-i18n="nav-about"
+					class="block py-2.5 px-3 rounded-lg hover:bg-brand-light text-gray-700 font-medium transition-colors"
+					>O nas</a
+				>
+				<a
+					href="#uslugi"
+					data-i18n="nav-services"
+					class="block py-2.5 px-3 rounded-lg hover:bg-brand-light text-gray-700 font-medium transition-colors"
+					>Usługi</a
+				>
+				<a
+					href="#maszyny"
+					data-i18n="nav-tech"
+					class="block py-2.5 px-3 rounded-lg hover:bg-brand-light text-gray-700 font-medium transition-colors"
+					>Technologia</a
+				>
+				<a
+					href="#kalkulator"
+					data-i18n="nav-calc"
+					class="block py-2.5 px-3 rounded-lg hover:bg-brand-light text-gray-700 font-medium transition-colors"
+					>Wycena</a
+				>
+				<a
+					href="#faq"
+					data-i18n="nav-faq"
+					class="block py-2.5 px-3 rounded-lg hover:bg-brand-light text-gray-700 font-medium transition-colors"
+					>FAQ</a
+				>
+				<hr class="border-gray-100 my-2" />
+				<div class="pt-2 flex flex-col space-y-3 px-3">
+					<a
+						href="tel:+48123456789"
+						class="text-brand-deep font-bold flex items-center space-x-2"
+					>
+						<i class="fa-solid fa-phone-volume text-brand-cyan"></i>
+						<span>+48 123 456 789</span>
+					</a>
+					<a
+						href="#kontakt"
+						data-i18n="nav-mob-consult"
+						class="bg-brand-deep hover:bg-brand-dark text-white text-center py-3 rounded-lg font-semibold transition-colors shadow-md"
+					>
+						Darmowa Konsultacja
+					</a>
+				</div>
+			</div>
+		</header>
+
+		<!-- Hero Section -->
+		<section
+			class="relative gradient-bg text-white overflow-hidden py-20 lg:py-32 hero-pattern"
+		>
+			<!-- Efekty wizualne nawiązujące do grafiki z image_4931a4.png (światłowody, wiązki światła) -->
+			<div
+				class="absolute top-1/4 right-0 w-96 h-96 bg-brand-cyan/20 rounded-full blur-3xl"
+			></div>
+			<div
+				class="absolute bottom-1/12 left-10 w-80 h-80 bg-brand-deep/40 rounded-full blur-3xl"
+			></div>
+
+			<!-- Elementy światłowodowe w tle (dekoracyjne linie SVG) -->
+			<div class="absolute inset-0 opacity-15 pointer-events-none">
+				<svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+					<path
+						d="M-100 300 C 300 150, 600 500, 1200 200"
+						stroke="#31b1d3"
+						stroke-width="4"
+						fill="none"
+					/>
+					<path
+						d="M-50 450 C 400 300, 800 600, 1500 350"
+						stroke="#ffffff"
+						stroke-width="2"
+						fill="none"
+					/>
+					<path
+						d="M200 100 C 600 250, 900 100, 1600 400"
+						stroke="#31b1d3"
+						stroke-width="1.5"
+						fill="none"
+						stroke-dasharray="10 5"
+					/>
+				</svg>
+			</div>
+
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+				<div
+					class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
+				>
+					<!-- Tekst Hero -->
+					<div
+						class="lg:col-span-7 space-y-6 text-center lg:text-left"
+					>
+						<div
+							class="inline-flex items-center space-x-2 bg-brand-cyan/20 border border-brand-cyan/40 px-3.5 py-1.5 rounded-full text-brand-cyan text-sm font-semibold tracking-wide"
+						>
+							<i class="fa-solid fa-bolt animate-bounce"></i>
+							<span data-i18n="hero-badge"
+								>Budujemy infrastrukturę przyszłości</span
+							>
+						</div>
+
+						<h1
+							class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight"
+						>
+							<span data-i18n="hero-title-1"
+								>Profesjonalna budowa</span
+							>
+							<br class="hidden sm:inline" />
+							<span
+								data-i18n="hero-title-2"
+								class="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-white"
+							>
+								sieci światłowodowych
+							</span>
+						</h1>
+
+						<p
+							data-i18n="hero-desc"
+							class="text-lg text-blue-100 max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed"
+						>
+							Kompleksowe usługi budowy rurociągów kablowych,
+							wdmuchiwania światłowodów, spawania oraz pomiarów.
+							Wspieramy operatorów, deweloperów, samorządy oraz
+							firmy na terenie całego kraju.
+						</p>
+
+						<div
+							class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4"
+						>
+							<a
+								href="#kalkulator"
+								class="w-full sm:w-auto text-center bg-brand-cyan hover:bg-cyan-400 text-brand-dark font-bold px-8 py-4 rounded-xl shadow-lg shadow-brand-cyan/20 transition-all duration-300 transform hover:-translate-y-0.5"
+							>
+								<i class="fa-solid fa-calculator mr-2"></i>
+								<span data-i18n="hero-btn-calc"
+									>Oblicz koszt budowy</span
+								>
+							</a>
+							<a
+								href="#uslugi"
+								data-i18n="hero-btn-offer"
+								class="w-full sm:w-auto text-center bg-white/10 hover:bg-white/15 border border-white/20 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-300"
+							>
+								Nasza oferta
+							</a>
+						</div>
+
+						<!-- Główne wyróżniki w formie plakietek -->
+						<div
+							class="grid grid-cols-3 gap-4 pt-8 border-t border-white/10 max-w-lg mx-auto lg:mx-0"
+						>
+							<div class="text-center lg:text-left">
+								<div
+									class="text-2xl sm:text-3xl font-extrabold text-brand-cyan"
+								>
+									100%
+								</div>
+								<div
+									data-i18n="hero-stat-1"
+									class="text-xs text-blue-200 mt-1"
+								>
+									Dokładności i norm
+								</div>
+							</div>
+							<div class="text-center lg:text-left">
+								<div
+									class="text-2xl sm:text-3xl font-extrabold text-brand-cyan"
+								>
+									500+ km
+								</div>
+								<div
+									data-i18n="hero-stat-2"
+									class="text-xs text-blue-200 mt-1"
+								>
+									Wybudowanych tras
+								</div>
+							</div>
+							<div class="text-center lg:text-left">
+								<div
+									class="text-2xl sm:text-3xl font-extrabold text-brand-cyan"
+								>
+									OTDR
+								</div>
+								<div
+									data-i18n="hero-stat-3"
+									class="text-xs text-blue-200 mt-1"
+								>
+									Precyzyjne pomiary
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Wizualizacja / Karta akcji w Hero -->
+					<div class="lg:col-span-5 relative">
+						<div
+							class="relative bg-brand-dark/50 border border-brand-cyan/30 rounded-2xl p-6 backdrop-blur-md shadow-2xl glow-effect max-w-md mx-auto"
+						>
+							<div
+								data-i18n="hero-card-badge"
+								class="absolute -top-3 -right-3 bg-brand-cyan text-brand-dark text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider"
+							>
+								Na żywo
+							</div>
+
+							<div
+								class="flex items-center space-x-3 pb-4 border-b border-brand-light/10 mb-6"
+							>
+								<div
+									class="w-3 h-3 rounded-full bg-green-400 animate-ping"
+								></div>
+								<h3
+									data-i18n="hero-card-title"
+									class="font-bold text-sm tracking-wide text-brand-cyan uppercase"
+								>
+									Schemat połączenia optycznego
+								</h3>
+							</div>
+
+							<!-- Stylizowany schemat sieci jak w przesłanym pliku image_4931a4.png -->
+							<div
+								class="py-8 px-4 flex flex-col items-center justify-center space-y-6"
+							>
+								<div
+									class="flex items-center justify-between w-full relative"
+								>
+									<!-- Linia łącząca -->
+									<div
+										class="absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-brand-cyan via-white to-brand-cyan -translate-y-1/2 z-0"
+									></div>
+
+									<!-- Węzeł A -->
+									<div
+										class="relative z-10 w-12 h-12 rounded-full bg-brand-deep border-2 border-brand-cyan flex items-center justify-center shadow-lg"
+									>
+										<i
+											class="fa-solid fa-server text-white text-sm"
+										></i>
+										<span
+											data-i18n="hero-card-node-a"
+											class="absolute -bottom-6 text-[10px] whitespace-nowrap text-blue-200"
+											>Centrala (OLT)</span
+										>
+									</div>
+
+									<!-- Węzeł B (Nawiązanie bezpośrednie do niebiesko-cyjanowego kształtu w image_4931a4.png) -->
+									<div
+										class="relative z-10 w-16 h-16 rounded-2xl bg-brand-cyan border-2 border-white flex items-center justify-center shadow-xl transform rotate-45"
+									>
+										<div
+											class="transform -rotate-45 flex flex-col items-center justify-center"
+										>
+											<i
+												class="fa-solid fa-circle-nodes text-brand-dark text-lg animate-pulse"
+											></i>
+										</div>
+										<!-- Sygnalizator połączenia -->
+										<span
+											class="absolute -bottom-10 text-[10px] font-bold text-white whitespace-nowrap bg-brand-deep px-2 py-0.5 rounded-full border border-brand-cyan/50 tracking-wide"
+										>
+											SPLITTER 1:8
+										</span>
+									</div>
+
+									<!-- Węzeł C -->
+									<div
+										class="relative z-10 w-12 h-12 rounded-full bg-brand-deep border-2 border-brand-cyan flex items-center justify-center shadow-lg"
+									>
+										<i
+											class="fa-solid fa-house-laptop text-white text-sm"
+										></i>
+										<span
+											data-i18n="hero-card-node-c"
+											class="absolute -bottom-6 text-[10px] whitespace-nowrap text-blue-200"
+											>Klient (ONT)</span
+										>
+									</div>
+								</div>
+
+								<div class="h-6"></div>
+								<!-- Spacer -->
+							</div>
+
+							<!-- Krótkie podsumowanie parametrów -->
+							<div
+								class="bg-brand-deep/60 rounded-xl p-4 border border-brand-cyan/20 space-y-2 text-xs text-blue-100"
+							>
+								<div class="flex justify-between">
+									<span
+										data-i18n="hero-card-row-1"
+										class="text-gray-300"
+										>Tłumienność fali (1310/1550 nm):</span
+									>
+									<span class="font-bold text-brand-cyan"
+										>&lt; 0.22 dB/km</span
+									>
+								</div>
+								<div class="flex justify-between">
+									<span
+										data-i18n="hero-card-row-2"
+										class="text-gray-300"
+										>Prędkość przesyłu danych:</span
+									>
+									<span class="font-bold text-brand-cyan"
+										>Do 100 Gbps+</span
+									>
+								</div>
+								<div class="flex justify-between">
+									<span
+										data-i18n="hero-card-row-3"
+										class="text-gray-300"
+										>Odporność na zakłócenia:</span
+									>
+									<span
+										data-i18n="hero-card-val-3"
+										class="font-bold text-green-400"
+										>Całkowita (EM/RF)</span
+									>
+								</div>
+							</div>
+
+							<div class="mt-4 text-center">
+								<p
+									data-i18n="hero-card-footer"
+									class="text-[11px] text-blue-300"
+								>
+									Wizualizacja spawu i propagacji wiązki
+									światłowodowej
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Sekcja Zaufania / Fakty liczbowe -->
+		<section class="bg-brand-light py-10 border-b border-brand-accent">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+					<div
+						class="p-4 bg-white rounded-xl shadow-sm border border-brand-accent"
+					>
+						<div
+							class="text-3xl sm:text-4xl font-extrabold text-brand-deep"
+						>
+							12+
+						</div>
+						<div
+							data-i18n="ribbon-stat-1"
+							class="text-xs sm:text-sm text-gray-500 font-medium mt-1"
+						>
+							Lat doświadczenia w branży
+						</div>
+					</div>
+					<div
+						class="p-4 bg-white rounded-xl shadow-sm border border-brand-accent"
+					>
+						<div
+							class="text-3xl sm:text-4xl font-extrabold text-brand-deep"
+						>
+							3400+
+						</div>
+						<div
+							data-i18n="ribbon-stat-2"
+							class="text-xs sm:text-sm text-gray-500 font-medium mt-1"
+						>
+							Wykonanych przyłączy abonenckich
+						</div>
+					</div>
+					<div
+						class="p-4 bg-white rounded-xl shadow-sm border border-brand-accent"
+					>
+						<div
+							class="text-3xl sm:text-4xl font-extrabold text-brand-deep"
+						>
+							15
+						</div>
+						<div
+							data-i18n="ribbon-stat-3"
+							class="text-xs sm:text-sm text-gray-500 font-medium mt-1"
+						>
+							Własnych wyspecjalizowanych ekip
+						</div>
+					</div>
+					<div
+						class="p-4 bg-white rounded-xl shadow-sm border border-brand-accent"
+					>
+						<div
+							class="text-3xl sm:text-4xl font-extrabold text-brand-deep"
+						>
+							0
+						</div>
+						<div
+							data-i18n="ribbon-stat-4"
+							class="text-xs sm:text-sm text-gray-500 font-medium mt-1"
+						>
+							Nierozwiązanych awarii
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- O Nas -->
+		<section id="o-nas" class="py-20 bg-white">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div
+					class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+				>
+					<!-- Grafika / Wizualizacja po lewej -->
+					<div class="relative order-2 lg:order-1">
+						<div
+							class="absolute -inset-1 bg-gradient-to-r from-brand-deep to-brand-cyan rounded-2xl blur-lg opacity-30"
+						></div>
+						<div
+							class="relative bg-white border border-brand-accent rounded-2xl overflow-hidden p-3 shadow-xl"
+						>
+							<!-- Zastępczy obrazek technologiczny z paletą kolorów pasującą do schematu -->
+							<img
+								src="https://placehold.co/600x450/165ca3/ffffff?text=Budowa+Sieci+Swiatlowodowych"
+								alt="Prace ziemne i spawanie światłowodów"
+								class="rounded-xl w-full object-cover h-[350px] lg:h-[400px]"
+								onerror="
+									this.src =
+										'https://placehold.co/600x450/0e3e70/31b1d3?text=Wdmuchiwanie+i+Budowa+FTTH'
+								"
+							/>
+
+							<!-- Pływająca plakietka jakościowa -->
+							<div
+								class="absolute bottom-8 left-8 bg-brand-dark/95 text-white p-4 rounded-xl border border-brand-cyan/30 flex items-center space-x-3 shadow-lg max-w-xs"
+							>
+								<div
+									class="w-10 h-10 rounded-lg bg-brand-cyan text-brand-dark flex items-center justify-center font-bold text-lg shrink-0"
+								>
+									<i class="fa-solid fa-shield-halved"></i>
+								</div>
+								<div>
+									<h4
+										data-i18n="about-badge-title"
+										class="font-bold text-sm"
+									>
+										Gwarancja SLA
+									</h4>
+									<p
+										data-i18n="about-badge-desc"
+										class="text-xs text-gray-300"
+									>
+										Świadczymy serwis z gwarantowanym czasem
+										reakcji.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Tekst O nas po prawej -->
+					<div class="space-y-6 order-1 lg:order-2">
+						<div
+							class="text-brand-deep font-bold text-sm uppercase tracking-wider flex items-center space-x-2"
+						>
+							<span class="w-8 h-[2px] bg-brand-cyan"></span>
+							<span data-i18n="about-badge"
+								>Poznaj FibraTech</span
+							>
+						</div>
+						<h2
+							data-i18n="about-title"
+							class="text-3xl sm:text-4xl font-extrabold text-brand-dark leading-tight"
+						>
+							Łączymy ludzi i biznes najszybszą technologią na
+							świecie
+						</h2>
+						<p
+							data-i18n="about-desc-1"
+							class="text-gray-600 leading-relaxed"
+						>
+							Jesteśmy dynamicznie rozwijającym się
+							przedsiębiorstwem wyspecjalizowanym w projektowaniu,
+							budowie oraz kompleksowym utrzymaniu pasywnej i
+							aktywnej infrastruktury telekomunikacyjnej.
+						</p>
+						<p
+							data-i18n="about-desc-2"
+							class="text-gray-600 leading-relaxed"
+						>
+							Dzięki bogatemu zapleczu technicznemu oraz zespołowi
+							certyfikowanych inżynierów i monterów, realizujemy
+							zarówno pojedyncze przyłącza abonenckie typu **FTTH
+							(ENEV to the Home)**, jak i magistralne linie
+							światłowodowe, w tym systemy napowietrzne i doziemne
+							w trudnym terenie miejskim.
+						</p>
+
+						<!-- Cechy kluczowe w punktach z ikonami -->
+						<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+							<div class="flex items-start space-x-3">
+								<div
+									class="p-2 rounded-lg bg-brand-accent text-brand-deep mt-1"
+								>
+									<i
+										class="fa-solid fa-circle-check text-sm"
+									></i>
+								</div>
+								<div>
+									<h4
+										data-i18n="about-feat-1-title"
+										class="font-bold text-brand-dark text-sm"
+									>
+										Własne wdmuchiwarki
+									</h4>
+									<p
+										data-i18n="about-feat-1-desc"
+										class="text-xs text-gray-500"
+									>
+										Bezpieczna instalacja mikrokabli do
+										2000m.
+									</p>
+								</div>
+							</div>
+							<div class="flex items-start space-x-3">
+								<div
+									class="p-2 rounded-lg bg-brand-accent text-brand-deep mt-1"
+								>
+									<i
+										class="fa-solid fa-circle-check text-sm"
+									></i>
+								</div>
+								<div>
+									<h4
+										data-i18n="about-feat-2-title"
+										class="font-bold text-brand-dark text-sm"
+									>
+										Spawanie fuzją łuku
+									</h4>
+									<p
+										data-i18n="about-feat-2-desc"
+										class="text-xs text-gray-500"
+									>
+										Japońskie spawarki Sumitomo i Fujikura.
+									</p>
+								</div>
+							</div>
+							<div class="flex items-start space-x-3">
+								<div
+									class="p-2 rounded-lg bg-brand-accent text-brand-deep mt-1"
+								>
+									<i
+										class="fa-solid fa-circle-check text-sm"
+									></i>
+								</div>
+								<div>
+									<h4
+										data-i18n="about-feat-3-title"
+										class="font-bold text-brand-dark text-sm"
+									>
+										Pełna dokumentacja
+									</h4>
+									<p
+										data-i18n="about-feat-3-desc"
+										class="text-xs text-gray-500"
+									>
+										Projekty budowlano-wykonawcze i
+										geodezyjne.
+									</p>
+								</div>
+							</div>
+							<div class="flex items-start space-x-3">
+								<div
+									class="p-2 rounded-lg bg-brand-accent text-brand-deep mt-1"
+								>
+									<i
+										class="fa-solid fa-circle-check text-sm"
+									></i>
+								</div>
+								<div>
+									<h4
+										data-i18n="about-feat-4-title"
+										class="font-bold text-brand-dark text-sm"
+									>
+										Pomiary OTDR
+									</h4>
+									<p
+										data-i18n="about-feat-4-desc"
+										class="text-xs text-gray-500"
+									>
+										Kompletne protokoły powykonawcze i
+										wykresy.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Nasze Usługi -->
+		<section
+			id="uslugi"
+			class="py-20 bg-brand-light border-y border-brand-accent"
+		>
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+					<div
+						data-i18n="services-badge"
+						class="text-brand-deep font-bold text-sm uppercase tracking-wider"
+					>
+						Kompleksowy zakres prac
+					</div>
+					<h2
+						data-i18n="services-title"
+						class="text-3xl sm:text-4xl font-extrabold text-brand-dark"
+					>
+						Co robimy w ramach budowy sieci?
+					</h2>
+					<p data-i18n="services-desc" class="text-gray-600">
+						Przeprowadzimy Cię przez cały proces – od uzyskania
+						warunków technicznych, przez projekt i roboty budowlane,
+						aż po końcowe pomiary i uruchomienie usług u odbiorców.
+					</p>
+				</div>
+
+				<div
+					class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+				>
+					<!-- Usługa 1 -->
+					<div
+						class="bg-white rounded-2xl p-6 shadow-md border border-brand-accent hover:border-brand-cyan/40 hover:shadow-xl transition-all duration-300 group flex flex-col justify-between h-full"
+					>
+						<div>
+							<div
+								class="w-12 h-12 rounded-xl bg-brand-accent text-brand-deep flex items-center justify-center text-xl mb-6 group-hover:bg-brand-deep group-hover:text-white transition-all duration-300"
+							>
+								<i class="fa-solid fa-compass-drafting"></i>
+							</div>
+							<h3
+								data-i18n="services-card-1-title"
+								class="text-lg font-bold text-brand-dark mb-3"
+							>
+								1. Projektowanie i Formalności
+							</h3>
+							<p
+								data-i18n="services-card-1-desc"
+								class="text-sm text-gray-600 leading-relaxed mb-4"
+							>
+								Opracowanie projektów budowlano-wykonawczych,
+								uzgodnienia ZUD, zgłoszenia wodnoprawne, zgody
+								właścicielskie oraz pozwolenia na budowę tras
+								kablowych.
+							</p>
+						</div>
+						<ul
+							class="text-xs text-gray-500 space-y-1 bg-brand-light p-3 rounded-lg border border-brand-accent mt-4"
+						>
+							<li class="flex items-center">
+								<i
+									class="fa-solid fa-check text-brand-cyan mr-1.5"
+								></i
+								><span data-i18n="services-card-1-bullet-1"
+									>Uzgodnienia w urzędach (ZUD)</span
+								>
+							</li>
+							<li class="flex items-center">
+								<i
+									class="fa-solid fa-check text-brand-cyan mr-1.5"
+								></i
+								><span data-i18n="services-card-1-bullet-2"
+									>Projekty przejść bezwykopowych</span
+								>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Usługa 2 -->
+					<div
+						class="bg-white rounded-2xl p-6 shadow-md border border-brand-accent hover:border-brand-cyan/40 hover:shadow-xl transition-all duration-300 group flex flex-col justify-between h-full"
+					>
+						<div>
+							<div
+								class="w-12 h-12 rounded-xl bg-brand-accent text-brand-deep flex items-center justify-center text-xl mb-6 group-hover:bg-brand-deep group-hover:text-white transition-all duration-300"
+							>
+								<i class="fa-solid fa-trowel-bricks"></i>
+							</div>
+							<h3
+								data-i18n="services-card-2-title"
+								class="text-lg font-bold text-brand-dark mb-3"
+							>
+								2. Roboty Ziemne i Kanalizacja
+							</h3>
+							<p
+								data-i18n="services-card-2-desc"
+								class="text-sm text-gray-600 leading-relaxed mb-4"
+							>
+								Wykopy tradycyjne, przewierty sterowane HDD pod
+								drogami i ciekami wodnymi, układanie rur
+								osłonowych, budowa studni kablowych SKR/SKO oraz
+								szaf zewnętrznych.
+							</p>
+						</div>
+						<ul
+							class="text-xs text-gray-500 space-y-1 bg-brand-light p-3 rounded-lg border border-brand-accent mt-4"
+						>
+							<li class="flex items-center">
+								<i
+									class="fa-solid fa-check text-brand-cyan mr-1.5"
+								></i
+								><span data-i18n="services-card-2-bullet-1"
+									>Przewierty sterowane HDD</span
+								>
+							</li>
+							<li class="flex items-center">
+								<i
+									class="fa-solid fa-check text-brand-cyan mr-1.5"
+								></i
+								><span data-i18n="services-card-2-bullet-2"
+									>Studnie kablowe i szafy</span
+								>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Usługa 3 -->
+					<div
+						class="bg-white rounded-2xl p-6 shadow-md border border-brand-accent hover:border-brand-cyan/40 hover:shadow-xl transition-all duration-300 group flex flex-col justify-between h-full"
+					>
+						<div>
+							<div
+								class="w-12 h-12 rounded-xl bg-brand-accent text-brand-deep flex items-center justify-center text-xl mb-6 group-hover:bg-brand-deep group-hover:text-white transition-all duration-300"
+							>
+								<i class="fa-solid fa-wind"></i>
+							</div>
+							<h3
+								data-i18n="services-card-3-title"
+								class="text-lg font-bold text-brand-dark mb-3"
+							>
+								3. Wdmuchiwanie i Instalacja
+							</h3>
+							<p
+								data-i18n="services-card-3-desc"
+								class="text-sm text-gray-600 leading-relaxed mb-4"
+							>
+								Instalacja mikrokabli światłowodowych metodą
+								wdmuchiwania tłoczkowego oraz strumieniowego na
+								dużych odległościach, zaciąganie kabli do
+								kanalizacji pierwotnej.
+							</p>
+						</div>
+						<ul
+							class="text-xs text-gray-500 space-y-1 bg-brand-light p-3 rounded-lg border border-brand-accent mt-4"
+						>
+							<li class="flex items-center">
+								<i
+									class="fa-solid fa-check text-brand-cyan mr-1.5"
+								></i
+								><span data-i18n="services-card-3-bullet-1"
+									>Wdmuchiwanie mikrokabli</span
+								>
+							</li>
+							<li class="flex items-center">
+								<i
+									class="fa-solid fa-check text-brand-cyan mr-1.5"
+								></i
+								><span data-i18n="services-card-3-bullet-2"
+									>Wiązki mikrorur i akcesoria</span
+								>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Usługa 4 -->
+					<div
+						class="bg-white rounded-2xl p-6 shadow-md border border-brand-accent hover:border-brand-cyan/40 hover:shadow-xl transition-all duration-300 group flex flex-col justify-between h-full"
+					>
+						<div>
+							<div
+								class="w-12 h-12 rounded-xl bg-brand-accent text-brand-deep flex items-center justify-center text-xl mb-6 group-hover:bg-brand-deep group-hover:text-white transition-all duration-300"
+							>
+								<i class="fa-solid fa-microscope"></i>
+							</div>
+							<h3
+								data-i18n="services-card-4-title"
+								class="text-lg font-bold text-brand-dark mb-3"
+							>
+								4. Spawanie i Pomiary OTDR
+							</h3>
+							<p
+								data-i18n="services-card-4-desc"
+								class="text-sm text-gray-600 leading-relaxed mb-4"
+							>
+								Spawanie światłowodów jednomodowych (G.652D,
+								G.657A) i wielomodowych, montaż muf,
+								przełącznic, pomiary reflektometryczne oraz
+								transmisyjne.
+							</p>
+						</div>
+						<ul
+							class="text-xs text-gray-500 space-y-1 bg-brand-light p-3 rounded-lg border border-brand-accent mt-4"
+						>
+							<li class="flex items-center">
+								<i
+									class="fa-solid fa-check text-brand-cyan mr-1.5"
+								></i
+								><span data-i18n="services-card-4-bullet-1"
+									>Raport strat z reflektometru</span
+								>
+							</li>
+							<li class="flex items-center">
+								<i
+									class="fa-solid fa-check text-brand-cyan mr-1.5"
+								></i
+								><span data-i18n="services-card-4-bullet-2"
+									>Spawy o tłumieniu &lt; 0.02 dB</span
+								>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Sprzęt i Technologia -->
+		<section id="maszyny" class="py-20 bg-white">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div
+					class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
+				>
+					<!-- Tekst o maszynach -->
+					<div class="lg:col-span-5 space-y-6">
+						<div
+							class="text-brand-deep font-bold text-sm uppercase tracking-wider flex items-center space-x-2"
+						>
+							<span class="w-8 h-[2px] bg-brand-cyan"></span>
+							<span data-i18n="tech-badge">Park Maszynowy</span>
+						</div>
+						<h2
+							data-i18n="tech-title"
+							class="text-3xl sm:text-4xl font-extrabold text-brand-dark leading-tight"
+						>
+							Nowoczesne zaplecze techniczne gwarantem
+							terminowości
+						</h2>
+						<p data-i18n="tech-desc" class="text-gray-600">
+							Nie korzystamy z pośredników ani podwykonawców o
+							wątpliwym doświadczeniu. Dysponujemy zaawansowanymi
+							technologicznie urządzeniami wiodących marek, które
+							minimalizują czas wyłączenia sieci i szkody w
+							infrastrukturze drogowej/zieleni.
+						</p>
+
+						<div class="space-y-4">
+							<div
+								class="flex items-center space-x-4 p-3 bg-brand-light rounded-xl border border-brand-accent/60"
+							>
+								<div
+									class="w-10 h-10 rounded-lg bg-white shadow flex items-center justify-center text-brand-cyan"
+								>
+									<i class="fa-solid fa-wind text-lg"></i>
+								</div>
+								<div>
+									<h4
+										data-i18n="tech-item-1-title"
+										class="font-bold text-brand-dark text-sm"
+									>
+										Wdmuchiwarka Plumettaz / Fremco
+									</h4>
+									<p
+										data-i18n="tech-item-1-desc"
+										class="text-xs text-gray-500"
+									>
+										Bezpieczny montaż kabli pod wysokim
+										ciśnieniem powietrza.
+									</p>
+								</div>
+							</div>
+
+							<div
+								class="flex items-center space-x-4 p-3 bg-brand-light rounded-xl border border-brand-accent/60"
+							>
+								<div
+									class="w-10 h-10 rounded-lg bg-white shadow flex items-center justify-center text-brand-cyan"
+								>
+									<i
+										class="fa-solid fa-magnifying-glass-chart text-lg"
+									></i>
+								</div>
+								<div>
+									<h4
+										data-i18n="tech-item-2-title"
+										class="font-bold text-brand-dark text-sm"
+									>
+										Reflektometry VIAVI / EXFO
+									</h4>
+									<p
+										data-i18n="tech-item-2-desc"
+										class="text-xs text-gray-500"
+									>
+										Precyzyjna lokalizacja najmniejszych
+										zgięć, uszkodzeń i stratności.
+									</p>
+								</div>
+							</div>
+
+							<div
+								class="flex items-center space-x-4 p-3 bg-brand-light rounded-xl border border-brand-accent/60"
+							>
+								<div
+									class="w-10 h-10 rounded-lg bg-white shadow flex items-center justify-center text-brand-cyan"
+								>
+									<i
+										class="fa-solid fa-road-barrier text-lg"
+									></i>
+								</div>
+								<div>
+									<h4
+										data-i18n="tech-item-3-title"
+										class="font-bold text-brand-dark text-sm"
+									>
+										Minikoparki Kubota & Przewierty HDD
+									</h4>
+									<p
+										data-i18n="tech-item-3-desc"
+										class="text-xs text-gray-500"
+									>
+										Prace ziemne bez konieczności niszczenia
+										nawierzchni asfaltowych.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Interaktywna galeria maszyn/sprzętu po prawej -->
+					<div class="lg:col-span-7 grid grid-cols-2 gap-4">
+						<div class="space-y-4">
+							<div
+								class="bg-brand-deep rounded-2xl overflow-hidden p-2 shadow-lg group relative"
+							>
+								<img
+									src="https://placehold.co/400x300/165ca3/ffffff?text=Wdmuchiwanie+Swiatlowodu"
+									alt="Wdmuchiwanie"
+									class="rounded-xl w-full h-48 object-cover group-hover:scale-105 transition-all duration-500"
+								/>
+								<div
+									class="absolute inset-0 bg-gradient-to-t from-brand-dark/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4"
+								>
+									<span
+										data-i18n="tech-gal-1"
+										class="text-white text-xs font-semibold"
+										>Wdmuchiwanie metodą Fremco</span
+									>
+								</div>
+							</div>
+							<div
+								class="bg-brand-light rounded-2xl p-6 border border-brand-accent flex flex-col justify-center text-center"
+							>
+								<span
+									class="text-4xl font-extrabold text-brand-deep block mb-1"
+									>0.01 dB</span
+								>
+								<span
+									data-i18n="tech-box-1-title"
+									class="text-xs font-bold text-brand-dark uppercase tracking-widest"
+									>Średnie tłumienie spawu</span
+								>
+								<span
+									data-i18n="tech-box-1-desc"
+									class="text-[10px] text-gray-400 mt-2"
+									>Ponad standardy norm unijnych (SLA &lt;0.05
+									dB)</span
+								>
+							</div>
+						</div>
+						<div class="space-y-4 pt-8">
+							<div
+								class="bg-brand-accent rounded-2xl p-6 border border-brand-accent flex flex-col justify-center text-center"
+							>
+								<span
+									class="text-4xl font-extrabold text-brand-cyan block mb-1"
+									>24/7</span
+								>
+								<span
+									data-i18n="tech-box-2-title"
+									class="text-xs font-bold text-brand-dark uppercase tracking-widest"
+									>Wsparcie i Utrzymanie</span
+								>
+								<span
+									data-i18n="tech-box-2-desc"
+									class="text-[10px] text-gray-500 mt-2"
+									>Usuwanie awarii w rekordowym czasie dla
+									kluczowych węzłów</span
+								>
+							</div>
+							<div
+								class="bg-brand-deep rounded-2xl overflow-hidden p-2 shadow-lg group relative"
+							>
+								<img
+									src="https://placehold.co/400x300/0e3e70/31b1d3?text=Pomiary+OTDR+EXFO"
+									alt="Pomiary OTDR"
+									class="rounded-xl w-full h-48 object-cover group-hover:scale-105 transition-all duration-500"
+								/>
+								<div
+									class="absolute inset-0 bg-gradient-to-t from-brand-dark/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4"
+								>
+									<span
+										data-i18n="tech-gal-2"
+										class="text-white text-xs font-semibold"
+										>Certyfikowany pomiar kabla</span
+									>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Interaktywny Kalkulator Budowy Światłowodu -->
+		<section
+			id="kalkulator"
+			class="py-20 bg-brand-light border-y border-brand-accent relative overflow-hidden"
+		>
+			<!-- Tło dekoracyjne kalkulatora -->
+			<div
+				class="absolute top-0 left-0 w-64 h-64 bg-brand-cyan/5 rounded-full blur-2xl"
+			></div>
+			<div
+				class="absolute bottom-0 right-0 w-64 h-64 bg-brand-deep/5 rounded-full blur-2xl"
+			></div>
+
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+				<div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+					<div
+						data-i18n="calc-badge"
+						class="text-brand-deep font-bold text-sm uppercase tracking-wider"
+					>
+						Szybka i darmowa estymacja online
+					</div>
+					<h2
+						data-i18n="calc-title"
+						class="text-3xl sm:text-4xl font-extrabold text-brand-dark"
+					>
+						Kalkulator Budowy Sieci / Przyłącza
+					</h2>
+					<p data-i18n="calc-desc" class="text-gray-600">
+						Wybierz podstawowe parametry swojej inwestycji, aby
+						natychmiast poznać szacunkowy koszt budowy linii
+						światłowodowej.
+					</p>
+				</div>
+
+				<div
+					class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start"
+				>
+					<!-- Formularz opcji (Lewa strona) -->
+					<div
+						class="lg:col-span-7 bg-white p-6 sm:p-8 rounded-2xl shadow-lg border border-brand-accent space-y-6"
+					>
+						<!-- 1. Typ instalacji -->
+						<div>
+							<label
+								data-i18n="calc-label-type"
+								class="block text-sm font-bold text-brand-dark mb-3"
+								>Typ prowadzenia trasy światłowodowej:</label
+							>
+							<div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+								<label
+									class="relative flex flex-col p-4 bg-brand-light border border-brand-accent rounded-xl cursor-pointer hover:border-brand-cyan/60 transition-all select-none"
+								>
+									<input
+										type="radio"
+										name="install_type"
+										value="ziemna"
+										class="absolute top-4 right-4 text-brand-deep focus:ring-brand-cyan"
+										checked
+										onchange="calculatePrice()"
+									/>
+									<div
+										class="flex items-center space-x-2 text-brand-deep font-bold mb-1"
+									>
+										<i
+											class="fa-solid fa-shovel text-lg"
+										></i>
+										<span data-i18n="calc-opt-ziemna"
+											>Doziemna</span
+										>
+									</div>
+									<span
+										data-i18n="calc-opt-ziemna-sub"
+										class="text-[11px] text-gray-500"
+										>Prace ziemne, rurociąg,
+										wdmuchiwanie</span
+									>
+								</label>
+
+								<label
+									class="relative flex flex-col p-4 bg-brand-light border border-brand-accent rounded-xl cursor-pointer hover:border-brand-cyan/60 transition-all select-none"
+								>
+									<input
+										type="radio"
+										name="install_type"
+										value="napowietrzna"
+										class="absolute top-4 right-4 text-brand-deep focus:ring-brand-cyan"
+										onchange="calculatePrice()"
+									/>
+									<div
+										class="flex items-center space-x-2 text-brand-deep font-bold mb-1"
+									>
+										<i
+											class="fa-solid fa-tower-broadcast text-lg"
+										></i>
+										<span data-i18n="calc-opt-napowietrzna"
+											>Napowietrzna</span
+										>
+									</div>
+									<span
+										data-i18n="calc-opt-napowietrzna-sub"
+										class="text-[11px] text-gray-500"
+										>Montaż na podbudowie słupowej</span
+									>
+								</label>
+
+								<label
+									class="relative flex flex-col p-4 bg-brand-light border border-brand-accent rounded-xl cursor-pointer hover:border-brand-cyan/60 transition-all select-none"
+								>
+									<input
+										type="radio"
+										name="install_type"
+										value="wewnetrzna"
+										class="absolute top-4 right-4 text-brand-deep focus:ring-brand-cyan"
+										onchange="calculatePrice()"
+									/>
+									<div
+										class="flex items-center space-x-2 text-brand-deep font-bold mb-1"
+									>
+										<i
+											class="fa-solid fa-building text-lg"
+										></i>
+										<span data-i18n="calc-opt-wewnetrzna"
+											>Wewnętrzna</span
+										>
+									</div>
+									<span
+										data-i18n="calc-opt-wewnetrzna-sub"
+										class="text-[11px] text-gray-500"
+										>Koryta kablowe, piony w budynku</span
+									>
+								</label>
+							</div>
+						</div>
+
+						<!-- 2. Długość trasy (Slider) -->
+						<div>
+							<div class="flex justify-between items-center mb-2">
+								<label
+									data-i18n="calc-label-distance"
+									class="text-sm font-bold text-brand-dark"
+									>Szacowana długość trasy (w metrach):</label
+								>
+								<span
+									class="bg-brand-deep text-white px-3 py-1 rounded-full text-xs font-bold shadow"
+									id="range_value"
+									>250 m</span
+								>
+							</div>
+							<input
+								type="range"
+								id="distance"
+								min="10"
+								max="3000"
+								step="10"
+								value="250"
+								class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-brand-cyan"
+								oninput="
+									updateDistanceValue(this.value);
+									calculatePrice();
+								"
+							/>
+							<div
+								class="flex justify-between text-[11px] text-gray-400 mt-1"
+							>
+								<span>10 m</span>
+								<span>1000 m</span>
+								<span>2000 m</span>
+								<span>3000 m+</span>
+							</div>
+						</div>
+
+						<!-- 3. Pojemność kabla / Liczba włókien -->
+						<div>
+							<label
+								data-i18n="calc-label-fibers"
+								class="block text-sm font-bold text-brand-dark mb-3"
+								>Pojemność kabla (Liczba włókien
+								optycznych):</label
+							>
+							<div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
+								<label
+									class="border border-brand-accent rounded-lg p-2.5 text-center cursor-pointer hover:bg-brand-light transition-all flex flex-col items-center"
+								>
+									<input
+										type="radio"
+										name="fibers"
+										value="4"
+										class="sr-only"
+										checked
+										onchange="calculatePrice()"
+									/>
+									<span
+										class="text-sm font-bold text-brand-dark fiber-label"
+										>4J</span
+									>
+									<span
+										data-i18n="calc-fiber-sub-1"
+										class="text-[9px] text-gray-400"
+										>Mikrokabel</span
+									>
+								</label>
+								<label
+									class="border border-brand-accent rounded-lg p-2.5 text-center cursor-pointer hover:bg-brand-light transition-all flex flex-col items-center"
+								>
+									<input
+										type="radio"
+										name="fibers"
+										value="8"
+										class="sr-only"
+										onchange="calculatePrice()"
+									/>
+									<span
+										class="text-sm font-bold text-brand-dark fiber-label"
+										>8J</span
+									>
+									<span
+										data-i18n="calc-fiber-sub-2"
+										class="text-[9px] text-gray-400"
+										>Standard</span
+									>
+								</label>
+								<label
+									class="border border-brand-accent rounded-lg p-2.5 text-center cursor-pointer hover:bg-brand-light transition-all flex flex-col items-center"
+								>
+									<input
+										type="radio"
+										name="fibers"
+										value="12"
+										class="sr-only"
+										onchange="calculatePrice()"
+									/>
+									<span
+										class="text-sm font-bold text-brand-dark fiber-label"
+										>12J</span
+									>
+									<span
+										data-i18n="calc-fiber-sub-3"
+										class="text-[9px] text-gray-400"
+										>Zalecany</span
+									>
+								</label>
+								<label
+									class="border border-brand-accent rounded-lg p-2.5 text-center cursor-pointer hover:bg-brand-light transition-all flex flex-col items-center"
+								>
+									<input
+										type="radio"
+										name="fibers"
+										value="24"
+										class="sr-only"
+										onchange="calculatePrice()"
+									/>
+									<span
+										class="text-sm font-bold text-brand-dark fiber-label"
+										>24J</span
+									>
+									<span
+										data-i18n="calc-fiber-sub-4"
+										class="text-[9px] text-gray-400"
+										>Średnia</span
+									>
+								</label>
+								<label
+									class="border border-brand-accent rounded-lg p-2.5 text-center cursor-pointer hover:bg-brand-light transition-all flex flex-col items-center"
+								>
+									<input
+										type="radio"
+										name="fibers"
+										value="48"
+										class="sr-only"
+										onchange="calculatePrice()"
+									/>
+									<span
+										class="text-sm font-bold text-brand-dark fiber-label"
+										>48J</span
+									>
+									<span
+										data-i18n="calc-fiber-sub-5"
+										class="text-[9px] text-gray-400"
+										>Magistrala</span
+									>
+								</label>
+								<label
+									class="border border-brand-accent rounded-lg p-2.5 text-center cursor-pointer hover:bg-brand-light transition-all flex flex-col items-center"
+								>
+									<input
+										type="radio"
+										name="fibers"
+										value="96"
+										class="sr-only"
+										onchange="calculatePrice()"
+									/>
+									<span
+										class="text-sm font-bold text-brand-dark fiber-label"
+										>96J</span
+									>
+									<span
+										data-i18n="calc-fiber-sub-6"
+										class="text-[9px] text-gray-400"
+										>Duża</span
+									>
+								</label>
+							</div>
+						</div>
+
+						<!-- 4. Usługi Dodatkowe (Checkboxy) -->
+						<div>
+							<label
+								data-i18n="calc-label-addons"
+								class="block text-sm font-bold text-brand-dark mb-3"
+								>Usługi komplementarne:</label
+							>
+							<div class="space-y-2">
+								<label
+									class="flex items-center space-x-3 p-3 bg-brand-light/40 border border-brand-accent/55 rounded-xl cursor-pointer hover:bg-brand-light transition-all"
+								>
+									<input
+										type="checkbox"
+										id="project_needed"
+										class="rounded text-brand-deep focus:ring-brand-cyan w-5 h-5"
+										checked
+										onchange="calculatePrice()"
+									/>
+									<div>
+										<span
+											data-i18n="calc-addon-1-title"
+											class="text-sm font-bold text-brand-dark"
+											>Pełny projekt budowlany z
+											uzgodnieniami</span
+										>
+										<p
+											data-i18n="calc-addon-1-desc"
+											class="text-[11px] text-gray-500"
+										>
+											Wymagany do budowy w drogach
+											publicznych (ZUD, zgody zarządców).
+										</p>
+									</div>
+								</label>
+
+								<label
+									class="flex items-center space-x-3 p-3 bg-brand-light/40 border border-brand-accent/55 rounded-xl cursor-pointer hover:bg-brand-light transition-all"
+								>
+									<input
+										type="checkbox"
+										id="welds_needed"
+										class="rounded text-brand-deep focus:ring-brand-cyan w-5 h-5"
+										checked
+										onchange="calculatePrice()"
+									/>
+									<div>
+										<span
+											data-i18n="calc-addon-2-title"
+											class="text-sm font-bold text-brand-dark"
+											>Zarobienie przełącznic (Spawanie
+											światłowodów)</span
+										>
+										<p
+											data-i18n="calc-addon-2-desc"
+											class="text-[11px] text-gray-500"
+										>
+											Mufy, przełącznice optyczne w szafie
+											rack oraz gniazda końcowe.
+										</p>
+									</div>
+								</label>
+
+								<label
+									class="flex items-center space-x-3 p-3 bg-brand-light/40 border border-brand-accent/55 rounded-xl cursor-pointer hover:bg-brand-light transition-all"
+								>
+									<input
+										type="checkbox"
+										id="otdr_needed"
+										class="rounded text-brand-deep focus:ring-brand-cyan w-5 h-5"
+										checked
+										onchange="calculatePrice()"
+									/>
+									<div>
+										<span
+											data-i18n="calc-addon-3-title"
+											class="text-sm font-bold text-brand-dark"
+											>Pomiary powykonawcze OTDR i
+											certyfikacja trasy</span
+										>
+										<p
+											data-i18n="calc-addon-3-desc"
+											class="text-[11px] text-gray-500"
+										>
+											Raporty w formacie .sor z obu
+											kierunków dla każdej relacji
+											włókien.
+										</p>
+									</div>
+								</label>
+							</div>
+						</div>
+					</div>
+
+					<!-- Podsumowanie Kalkulacji (Prawa strona) -->
+					<div
+						class="lg:col-span-5 bg-brand-dark text-white p-6 sm:p-8 rounded-2xl shadow-xl border border-brand-cyan/20 space-y-6 lg:sticky lg:top-24"
+					>
+						<h3
+							data-i18n="calc-sum-title"
+							class="text-xl font-bold border-b border-brand-light/10 pb-4 text-brand-cyan"
+						>
+							Podsumowanie kosztorysu
+						</h3>
+
+						<div class="space-y-4 text-sm">
+							<div class="flex justify-between">
+								<span
+									data-i18n="calc-sum-row-1"
+									class="text-gray-300"
+									>Wybrany typ trasy:</span
+								>
+								<span
+									class="font-bold text-brand-cyan"
+									id="sum_type"
+									>Doziemna</span
+								>
+							</div>
+
+							<div class="flex justify-between">
+								<span
+									data-i18n="calc-sum-row-2"
+									class="text-gray-300"
+									>Długość linii:</span
+								>
+								<span class="font-bold" id="sum_distance"
+									>250 m</span
+								>
+							</div>
+
+							<div class="flex justify-between">
+								<span
+									data-i18n="calc-sum-row-3"
+									class="text-gray-300"
+									>Pojemność kabla:</span
+								>
+								<span class="font-bold" id="sum_fibers"
+									>4 włókna (4J)</span
+								>
+							</div>
+
+							<div class="flex justify-between">
+								<span
+									data-i18n="calc-sum-row-4"
+									class="text-gray-300"
+									>Projekt techniczny:</span
+								>
+								<span
+									class="font-bold text-green-400"
+									id="sum_project"
+									>Tak</span
+								>
+							</div>
+
+							<div class="flex justify-between">
+								<span
+									data-i18n="calc-sum-row-5"
+									class="text-gray-300"
+									>Spawanie i zarobienie:</span
+								>
+								<span
+									class="font-bold text-green-400"
+									id="sum_welds"
+									>Tak</span
+								>
+							</div>
+
+							<div class="flex justify-between">
+								<span
+									data-i18n="calc-sum-row-6"
+									class="text-gray-300"
+									>Certyfikowane pomiary:</span
+								>
+								<span
+									class="font-bold text-green-400"
+									id="sum_otdr"
+									>Tak</span
+								>
+							</div>
+						</div>
+
+						<!-- Cena Główna -->
+						<div
+							class="bg-brand-deep/50 rounded-xl p-5 border border-brand-cyan/30 text-center space-y-2"
+						>
+							<span
+								data-i18n="calc-price-badge"
+								class="text-xs text-blue-200 uppercase tracking-widest font-bold"
+								>Szacowany koszt netto inwestycji</span
+							>
+							<div
+								class="text-3xl sm:text-4xl font-extrabold text-white"
+								id="total_price"
+							>
+								8 750,00 PLN
+							</div>
+							<span
+								data-i18n="calc-price-sub"
+								class="text-[10px] text-blue-300 block"
+								>Wycena ma charakter poglądowy. Nie stanowi
+								oferty w rozumieniu art. 66 KC.</span
+							>
+						</div>
+
+						<!-- Przycisk Wyślij Wycenę do Konsultacji -->
+						<button
+							onclick="sendEstimationToContact()"
+							class="w-full bg-brand-cyan hover:bg-cyan-400 text-brand-dark font-extrabold py-3.5 rounded-xl transition-all duration-300 shadow-md flex items-center justify-center space-x-2"
+						>
+							<i class="fa-solid fa-paper-plane"></i>
+							<span data-i18n="calc-btn-action"
+								>Zleć darmowy audyt tej trasy</span
+							>
+						</button>
+
+						<div
+							class="flex items-center justify-center space-x-2 text-[11px] text-gray-400 pt-2"
+						>
+							<i class="fa-solid fa-lock text-brand-cyan"></i>
+							<span data-i18n="calc-footer-note"
+								>Gwarantujemy bezpłatną wizję lokalną w
+								48h</span
+							>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Nasz Proces Realizacji -->
+		<section class="py-20 bg-white">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+					<div
+						data-i18n="steps-badge"
+						class="text-brand-deep font-bold text-sm uppercase tracking-wider"
+					>
+						Krok po kroku
+					</div>
+					<h2
+						data-i18n="steps-title"
+						class="text-3xl sm:text-4xl font-extrabold text-brand-dark"
+					>
+						Jak wygląda proces budowy przyłącza / linii?
+					</h2>
+					<p data-i18n="steps-desc" class="text-gray-600">
+						Dbamy o każdy detal procesu inwestycyjnego, maksymalnie
+						odciążając inwestora w sprawach administracyjnych.
+					</p>
+				</div>
+
+				<!-- Schemat Kroków (Desktop row, mobile column) -->
+				<div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+					<!-- Krok 1 -->
+					<div
+						class="bg-white rounded-2xl p-6 border border-brand-accent shadow-sm hover:shadow-md transition-shadow relative"
+					>
+						<div
+							class="absolute -top-5 left-6 w-10 h-10 rounded-full bg-brand-deep text-white font-extrabold flex items-center justify-center shadow-lg border-2 border-white"
+						>
+							1
+						</div>
+						<div class="pt-2">
+							<h3
+								data-i18n="steps-1-title"
+								class="font-bold text-brand-dark text-base mb-2"
+							>
+								Audyt i wizja lokalna
+							</h3>
+							<p
+								data-i18n="steps-1-desc"
+								class="text-xs text-gray-500 leading-relaxed"
+							>
+								Bezpłatnie analizujemy warunki terenowe i
+								aktualne plany uzbrojenia terenu. Określamy
+								najbardziej opłacalną trasę światłowodu.
+							</p>
+						</div>
+					</div>
+
+					<!-- Krok 2 -->
+					<div
+						class="bg-white rounded-2xl p-6 border border-brand-accent shadow-sm hover:shadow-md transition-shadow relative"
+					>
+						<div
+							class="absolute -top-5 left-6 w-10 h-10 rounded-full bg-brand-cyan text-brand-dark font-extrabold flex items-center justify-center shadow-lg border-2 border-white"
+						>
+							2
+						</div>
+						<div class="pt-2">
+							<h3
+								data-i18n="steps-2-title"
+								class="font-bold text-brand-dark text-base mb-2"
+							>
+								Uzgodnienia i Projekt
+							</h3>
+							<p
+								data-i18n="steps-2-desc"
+								class="text-xs text-gray-500 leading-relaxed"
+							>
+								Opracowujemy kompletną dokumentację.
+								Reprezentujemy Cię przed urzędami i uzyskujemy
+								niezbędne zgody na budowę.
+							</p>
+						</div>
+					</div>
+
+					<!-- Krok 3 -->
+					<div
+						class="bg-white rounded-2xl p-6 border border-brand-accent shadow-sm hover:shadow-md transition-shadow relative"
+					>
+						<div
+							class="absolute -top-5 left-6 w-10 h-10 rounded-full bg-brand-deep text-white font-extrabold flex items-center justify-center shadow-lg border-2 border-white"
+						>
+							3
+						</div>
+						<div class="pt-2">
+							<h3
+								data-i18n="steps-3-title"
+								class="font-bold text-brand-dark text-base mb-2"
+							>
+								Prace Instalacyjne
+							</h3>
+							<p
+								data-i18n="steps-3-desc"
+								class="text-xs text-gray-500 leading-relaxed"
+							>
+								Wykonujemy wykopy, przewierty i wdmuchujemy
+								kable optyczne za pomocą certyfikowanego sprzętu
+								wysokiej klasy.
+							</p>
+						</div>
+					</div>
+
+					<!-- Krok 4 -->
+					<div
+						class="bg-white rounded-2xl p-6 border border-brand-accent shadow-sm hover:shadow-md transition-shadow relative"
+					>
+						<div
+							class="absolute -top-5 left-6 w-10 h-10 rounded-full bg-brand-cyan text-brand-dark font-extrabold flex items-center justify-center shadow-lg border-2 border-white"
+						>
+							4
+						</div>
+						<div class="pt-2">
+							<h3
+								data-i18n="steps-4-title"
+								class="font-bold text-brand-dark text-base mb-2"
+							>
+								Spawy, Pomiary i Asbuilt
+							</h3>
+							<p
+								data-i18n="steps-4-desc"
+								class="text-xs text-gray-500 leading-relaxed"
+							>
+								Łączymy włókna fuzją łukową, badamy ich
+								parametry transmisyjne i oddajemy kompletną
+								dokumentację techniczną.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Najczęściej zadawane pytania (FAQ) -->
+		<section
+			id="faq"
+			class="py-20 bg-brand-light border-t border-brand-accent"
+		>
+			<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="text-center mb-16 space-y-4">
+					<div
+						data-i18n="faq-badge"
+						class="text-brand-deep font-bold text-sm uppercase tracking-wider"
+					>
+						Centrum Wiedzy
+					</div>
+					<h2
+						data-i18n="faq-title"
+						class="text-3xl font-extrabold text-brand-dark"
+					>
+						Często zadawane pytania (FAQ)
+					</h2>
+					<p data-i18n="faq-desc" class="text-gray-600">
+						Masz wątpliwości dotyczące przebiegu prac lub doboru
+						technologii? Przeczytaj nasze odpowiedzi.
+					</p>
+				</div>
+
+				<!-- Akordeony FAQ -->
+				<div class="space-y-4">
+					<!-- FAQ 1 -->
+					<div
+						class="bg-white rounded-xl border border-brand-accent overflow-hidden shadow-sm"
+					>
+						<button
+							class="w-full text-left p-5 font-bold text-brand-dark hover:text-brand-deep flex justify-between items-center transition-colors"
+							onclick="toggleAccordion(1)"
+						>
+							<span data-i18n="faq-1-q"
+								>Jaka jest przewaga światłowodu doziemnego nad
+								napowietrznego?</span
+							>
+							<i
+								class="fa-solid fa-chevron-down text-brand-cyan transition-transform duration-300"
+								id="faq-icon-1"
+							></i>
+						</button>
+						<div
+							data-i18n="faq-1-a"
+							class="hidden px-5 pb-5 text-sm text-gray-600 border-t border-brand-light pt-3 transition-all"
+							id="faq-content-1"
+						>
+							Instalacje doziemne są w pełni odporne na warunki
+							atmosferyczne (wichury, opady, mróz, zalodzenia
+							linii). Posiadają znacznie większą trwałość fizyczną
+							i nie ingerują w estetykę otoczenia. Choć budowa
+							jest droższa z uwagi na roboty ziemne, późniejszy
+							koszt eksploatacji jest niemal zerowy.
+						</div>
+					</div>
+
+					<!-- FAQ 2 -->
+					<div
+						class="bg-white rounded-xl border border-brand-accent overflow-hidden shadow-sm"
+					>
+						<button
+							class="w-full text-left p-5 font-bold text-brand-dark hover:text-brand-deep flex justify-between items-center transition-colors"
+							onclick="toggleAccordion(2)"
+						>
+							<span data-i18n="faq-2-q"
+								>Ile trwają formalności i uzyskiwanie zgód
+								administracyjnych?</span
+							>
+							<i
+								class="fa-solid fa-chevron-down text-brand-cyan transition-transform duration-300"
+								id="faq-icon-2"
+							></i>
+						</button>
+						<div
+							data-i18n="faq-2-a"
+							class="hidden px-5 pb-5 text-sm text-gray-600 border-t border-brand-light pt-3 transition-all"
+							id="faq-content-2"
+						>
+							Samo wykonanie projektu technicznego trwa około 2-4
+							tygodni. Jednak proces uzgodnień (Narady
+							Koordynacyjne ZUD, decyzje na wejście w pas drogowy,
+							decyzje środowiskowe i zgody właścicielskie) w
+							zależności od stopnia skomplikowania działek zajmuje
+							średnio od 1 do 4 miesięcy. Kompleksowo prowadzimy
+							ten proces za klienta.
+						</div>
+					</div>
+
+					<!-- FAQ 3 -->
+					<div
+						class="bg-white rounded-xl border border-brand-accent overflow-hidden shadow-sm"
+					>
+						<button
+							class="w-full text-left p-5 font-bold text-brand-dark hover:text-brand-deep flex justify-between items-center transition-colors"
+							onclick="toggleAccordion(3)"
+						>
+							<span data-i18n="faq-3-q"
+								>Co to są pomiary reflektometryczne OTDR i
+								dlaczego są konieczne?</span
+							>
+							<i
+								class="fa-solid fa-chevron-down text-brand-cyan transition-transform duration-300"
+								id="faq-icon-3"
+							></i>
+						</button>
+						<div
+							data-i18n="faq-3-a"
+							class="hidden px-5 pb-5 text-sm text-gray-600 border-t border-brand-light pt-3 transition-all"
+							id="faq-content-3"
+						>
+							Pomiary OTDR (Optical Time Domain Reflectometer) to
+							bezinwazyjne badanie linii światłowodowej za pomocą
+							wysyłania impulsów światła. Pozwalają one z
+							dokładnością do kilkunastu centymetrów określić
+							miejsce ewentualnego uszkodzenia, zgięcia kabla oraz
+							zmierzyć precyzyjną tłumienność każdego wykonanego
+							spawu. Są podstawowym dokumentem odbiorowym
+							potwierdzającym sprawność fizyczną sieci.
+						</div>
+					</div>
+
+					<!-- FAQ 4 -->
+					<div
+						class="bg-white rounded-xl border border-brand-accent overflow-hidden shadow-sm"
+					>
+						<button
+							class="w-full text-left p-5 font-bold text-brand-dark hover:text-brand-deep flex justify-between items-center transition-colors"
+							onclick="toggleAccordion(4)"
+						>
+							<span data-i18n="faq-4-q"
+								>Czy realizują Państwo przyłącza w technologii
+								bezwykopowej?</span
+							>
+							<i
+								class="fa-solid fa-chevron-down text-brand-cyan transition-transform duration-300"
+								id="faq-icon-4"
+							></i>
+						</button>
+						<div
+							data-i18n="faq-4-a"
+							class="hidden px-5 pb-5 text-sm text-gray-600 border-t border-brand-light pt-3 transition-all"
+							id="faq-content-4"
+						>
+							Tak, posiadamy maszyny do kretowania (przebijania
+							pneumatycznego) oraz współpracujemy przy wielkich
+							przewiertach HDD (Horizontal Directional Drilling).
+							Dzięki temu przeprowadzamy rury pod drogami
+							asfaltowymi, ogrodzeniami i torami bez naruszania
+							struktury gruntu na powierzchni.
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Sekcja Kontakt -->
+		<section id="kontakt" class="py-20 bg-white">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div
+					class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start"
+				>
+					<!-- Dane adresowe i informacyjne -->
+					<div class="lg:col-span-5 space-y-8">
+						<div class="space-y-4">
+							<div
+								class="text-brand-deep font-bold text-sm uppercase tracking-wider flex items-center space-x-2"
+							>
+								<span class="w-8 h-[2px] bg-brand-cyan"></span>
+								<span data-i18n="contact-badge"
+									>Zapraszamy do kontaktu</span
+								>
+							</div>
+							<h2
+								data-i18n="contact-title"
+								class="text-3xl font-extrabold text-brand-dark"
+							>
+								Skontaktuj się z nami i zbudujmy to razem
+							</h2>
+							<p
+								data-i18n="contact-desc"
+								class="text-gray-600 leading-relaxed"
+							>
+								Potrzebujesz natychmiastowej wyceny budowy
+								sieci, porady inżynieryjnej lub oferty
+								przetargowej? Napisz do nas lub zadzwoń. Nasz
+								zespół odpowiada na zapytania w ciągu
+								maksymalnie 24 godzin roboczych.
+							</p>
+						</div>
+
+						<!-- Dane teleadresowe -->
+						<div class="space-y-6">
+							<div class="flex items-start space-x-4">
+								<div
+									class="w-12 h-12 rounded-xl bg-brand-light border border-brand-accent flex items-center justify-center text-brand-deep shrink-0 text-xl"
+								>
+									<i class="fa-solid fa-map-location-dot"></i>
+								</div>
+								<div>
+									<h4
+										data-i18n="contact-addr-title"
+										class="font-bold text-brand-dark text-base"
+									>
+										Adres Biura i Magazynu
+									</h4>
+									<p class="text-sm text-gray-500">
+										ul. Światłowodowa 44, 00-001 Warszawa
+									</p>
+									<span
+										data-i18n="contact-addr-hours"
+										class="text-xs text-brand-cyan font-semibold"
+										>Czynne: Pn-Pt 7:00 - 17:00</span
+									>
+								</div>
+							</div>
+
+							<div class="flex items-start space-x-4">
+								<div
+									class="w-12 h-12 rounded-xl bg-brand-light border border-brand-accent flex items-center justify-center text-brand-deep shrink-0 text-xl"
+								>
+									<i class="fa-solid fa-phone-volume"></i>
+								</div>
+								<div>
+									<h4
+										data-i18n="contact-phone-title"
+										class="font-bold text-brand-dark text-base"
+									>
+										Telefon Kontaktowy
+									</h4>
+									<p class="text-sm text-gray-500">
+										<a
+											href="tel:+48123456789"
+											class="hover:text-brand-deep font-semibold"
+											>+48 123 456 789</a
+										>
+									</p>
+									<p
+										data-i18n="contact-phone-sub"
+										class="text-[11px] text-gray-400"
+									>
+										Pomoc techniczna i zgłaszanie awarii
+										24/7
+									</p>
+								</div>
+							</div>
+
+							<div class="flex items-start space-x-4">
+								<div
+									class="w-12 h-12 rounded-xl bg-brand-light border border-brand-accent flex items-center justify-center text-brand-deep shrink-0 text-xl"
+								>
+									<i
+										class="fa-solid fa-envelope-open-text"
+									></i>
+								</div>
+								<div>
+									<h4
+										data-i18n="contact-email-title"
+										class="font-bold text-brand-dark text-base"
+									>
+										Adres Email
+									</h4>
+									<p class="text-sm text-gray-500">
+										<a
+											href="mailto:biuro@fibratech.pl"
+											class="hover:text-brand-deep font-semibold"
+											>biuro@fibratech.pl</a
+										>
+									</p>
+									<p class="text-xs text-gray-400">
+										<span data-i18n="contact-email-sub"
+											>Oferty handlowe</span
+										>:
+										<a
+											href="mailto:oferty@fibratech.pl"
+											class="text-brand-cyan"
+											>oferty@fibratech.pl</a
+										>
+									</p>
+								</div>
+							</div>
+						</div>
+
+						<!-- Bezpieczny odnośnik referencyjny -->
+						<div
+							class="p-4 bg-brand-light rounded-xl border border-brand-accent/50 text-xs text-gray-600 flex items-start space-x-3"
+						>
+							<i
+								class="fa-solid fa-circle-info text-brand-deep text-base shrink-0 mt-0.5"
+							></i>
+							<span data-i18n="contact-ref"
+								>Wizualizacje i technologie przedstawione na
+								stronie są bezpośrednio inspirowane wzorcami
+								jakości i schematami technicznymi marki
+								<strong>FibraTech</strong> (Referencja wzorca:
+								<code>image_4931a4.png</code>).</span
+							>
+						</div>
+					</div>
+
+					<!-- Formularz Kontaktowy (Prawa strona) -->
+					<div
+						class="lg:col-span-7 bg-brand-light/50 border border-brand-accent p-6 sm:p-8 rounded-2xl shadow-sm"
+					>
+						<h3
+							data-i18n="form-title"
+							class="text-xl font-bold text-brand-dark mb-6"
+						>
+							Wyślij szybką wiadomość
+						</h3>
+
+						<form
+							id="contact-form"
+							onsubmit="handleFormSubmit(event)"
+							class="space-y-5"
+						>
+							<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+								<div>
+									<label
+										for="name"
+										data-i18n="form-label-name"
+										class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-2"
+										>Imię i nazwisko / Firma *</label
+									>
+									<input
+										type="text"
+										id="name"
+										required
+										class="w-full bg-white border border-brand-accent rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-deep"
+										placeholder="Jan Kowalski / Firma Sp. z o.o."
+									/>
+								</div>
+								<div>
+									<label
+										for="phone"
+										data-i18n="form-label-phone"
+										class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-2"
+										>Numer telefonu *</label
+									>
+									<input
+										type="tel"
+										id="phone"
+										required
+										class="w-full bg-white border border-brand-accent rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-deep"
+										placeholder="+48 500 600 700"
+									/>
+								</div>
+							</div>
+
+							<div>
+								<label
+									for="email"
+									data-i18n="form-label-email"
+									class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-2"
+									>Adres Email *</label
+								>
+								<input
+									type="email"
+									id="email"
+									required
+									class="w-full bg-white border border-brand-accent rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-deep"
+									placeholder="przyklad@domena.pl"
+								/>
+							</div>
+
+							<div>
+								<label
+									for="subject"
+									data-i18n="form-label-subj"
+									class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-2"
+									>Temat zapytania</label
+								>
+								<select
+									id="subject"
+									class="w-full bg-white border border-brand-accent rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-deep"
+								>
+									<option value="budowa" id="opt-budowa">
+										Budowa przyłącza/sieci dla firmy /
+										dewelopera
+									</option>
+									<option value="projekt" id="opt-projekt">
+										Projektowanie i uzgodnienia geodezyjne
+									</option>
+									<option value="spawanie" id="opt-spawanie">
+										Spawanie i pomiary reflektometryczne
+									</option>
+									<option value="serwis" id="opt-serwis">
+										Serwis i SLA / Uszkodzenie kabla
+									</option>
+									<option value="inne" id="opt-inne">
+										Inne zapytanie
+									</option>
+								</select>
+							</div>
+
+							<div>
+								<label
+									for="message"
+									data-i18n="form-label-msg"
+									class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-2"
+									>Treść wiadomości / Specyfikacja trasy
+									*</label
+								>
+								<textarea
+									id="message"
+									rows="5"
+									required
+									class="w-full bg-white border border-brand-accent rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-deep resize-none"
+									placeholder="Opisz szczegóły planowanej inwestycji..."
+								></textarea>
+							</div>
+
+							<div class="flex items-start space-x-2">
+								<input
+									type="checkbox"
+									id="consent"
+									required
+									class="mt-1 rounded text-brand-deep focus:ring-brand-cyan"
+								/>
+								<label
+									for="consent"
+									data-i18n="form-consent"
+									class="text-[11px] text-gray-500 leading-tight"
+								>
+									Wyrażam zgodę na przetwarzanie moich danych
+									osobowych zgodnie z RODO w celu odpowiedzi
+									na zapytanie ofertowe. Administratorem
+									danych jest FibraTech. *
+								</label>
+							</div>
+
+							<!-- Panel Powiadomienia sukcesu/błędu (Zamiast alertów) -->
+							<div
+								id="status-box"
+								class="hidden p-4 rounded-xl text-sm font-semibold"
+							></div>
+
+							<button
+								type="submit"
+								id="form-submit-btn"
+								class="w-full bg-brand-deep hover:bg-brand-dark text-white font-bold py-4 rounded-xl shadow-md transition-colors duration-300"
+							>
+								<i class="fa-solid fa-paper-plane mr-2"></i>
+								Wyślij zapytanie ofertowe
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Stopka Strony -->
+		<footer class="bg-brand-dark text-white border-t border-brand-light/10">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+				<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+					<!-- O nas w stopce -->
+					<div class="space-y-4">
+						<span
+							class="text-xl font-black tracking-wider text-white"
+						>
+							FIBRA<span class="text-brand-cyan">TECH</span>
+						</span>
+						<p
+							data-i18n="footer-desc"
+							class="text-xs text-gray-400 leading-relaxed"
+						>
+							Naczelny lider w budowie traktów światłowodowych.
+							Dostarczamy niezawodne połączenia z zachowaniem
+							najwyższych standardów wykonawczych i pomiarowych.
+						</p>
+						<div class="flex space-x-3">
+							<a
+								href="#"
+								class="w-8 h-8 rounded-lg bg-white/5 hover:bg-brand-cyan/20 text-gray-300 hover:text-brand-cyan flex items-center justify-center transition-all"
+							>
+								<i class="fa-brands fa-facebook-f text-sm"></i>
+							</a>
+							<a
+								href="#"
+								class="w-8 h-8 rounded-lg bg-white/5 hover:bg-brand-cyan/20 text-gray-300 hover:text-brand-cyan flex items-center justify-center transition-all"
+							>
+								<i class="fa-brands fa-linkedin-in text-sm"></i>
+							</a>
+							<a
+								href="#"
+								class="w-8 h-8 rounded-lg bg-white/5 hover:bg-brand-cyan/20 text-gray-300 hover:text-brand-cyan flex items-center justify-center transition-all"
+							>
+								<i class="fa-brands fa-youtube text-sm"></i>
+							</a>
+						</div>
+					</div>
+
+					<!-- Linki menu -->
+					<div class="space-y-3">
+						<h4
+							data-i18n="footer-menu-title"
+							class="font-bold text-sm tracking-wider uppercase text-brand-cyan"
+						>
+							Skróty menu
+						</h4>
+						<ul class="text-xs text-gray-400 space-y-2">
+							<li>
+								<a
+									href="#o-nas"
+									data-i18n="nav-about"
+									class="hover:text-white transition-colors"
+									>O firmie</a
+								>
+							</li>
+							<li>
+								<a
+									href="#uslugi"
+									data-i18n="nav-services"
+									class="hover:text-white transition-colors"
+									>Usługi instalacyjne</a
+								>
+							</li>
+							<li>
+								<a
+									href="#maszyny"
+									data-i18n="nav-tech"
+									class="hover:text-white transition-colors"
+									>Park technologiczny</a
+								>
+							</li>
+							<li>
+								<a
+									href="#kalkulator"
+									data-i18n="nav-calc"
+									class="hover:text-white transition-colors"
+									>Kalkulator wycen</a
+								>
+							</li>
+							<li>
+								<a
+									href="#kontakt"
+									data-i18n="nav-contact-btn"
+									class="hover:text-white transition-colors"
+									>Formularz kontaktowy</a
+								>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Nasze Specjalizacje -->
+					<div class="space-y-3">
+						<h4
+							data-i18n="footer-spec-title"
+							class="font-bold text-sm tracking-wider uppercase text-brand-cyan"
+						>
+							Specjalizacja
+						</h4>
+						<ul class="text-xs text-gray-400 space-y-2">
+							<li data-i18n="footer-spec-1">Budowa sieci</li>
+							<li data-i18n="footer-spec-2">
+								Spawanie światłowodów jednomodowych
+							</li>
+							<li data-i18n="footer-spec-3">
+								Uzgodnienia ZUD i projekty budowlane
+							</li>
+							<li data-i18n="footer-spec-4">
+								Wdmuchiwanie mikrokabli
+							</li>
+							<li data-i18n="footer-spec-5">
+								Pomiary reflektometryczne OTDR
+							</li>
+						</ul>
+					</div>
+
+					<!-- Kontakt bezpośredni -->
+					<div class="space-y-3">
+						<h4
+							data-i18n="footer-alarm-title"
+							class="font-bold text-sm tracking-wider uppercase text-brand-cyan"
+						>
+							Kontakt alarmowy
+						</h4>
+						<p
+							data-i18n="footer-alarm-desc"
+							class="text-xs text-gray-400 leading-relaxed"
+						>
+							Masz uszkodzoną magistralę? Nasza ekipa awaryjna
+							reaguje natychmiastowo.
+						</p>
+						<a
+							href="tel:+48123456789"
+							class="inline-flex items-center space-x-2 bg-brand-deep hover:bg-brand-deep/80 text-white text-xs font-bold px-4 py-2 rounded-lg border border-brand-cyan/30 transition-all shadow-md"
+						>
+							<i
+								class="fa-solid fa-phone-flip text-brand-cyan"
+							></i>
+							<span data-i18n="footer-alarm-btn"
+								>Infolinia 24/7</span
+							>
+						</a>
+					</div>
+				</div>
+
+				<hr class="border-white/10 my-8" />
+
+				<div
+					class="flex flex-col sm:flex-row justify-between items-center text-xs text-gray-400 space-y-4 sm:space-y-0"
+				>
+					<p>
+						&copy; 2026 FibraTech Sp. z o.o.
+						<span data-i18n="footer-copyright"
+							>Wszelkie prawa zastrzeżone.</span
+						>
+					</p>
+					<div class="flex space-x-4">
+						<a
+							href="#"
+							data-i18n="footer-link-privacy"
+							class="hover:text-white transition-colors"
+							>Polityka prywatności</a
+						>
+						<span>|</span>
+						<a href="#">RODO</a>
+						<span>|</span>
+						<a
+							href="#"
+							data-i18n="footer-link-cookies"
+							class="hover:text-white transition-colors"
+							>Pliki Cookies</a
+						>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+		<!-- Logika strony, kalkulator, nawigacja mobilna, akordeony i słownik języków -->
+		<script>
+			// Aktualnie wybrany język
+			let currentLang = "pl";
+
+			// Słownik tłumaczeń
+			const TRANSLATIONS = {
+				pl: {
+					"nav-sub": "Budowa Światłowodów",
+					"nav-about": "O nas",
+					"nav-services": "Usługi",
+					"nav-tech": "Technologia",
+					"nav-calc": "Wycena",
+					"nav-faq": "FAQ",
+					"nav-contact-btn": "Napisz do nas",
+					"nav-mob-consult": "Darmowa Konsultacja",
+					"hero-badge": "Budujemy infrastrukturę przyszłości",
+					"hero-title-1": "Profesjonalna budowa",
+					"hero-title-2": "sieci światłowodowych",
+					"hero-desc":
+						"Kompleksowe usługi budowy rurociągów kablowych, wdmuchiwania światłowodów, spawania oraz pomiarów. Wspieramy operatorów, deweloperów, samorządy oraz firmy na terenie całego kraju.",
+					"hero-btn-calc": "Oblicz koszt budowy",
+					"hero-btn-offer": "Nasza oferta",
+					"hero-stat-1": "Dokładności i norm",
+					"hero-stat-2": "Wybudowanych tras",
+					"hero-stat-3": "Precyzyjne pomiary",
+					"hero-card-badge": "Na żywo",
+					"hero-card-title": "Schemat połączenia optycznego",
+					"hero-card-node-a": "Centrala (OLT)",
+					"hero-card-node-c": "Klient (ONT)",
+					"hero-card-row-1": "Tłumienność fali (1310/1550 nm):",
+					"hero-card-row-2": "Prędkość przesyłu danych:",
+					"hero-card-row-3": "Odporność na zakłócenia:",
+					"hero-card-val-3": "Całkowita (EM/RF)",
+					"hero-card-footer":
+						"Wizualizacja spawu i propagacji wiązki światłowodowej",
+					"ribbon-stat-1": "Lat doświadczenia w branży",
+					"ribbon-stat-2": "Wykonanych przyłączy abonenckich",
+					"ribbon-stat-3": "Własnych wyspecjalizowanych ekip",
+					"ribbon-stat-4": "Nierozwiązanych awarii",
+					"about-badge": "Poznaj FibraTech",
+					"about-title":
+						"Łączymy ludzi i biznes najszybszą technologią na świecie",
+					"about-desc-1":
+						"Jesteśmy dynamicznie rozwijającym się przedsiębiorstwem wyspecjalizowanym w projektowaniu, budowie oraz kompleksowym utrzymaniu pasywnej i aktywnej infrastruktury telekomunikacyjnej.",
+					"about-desc-2":
+						"Dzięki bogatemu zapleczu technicznemu oraz zespołowi certyfikowanych inżynierów i monterów, realizujemy zarówno pojedyncze przyłącza abonenckie typu FTTH (Fiber to the Home), jak i magistralne linie światłowodowe, w tym systemy napowietrzne i doziemne w trudnym terenie miejskim.",
+					"about-badge-title": "Gwarancja SLA",
+					"about-badge-desc":
+						"Świadczymy serwis z gwarantowanym czasem reakcji.",
+					"about-feat-1-title": "Własne wdmuchiwarki",
+					"about-feat-1-desc":
+						"Bezpieczna instalacja mikrokabli do 2000m.",
+					"about-feat-2-title": "Spawanie fuzją łuku",
+					"about-feat-2-desc":
+						"Japońskie spawarki Sumitomo i Fujikura.",
+					"about-feat-3-title": "Pełna dokumentacja",
+					"about-feat-3-desc":
+						"Projekty budowlano-wykonawcze i geodezyjne.",
+					"about-feat-4-title": "Pomiary OTDR",
+					"about-feat-4-desc":
+						"Kompletne protokoły powykonawcze i wykresy.",
+					"services-badge": "Kompleksowy zakres prac",
+					"services-title": "Co robimy w ramach budowy sieci?",
+					"services-desc":
+						"Przeprowadzimy Cię przez cały proces – od uzyskania warunków technicznych, przez projekt i roboty budowlane, aż po końcowe pomiary i uruchomienie usług u odbiorców.",
+					"services-card-1-title": "1. Projektowanie i Formalności",
+					"services-card-1-desc":
+						"Opracowanie projektów budowlano-wykonawczych, uzgodnienia ZUD, zgłoszenia wodnoprawne, zgody właścicielskie oraz pozwolenia na budowę tras kablowych.",
+					"services-card-1-bullet-1": "Uzgodnienia w urzędach (ZUD)",
+					"services-card-1-bullet-2":
+						"Projekty przejść bezwykopowych",
+					"services-card-2-title": "2. Roboty Ziemne i Kanalizacja",
+					"services-card-2-desc":
+						"Wykopy tradycyjne, przewierty sterowane HDD pod drogami i ciekami wodnymi, układanie rur osłonowych, budowa studni kablowych SKR/SKO oraz szaf zewnętrznych.",
+					"services-card-2-bullet-1": "Przewierty sterowane HDD",
+					"services-card-2-bullet-2": "Studnie kablowe i szafy",
+					"services-card-3-title": "3. Wdmuchiwanie i Instalacja",
+					"services-card-3-desc":
+						"Instalacja mikrokabli światłowodowych metodą wdmuchiwania tłoczkowego oraz strumieniowego na dużych odległościach, zaciąganie kabli do kanalizacji pierwotnej.",
+					"services-card-3-bullet-1": "Wdmuchiwanie mikrokabli",
+					"services-card-3-bullet-2": "Wiązki mikrorur i akcesoria",
+					"services-card-4-title": "4. Spawanie i Pomiary OTDR",
+					"services-card-4-desc":
+						"Spawanie światłowodów jednomodowych (G.652D, G.657A) i wielomodowych, montaż muf, przełącznic, pomiary reflektometryczne oraz transmisyjne.",
+					"services-card-4-bullet-1": "Raport strat z reflektometru",
+					"services-card-4-bullet-2": "Spawy o tłumieniu < 0.02 dB",
+					"tech-badge": "Park Maszynowy",
+					"tech-title":
+						"Nowoczesne zaplecze techniczne gwarantem terminowości",
+					"tech-desc":
+						"Nie korzystamy z pośredników ani podwykonawców o wątpliwym doświadczeniu. Dysponujemy zaawansowanymi technologicznie urządzeniami wiodących marek, które minimalizują czas wyłączenia sieci i szkody w infrastrukturze drogowej/zieleni.",
+					"tech-item-1-title": "Wdmuchiwarka Plumettaz / Fremco",
+					"tech-item-1-desc":
+						"Bezpieczny montaż kabli pod wysokim ciśnieniem powietrza.",
+					"tech-item-2-title": "Reflektometry VIAVI / EXFO",
+					"tech-item-2-desc":
+						"Precyzyjna lokalizacja najmniejszych zgięć, uszkodzeń i stratności.",
+					"tech-item-3-title": "Minikoparki Kubota & Przewierty HDD",
+					"tech-item-3-desc":
+						"Prace ziemne bez konieczności niszczenia nawierzchni asfaltowych.",
+					"tech-gal-1": "Wdmuchiwanie metodą Fremco",
+					"tech-gal-2": "Certyfikowany pomiar kabla",
+					"tech-box-1-title": "Średnie tłumienie spawu",
+					"tech-box-1-desc":
+						"Ponad standardy norm unijnych (SLA <0.05 dB)",
+					"tech-box-2-title": "Wsparcie i Utrzymanie",
+					"tech-box-2-desc":
+						"Usuwanie awarii w rekordowym czasie dla kluczowych węzłów",
+					"calc-badge": "Szybka i darmowa estymacja online",
+					"calc-title": "Kalkulator Budowy Sieci / Przyłącza",
+					"calc-desc":
+						"Wybierz podstawowe parametry swojej inwestycji, aby natychmiast poznać szacunkowy koszt budowy linii światłowodowej.",
+					"calc-label-type": "Typ prowadzenia trasy światłowodowej:",
+					"calc-opt-ziemna": "Doziemna",
+					"calc-opt-ziemna-sub":
+						"Prace ziemne, rurociąg, wdmuchiwanie",
+					"calc-opt-napowietrzna": "Napowietrzna",
+					"calc-opt-napowietrzna-sub":
+						"Montaż na podbudowie słupowej",
+					"calc-opt-wewnetrzna": "Wewnętrzna",
+					"calc-opt-wewnetrzna-sub":
+						"Koryta kablowe, piony w budynku",
+					"calc-label-distance":
+						"Szacowana długość trasy (w metrach):",
+					"calc-label-fibers":
+						"Pojemność kabla (Liczba włókien optycznych):",
+					"calc-fiber-sub-1": "Mikrokabel",
+					"calc-fiber-sub-2": "Standard",
+					"calc-fiber-sub-3": "Zalecany",
+					"calc-fiber-sub-4": "Średnia",
+					"calc-fiber-sub-5": "Magistrala",
+					"calc-fiber-sub-6": "Duża",
+					"calc-label-addons": "Usługi komplementarne:",
+					"calc-addon-1-title":
+						"Pełny projekt budowlany z uzgodnieniami",
+					"calc-addon-1-desc":
+						"Wymagany do budowy w drogach publicznych (ZUD, zgody zarządców).",
+					"calc-addon-2-title":
+						"Zarobienie przełącznic (Spawanie światłowodów)",
+					"calc-addon-2-desc":
+						"Mufy, przełącznice optyczne w szafie rack oraz gniazda końcowe.",
+					"calc-addon-3-title":
+						"Pomiary powykonawcze OTDR i certyfikacja trasy",
+					"calc-addon-3-desc":
+						"Raporty w formacie .sor z obu kierunków dla każdej relacji włókien.",
+					"calc-sum-title": "Podsumowanie kosztorysu",
+					"calc-sum-row-1": "Wybrany typ trasy:",
+					"calc-sum-row-2": "Długość linii:",
+					"calc-sum-row-3": "Pojemność kabla:",
+					"calc-sum-row-4": "Projekt techniczny:",
+					"calc-sum-row-5": "Spawanie i zarobienie:",
+					"calc-sum-row-6": "Certyfikowane pomiary:",
+					"calc-price-badge": "Szacowany koszt netto inwestycji",
+					"calc-price-sub":
+						"Wycena ma charakter poglądowy. Nie stanowi oferty w rozumieniu art. 66 KC.",
+					"calc-btn-action": "Zleć darmowy audyt tej trasy",
+					"calc-footer-note":
+						"Gwarantujemy bezpłatną wizję lokalną w 48h",
+					"steps-badge": "Krok po kroku",
+					"steps-title":
+						"Jak wygląda proces budowy przyłącza / linii?",
+					"steps-desc":
+						"Dbamy o każdy detal procesu inwestycyjnego, maksymalnie odciążając inwestora w sprawach administracyjnych.",
+					"steps-1-title": "Audyt i wizja lokalna",
+					"steps-1-desc":
+						"Bezpłatnie analizujemy warunki terenowe i aktualne plany uzbrojenia terenu. Określamy najbardziej opłacalną trasę światłowodu.",
+					"steps-2-title": "Uzgodnienia i Projekt",
+					"steps-2-desc":
+						"Opracowujemy kompletną dokumentację. Reprezentujemy Cię przed urzędami i uzyskujemy niezbędne zgody na budowę.",
+					"steps-3-title": "Prace Instalacyjne",
+					"steps-3-desc":
+						"Wykonujemy wykopy, przewierty i wdmuchujemy kable optyczne za pomocą certyfikowanego sprzętu wysokiej klasy.",
+					"steps-4-title": "Spawy, Pomiary i Asbuilt",
+					"steps-4-desc":
+						"Łączymy włókna fuzją łukową, badamy ich parametry transmisyjne i oddajemy kompletną dokumentację techniczną.",
+					"faq-badge": "Centrum Wiedzy",
+					"faq-title": "Często zadawane pytania (FAQ)",
+					"faq-desc":
+						"Masz wątpliwości dotyczące przebiegu prac lub doboru technologii? Przeczytaj nasze odpowiedzi.",
+					"faq-1-q":
+						"Jaka jest przewaga światłowodu doziemnego nad napowietrznym?",
+					"faq-1-a":
+						"Instalacje doziemne są w pełni odporne na warunki atmosferyczne (wichury, opady, mróz, zalodzenia linii). Posiadają znacznie większą trwałość fizyczną i nie ingerują w estetykę otoczenia. Choć budowa jest droższa z uwagi na roboty ziemne, późniejszy koszt eksploatacji jest niemal zerowy.",
+					"faq-2-q":
+						"Ile trwają formalności i uzyskiwanie zgód administracyjnych?",
+					"faq-2-a":
+						"Samo wykonanie projektu technicznego trwa około 2-4 tygodni. Jednak proces uzgodnień (Narady Koordynacyjne ZUD, decyzje na wejście w pas drogowy, decyzje środowiskowe i zgody właścicielskie) w zależności od stopnia skomplikowania działek zajmuje średnio od 1 do 4 miesięcy. Kompleksowo prowadzimy ten proces za klienta.",
+					"faq-3-q":
+						"Co to są pomiary reflektometryczne OTDR i dlaczego są konieczne?",
+					"faq-3-a":
+						"Pomiary OTDR (Optical Time Domain Reflectometer) to bezinwazyjne badanie linii światłowodowej za pomocą wysyłania impulsów światła. Pozwalają one z dokładnością do kilkunastu centymetrów określić miejsce ewentualnego uszkodzenia, zgięcia kabla oraz zmierzyć precyzyjną tłumienność każdego wykonanego spawu. Są podstawowym dokumentem odbiorowym potwierdzającym sprawność fizyczną sieci.",
+					"faq-4-q":
+						"Czy realizują Państwo przyłącza w technologii bezwykopowej?",
+					"faq-4-a":
+						"Tak, posiadamy maszyny do kretowania (przebijania pneumatycznego) oraz współpracujemy przy wielkich przewiertach HDD (Horizontal Directional Drilling). Dzięki temu przeprowadzamy rury pod drogami asfaltowymi, ogrodzeniami i torami bez naruszania struktury gruntu na powierzchni.",
+					"contact-badge": "Zapraszamy do kontaktu",
+					"contact-title":
+						"Skontaktuj się z nami i zbudujmy to razem",
+					"contact-desc":
+						"Potrzebujesz natychmiastowej wyceny budowy sieci, porady inżynieryjnej lub oferty przetargowej? Napisz do nas lub zadzwoń. Nasz zespół odpowiada na zapytania w ciągu maksymalnie 24 godzin roboczych.",
+					"contact-addr-title": "Adres Biura i Magazynu",
+					"contact-addr-hours": "Czynne: Pn-Pt 7:00 - 17:00",
+					"contact-phone-title": "Telefon Kontaktowy",
+					"contact-phone-sub":
+						"Pomoc techniczna i zgłaszanie awarii 24/7",
+					"contact-email-title": "Adres Email",
+					"contact-email-sub": "Oferty handlowe",
+					"contact-ref":
+						"Wizualizacje i technologie przedstawione na stronie są bezpośrednio inspirowane wzorcami jakości i schematami technicznymi marki FibraTech (Referencja wzorca: image_4931a4.png).",
+					"form-title": "Wyślij szybką wiadomość",
+					"form-label-name": "Imię i nazwisko / Firma *",
+					"form-label-phone": "Numer telefonu *",
+					"form-label-email": "Adres Email *",
+					"form-label-subj": "Temat zapytania",
+					"form-label-msg": "Treść wiadomości / Specyfikacja trasy *",
+					"form-consent":
+						"Wyrażam zgodę na przetwarzanie moich danych osobowych zgodnie z RODO w celu odpowiedzi na zapytanie ofertowe. Administratorem danych jest FibraTech. *",
+					"form-submit-btn": "Wyślij zapytanie ofertowe",
+					"footer-desc":
+						"Naczelny lider w budowie traktów światłowodowych. Dostarczamy niezawodne połączenia z zachowaniem najwyższych standardów wykonawczych i pomiarowych.",
+					"footer-menu-title": "Skróty menu",
+					"footer-spec-title": "Specjalizacja",
+					"footer-spec-1": "Budowa sieci FTTH (Fiber to the Home)",
+					"footer-spec-2": "Spawanie światłowodów jednomodowych",
+					"footer-spec-3": "Uzgodnienia ZUD i projekty budowlane",
+					"footer-spec-4": "Wdmuchiwanie mikrokabli",
+					"footer-spec-5": "Pomiary reflektometryczne OTDR",
+					"footer-alarm-title": "Kontakt alarmowy",
+					"footer-alarm-desc":
+						"Masz uszkodzoną magistralę? Nasza ekipa awaryjna reaguje natychmiastowo.",
+					"footer-alarm-btn": "Infolinia 24/7",
+					"footer-copyright": "Wszelkie prawa zastrzeżone.",
+					"footer-link-privacy": "Polityka prywatności",
+					"footer-link-cookies": "Pliki Cookies",
+					"form-opt-1":
+						"Budowa przyłącza/sieci dla firmy / dewelopera",
+					"form-opt-2": "Projektowanie i uzgodnienia geodezyjne",
+					"form-opt-3": "Spawanie i pomiary reflektometryczne",
+					"form-opt-4": "Serwis i SLA / Uszkodzenie kabla",
+					"form-opt-5": "Inne zapytanie",
+				},
+				en: {
+					"nav-sub": "Fiber Optic Construction",
+					"nav-about": "About us",
+					"nav-services": "Services",
+					"nav-tech": "Technology",
+					"nav-calc": "Estimate",
+					"nav-faq": "FAQ",
+					"nav-contact-btn": "Contact Us",
+					"nav-mob-consult": "Free Consultation",
+					"hero-badge":
+						"We are building the infrastructure of the future",
+					"hero-title-1": "Professional construction",
+					"hero-title-2": "of fiber optic networks",
+					"hero-desc":
+						"Comprehensive services for cable duct construction, fiber blowing, splicing, and measurements. We support operators, developers, local governments, and enterprises nationwide.",
+					"hero-btn-calc": "Calculate Construction Cost",
+					"hero-btn-offer": "Our Offer",
+					"hero-stat-1": "Accuracy and standards",
+					"hero-stat-2": "Built routes",
+					"hero-stat-3": "Precise measurements",
+					"hero-card-badge": "Live",
+					"hero-card-title": "Optical connection diagram",
+					"hero-card-node-a": "Central (OLT)",
+					"hero-card-node-c": "Client (ONT)",
+					"hero-card-row-1": "Wave attenuation (1310/1550 nm):",
+					"hero-card-row-2": "Data transmission speed:",
+					"hero-card-row-3": "Interference resistance:",
+					"hero-card-val-3": "Total (EM/RF)",
+					"hero-card-footer":
+						"Visualization of splice and optical beam propagation",
+					"ribbon-stat-1": "Years of industry experience",
+					"ribbon-stat-2": "Completed subscriber connections",
+					"ribbon-stat-3": "In-house specialized crews",
+					"ribbon-stat-4": "Unresolved failures",
+					"about-badge": "Meet FibraTech",
+					"about-title":
+						"Connecting people and business with the fastest technology on Earth",
+					"about-desc-1":
+						"We are a dynamically growing enterprise specialized in designing, building, and comprehensively maintaining passive and active telecommunication infrastructure.",
+					"about-desc-2":
+						"With extensive technical facilities and a team of certified engineers and installers, we execute both individual FTTH (Fiber to the Home) subscriber connections and backbone optical transit lines, including aerial and underground systems in challenging urban environments.",
+					"about-badge-title": "SLA Guarantee",
+					"about-badge-desc":
+						"We provide service with a guaranteed response time.",
+					"about-feat-1-title": "Own Blowing Machines",
+					"about-feat-1-desc":
+						"Safe installation of microcables up to 2000m.",
+					"about-feat-2-title": "Fusion Splicing",
+					"about-feat-2-desc":
+						"Japanese Sumitomo and Fujikura splicing machines.",
+					"about-feat-3-title": "Complete Documentation",
+					"about-feat-3-desc":
+						"Construction, executive and geodetic designs.",
+					"about-feat-4-title": "OTDR Measurements",
+					"about-feat-4-desc":
+						"Complete as-built protocols and charts.",
+					"services-badge": "Comprehensive Scope of Work",
+					"services-title":
+						"What we do in terms of network construction?",
+					"services-desc":
+						"We guide you through the entire process – from obtaining technical conditions, through design and civil works, to final measurements and service launch.",
+					"services-card-1-title": "1. Design & Formalities",
+					"services-card-1-desc":
+						"Development of construction and executive designs, ZUD coordination, water law notifications, owner consents, and building permits for cable routes.",
+					"services-card-1-bullet-1": "Official coordination (ZUD)",
+					"services-card-1-bullet-2": "Trenchless crossing designs",
+					"services-card-2-title": "2. Earthworks & Ducts",
+					"services-card-2-desc":
+						"Traditional excavations, HDD directional drilling under roads and watercourses, laying protective pipes, building cable chambers, and cabinet installations.",
+					"services-card-2-bullet-1": "HDD directional drilling",
+					"services-card-2-bullet-2": "Cable chambers and cabinets",
+					"services-card-3-title": "3. Cable Blowing & Installation",
+					"services-card-3-desc":
+						"Installation of fiber optic microcables using piston and jet blowing over long distances, pulling cables into primary telecommunication ducts.",
+					"services-card-3-bullet-1": "Microcable blowing",
+					"services-card-3-bullet-2":
+						"Micropipe bundles & accessories",
+					"services-card-4-title": "4. Splicing & OTDR",
+					"services-card-4-desc":
+						"Splicing single-mode (G.652D, G.657A) and multi-mode optical fibers, installation of joints, distribution frames, and precise reflectometric tests.",
+					"services-card-4-bullet-1": "Reflectometer loss report",
+					"services-card-4-bullet-2":
+						"Splices with attenuation < 0.02 dB",
+					"tech-badge": "Machinery Fleet",
+					"tech-title":
+						"Modern technical backup as a guarantee of timeliness",
+					"tech-desc":
+						"We do not use intermediaries or subcontractors with questionable experience. We possess technologically advanced equipment from leading brands that minimize network downtime and road/greenery damage.",
+					"tech-item-1-title": "Plumettaz / Fremco Blowing Machine",
+					"tech-item-1-desc":
+						"Safe cable installation under high air pressure.",
+					"tech-item-2-title": "VIAVI / EXFO Reflectometers",
+					"tech-item-2-desc":
+						"Precise localization of even the smallest bends, damages, and loss.",
+					"tech-item-3-title": "Kubota Excavators & HDD Rigs",
+					"tech-item-3-desc":
+						"Civil works without destroying asphalt pavements.",
+					"tech-gal-1": "Fremco method blowing",
+					"tech-gal-2": "Certified cable measurement",
+					"tech-box-1-title": "Average splice attenuation",
+					"tech-box-1-desc":
+						"Far exceeding EU standards (SLA <0.05 dB)",
+					"tech-box-2-title": "Support & Maintenance",
+					"tech-box-2-desc":
+						"Emergency failure recovery in record time for key nodes",
+					"calc-badge": "Fast and free online estimation",
+					"calc-title":
+						"Network / Connection Construction Calculator",
+					"calc-desc":
+						"Choose the basic parameters of your investment to instantly check the estimated cost of fiber optic line construction.",
+					"calc-label-type": "Fiber Optic route deployment type:",
+					"calc-opt-ziemna": "Underground",
+					"calc-opt-ziemna-sub": "Civil works, piping, cable blowing",
+					"calc-opt-napowietrzna": "Aerial",
+					"calc-opt-napowietrzna-sub":
+						"Installation on utility poles",
+					"calc-opt-wewnetrzna": "Indoor",
+					"calc-opt-wewnetrzna-sub":
+						"Cable trays, vertical shafts in building",
+					"calc-label-distance":
+						"Estimated route length (in meters):",
+					"calc-label-fibers":
+						"Cable capacity (Number of optical fibers):",
+					"calc-fiber-sub-1": "Microcable",
+					"calc-fiber-sub-2": "Standard",
+					"calc-fiber-sub-3": "Recommended",
+					"calc-fiber-sub-4": "Medium",
+					"calc-fiber-sub-5": "Backbone",
+					"calc-fiber-sub-6": "Large",
+					"calc-label-addons": "Complementary services:",
+					"calc-addon-1-title":
+						"Complete building permit and coordination",
+					"calc-addon-1-desc":
+						"Required for public roads (ZUD, administrative approvals).",
+					"calc-addon-2-title":
+						"Distribution frame termination (Fiber splicing)",
+					"calc-addon-2-desc":
+						"Joint closures, patch panels in rack cabinets, and customer outlets.",
+					"calc-addon-3-title":
+						"As-built OTDR measurements and route certification",
+					"calc-addon-3-desc":
+						"Reports in .sor format from both directions for each fiber core.",
+					"calc-sum-title": "Estimate summary",
+					"calc-sum-row-1": "Selected route type:",
+					"calc-sum-row-2": "Line length:",
+					"calc-sum-row-3": "Cable capacity:",
+					"calc-sum-row-4": "Technical design:",
+					"calc-sum-row-5": "Splicing and termination:",
+					"calc-sum-row-6": "Certified measurements:",
+					"calc-price-badge": "Estimated net investment cost",
+					"calc-price-sub":
+						"This calculation is illustrative and does not constitute a commercial offer under the Polish Civil Code.",
+					"calc-btn-action": "Order a free audit of this route",
+					"calc-footer-note":
+						"We guarantee a free site survey within 48h",
+					"steps-badge": "Step by step",
+					"steps-title":
+						"What does the connection/line construction process look like?",
+					"steps-desc":
+						"We take care of every detail of the investment process, completely relieving the investor of administrative matters.",
+					"steps-1-title": "Audit & Site Survey",
+					"steps-1-desc":
+						"We analyze field conditions and current utility maps for free. We determine the most cost-effective fiber route.",
+					"steps-2-title": "Approvals & Design",
+					"steps-2-desc":
+						"We prepare complete documentation. We represent you before authorities and obtain all construction approvals.",
+					"steps-3-title": "Installation Works",
+					"steps-3-desc":
+						"We perform excavations, drillings, and blow optical cables using certified top-tier machinery.",
+					"steps-4-title": "Splicing, Testing & As-built",
+					"steps-4-desc":
+						"We connect fibers with fusion splicers, test transmission parameters, and deliver complete technical documentation.",
+					"faq-badge": "Knowledge Center",
+					"faq-title": "Frequently Asked Questions (FAQ)",
+					"faq-desc":
+						"Do you have doubts about the work process or technology selection? Read our answers.",
+					"faq-1-q":
+						"What is the advantage of underground fiber over aerial fiber?",
+					"faq-1-a":
+						"Underground installations are completely resistant to weather conditions (windstorms, precipitation, frost, line icing). They have significantly greater physical durability and do not affect environmental aesthetics. Although construction is more expensive due to earthworks, subsequent operating costs are almost zero.",
+					"faq-2-q":
+						"How long do formalities and administrative approvals take?",
+					"faq-2-a":
+						"Technical design execution takes about 2-4 weeks. However, the coordination process (ZUD Coordination Meetings, road occupation permissions, environmental decisions, and owner consents) takes an average of 1 to 4 months. We manage this entire process comprehensively for you.",
+					"faq-3-q":
+						"What are OTDR reflectometric measurements and why are they necessary?",
+					"faq-3-a":
+						"OTDR (Optical Time Domain Reflectometer) measurements are non-invasive tests of a fiber optic line by sending light pulses. They allow us to determine the location of any potential damage or cable bend with accuracy up to several centimeters, as well as measure the precise attenuation of each completed splice.",
+					"faq-4-q": "Do you perform trenchless installations?",
+					"faq-4-a":
+						"Yes, we possess impact moles for pneumatic piercing and cooperate in heavy HDD (Horizontal Directional Drilling) projects. This allows us to install pipes under asphalt roads, fences, and railways without disturbing the ground structure.",
+					"contact-badge": "We welcome your inquiry",
+					"contact-title":
+						"Get in touch with us and let's build it together",
+					"contact-desc":
+						"Need an immediate quote, engineering advice, or a tender offer? Write to us or call. Our team responds to inquiries within a maximum of 24 business hours.",
+					"contact-addr-title": "Office & Warehouse Address",
+					"contact-addr-hours": "Open: Mon-Fri 7:00 AM - 5:00 PM",
+					"contact-phone-title": "Contact Phone",
+					"contact-phone-sub":
+						"Technical assistance and emergency reporting 24/7",
+					"contact-email-title": "Email Address",
+					"contact-email-sub": "Commercial offers",
+					"contact-ref":
+						"Visualizations and technologies presented on the website are directly inspired by the quality standards and technical diagrams of FibraTech (Reference pattern: image_4931a4.png).",
+					"form-title": "Send a quick message",
+					"form-label-name": "Full name / Company *",
+					"form-label-phone": "Phone number *",
+					"form-label-email": "Email Address *",
+					"form-label-subj": "Request subject",
+					"form-label-msg": "Message content / Route specification *",
+					"form-consent":
+						"I agree to the processing of my personal data in accordance with GDPR for the purpose of responding to the offer request. The data controller is FibraTech. *",
+					"form-submit-btn": "Send inquiry",
+					"footer-desc":
+						"The foremost leader in fiber optic link construction. We deliver reliable connections with the highest execution and measurement standards.",
+					"footer-menu-title": "Menu links",
+					"footer-spec-title": "Specialties",
+					"footer-spec-1":
+						"FTTH (Fiber to the Home) Network Construction",
+					"footer-spec-2": "Single-mode fiber fusion splicing",
+					"footer-spec-3": "ZUD approvals and construction designs",
+					"footer-spec-4": "Microcable blowing services",
+					"footer-spec-5": "Reflectometric OTDR measurements",
+					"footer-alarm-title": "Emergency Contact",
+					"footer-alarm-desc":
+						"Broken backbone cable? Our emergency crew responds instantly.",
+					"footer-alarm-btn": "Hotline 24/7",
+					"footer-copyright": "All rights reserved.",
+					"footer-link-privacy": "Privacy Policy",
+					"footer-link-cookies": "Cookies Policy",
+					"form-opt-1":
+						"Connection/network construction for enterprise / developer",
+					"form-opt-2": "Geodetic coordination and designing",
+					"form-opt-3": "Splicing and reflectometric OTDR tests",
+					"form-opt-4": "SLA Maintenance / Fiber damage repair",
+					"form-opt-5": "Other request",
+				},
+				de: {
+					"nav-sub": "Glasfaserleitung-Bau",
+					"nav-about": "Über uns",
+					"nav-services": "Leistungen",
+					"nav-tech": "Technologie",
+					"nav-calc": "Preiskalkulator",
+					"nav-faq": "FAQ",
+					"nav-contact-btn": "Kontaktieren Sie uns",
+					"nav-mob-consult": "Kostenlose Beratung",
+					"hero-badge": "Wir bauen die Infrastruktur der Zukunft",
+					"hero-title-1": "Professioneller Aufbau",
+					"hero-title-2": "von Glasfasernetzen",
+					"hero-desc":
+						"Umfassende Dienstleistungen für Kabelkanalbau, Glasfaser-Einblasen, Spleißen und Messungen. Wir unterstützen Netzbetreiber, Bauträger, Kommunen und Unternehmen im ganzen Land.",
+					"hero-btn-calc": "Kosten berechnen",
+					"hero-btn-offer": "Unser Angebot",
+					"hero-stat-1": "Genauigkeit und Normen",
+					"hero-stat-2": "Gebaute Strecken",
+					"hero-stat-3": "Präzisionsmessungen",
+					"hero-card-badge": "Live",
+					"hero-card-title": "Optisches Verbindungsschema",
+					"hero-card-node-a": "Zentrale (OLT)",
+					"hero-card-node-c": "Kunde (ONT)",
+					"hero-card-row-1": "Wellendämpfung (1310/1550 nm):",
+					"hero-card-row-2": "Datenübertragungsgeschwindigkeit:",
+					"hero-card-row-3": "Störungsresistenz:",
+					"hero-card-val-3": "Vollständig (EM/RF)",
+					"hero-card-footer":
+						"Visualisierung des Spleißes und der Lichtwellenausbreitung",
+					"ribbon-stat-1": "Jahre Branchenerfahrung",
+					"ribbon-stat-2": "Fertiggestellte Teilnehmeranschlüsse",
+					"ribbon-stat-3": "Eigene Fachteams vor Ort",
+					"ribbon-stat-4": "Ungelöste Systemausfälle",
+					"about-badge": "Lernen Sie FibraTech kennen",
+					"about-title":
+						"Menschen und Unternehmen mit der schnellsten Technologie verbinden",
+					"about-desc-1":
+						"Wir sind ein dynamisch wachsendes Unternehmen, das sich auf die Planung, den Bau und die umfassende Wartung passiver und aktiver Telekommunikationsinfrastrukturen spezialisiert hat.",
+					"about-desc-2":
+						"Mit umfangreichen technischen Ressourcen und einem Team von zertifizierten Ingenieuren und Installateuren realisieren wir sowohl einzelne FTTH-Teilnehmeranschlüsse (Fiber to the Home) als auch optische Hauptleitungen, einschließlich oberirdischer und unterirdischer Systeme in anspruchsvollen städtischen Umgebungen.",
+					"about-badge-title": "SLA-Garantie",
+					"about-badge-desc":
+						"Wir bieten Service mit einer garantierten Reaktionszeit.",
+					"about-feat-1-title": "Eigene Einblasgeräte",
+					"about-feat-1-desc":
+						"Sichere Installation von Mikrokabeln bis 2000m.",
+					"about-feat-2-title": "Lichtbogenspleißen",
+					"about-feat-2-desc":
+						"Japanische Spleißgeräte von Sumitomo und Fujikura.",
+					"about-feat-3-title": "Vollständige Dokumentation",
+					"about-feat-3-desc":
+						"Ausführungs-, Bau- und Vermessungspläne.",
+					"about-feat-4-title": "OTDR-Messungen",
+					"about-feat-4-desc":
+						"Vollständige Abnahmeprotokolle und Diagramme.",
+					"services-badge": "Umfassender Arbeitsbereich",
+					"services-title":
+						"Was machen wir im Bereich Netzinfrastruktur?",
+					"services-desc":
+						"Wir begleiten Sie durch den gesamten Prozess – von der Einholung technischer Bedingungen über die Planung und Tiefbauarbeiten bis hin zur Endmessung und Inbetriebnahme.",
+					"services-card-1-title": "1. Planung & Formalitäten",
+					"services-card-1-desc":
+						"Erstellung von Bau- und Ausführungsplänen, ZUD-Abstimmungen, wasserrechtliche Anzeigen, Eigentümerzustimmungen und Baugenehmigungen für Kabeltrassen.",
+					"services-card-1-bullet-1":
+						"Behördliche Koordination (ZUD)",
+					"services-card-1-bullet-2": "Grabenlose Querungsplanung",
+					"services-card-2-title": "2. Erdarbeiten & Kanäle",
+					"services-card-2-desc":
+						"Traditioneller Aushub, HDD-Spülbohrungen unter Straßen und Gewässern, Verlegen von Schutzrohren, Bau von Kabelschächten und Verteilerkabinetten.",
+					"services-card-2-bullet-1": "HDD-Spülbohrungen",
+					"services-card-2-bullet-2": "Kabelschächte und Schränke",
+					"services-card-3-title": "3. Kabeleinblasen & Montage",
+					"services-card-3-desc":
+						"Installation von Glasfaser-Mikrokabeln im Kolben- und Jet-Verfahren über lange Strecken, Einziehen von Kabeln in Primärkanalisationen.",
+					"services-card-3-bullet-1": "Mikrokabeleinblasen",
+					"services-card-3-bullet-2": "Mikrorohrbündel & Zubehör",
+					"services-card-4-title": "4. Spleißen & OTDR-Messungen",
+					"services-card-4-desc":
+						"Spleißen von Einmoden- (G.652D, G.657A) und Mehrmoden-Glasfasern, Installation von Muffen, Verteilern und genauen Dämpfungstests.",
+					"services-card-4-bullet-1": "Dämpfungsbericht vom OTDR",
+					"services-card-4-bullet-2":
+						"Spleiße mit Dämpfung < 0.02 dB",
+					"tech-badge": "Maschinenpark",
+					"tech-title":
+						"Moderne technische Ausstattung sichert Termintreue",
+					"tech-desc":
+						"Wir arbeiten nicht mit Vermittlern oder Subunternehmern mit fragwürdiger Erfahrung zusammen. Wir besitzen technologisch fortschrittliche Geräte führender Marken, um Netzausfallzeiten und Straßen-/Flurschäden zu minimieren.",
+					"tech-item-1-title": "Plumettaz / Fremco Einblasmaschine",
+					"tech-item-1-desc":
+						"Sichere Kabelverlegung unter hohem Luftdruck.",
+					"tech-item-2-title": "VIAVI / EXFO Reflektometer",
+					"tech-item-2-desc":
+						"Präzise Lokalisierung kleinster Krümmungen, Schäden und Leistungsverluste.",
+					"tech-item-3-title": "Kubota Minibagger & HDD-Bohranlagen",
+					"tech-item-3-desc":
+						"Erdarbeiten ohne Beschädigung von Asphaltdecken.",
+					"tech-gal-1": "Einblasen nach der Fremco-Methode",
+					"tech-gal-2": "Zertifizierte Kabelmessung",
+					"tech-box-1-title": "Durchschnittliche Spleißdämpfung",
+					"tech-box-1-desc":
+						"Weit über den EU-Standards (SLA <0.05 dB)",
+					"tech-box-2-title": "Support & Wartung",
+					"tech-box-2-desc":
+						"Notfall-Störungsbeseitigung in Rekordzeit für Kernknotenpunkte",
+					"calc-badge": "Schnelle und kostenlose Online-Schätzung",
+					"calc-title": "Netz- / Hausanschluss-Rechner",
+					"calc-desc":
+						"Wählen Sie die Grundparameter Ihres Vorhabens, um sofort die geschätzten Kosten für den Bau der Glasfaserleitung zu ermitteln.",
+					"calc-label-type": "Verlegungsart der Glasfasertrasse:",
+					"calc-opt-ziemna": "Unterirdisch",
+					"calc-opt-ziemna-sub":
+						"Erdarbeiten, Rohrverlegung, Einblasen",
+					"calc-opt-napowietrzna": "Oberirdisch",
+					"calc-opt-napowietrzna-sub":
+						"Montage an Freileitungsmasten",
+					"calc-opt-wewnetrzna": "Inhouse-Verkabelung",
+					"calc-opt-wewnetrzna-sub":
+						"Kabelrinnen, Steigbereiche im Gebäude",
+					"calc-label-distance":
+						"Geschätzte Trassenlänge (in Metern):",
+					"calc-label-fibers":
+						"Kabelkapazität (Anzahl der Glasfasern):",
+					"calc-fiber-sub-1": "Mikrokabel",
+					"calc-fiber-sub-2": "Standard",
+					"calc-fiber-sub-3": "Empfohlen",
+					"calc-fiber-sub-4": "Mittel",
+					"calc-fiber-sub-5": "Hauptkabel",
+					"calc-fiber-sub-6": "Großkapazität",
+					"calc-label-addons": "Zusatzleistungen:",
+					"calc-addon-1-title": "Vollständige Genehmigungsplanung",
+					"calc-addon-1-desc":
+						"Erforderlich auf öffentlichen Straßen (ZUD, administrative Zustimmungen).",
+					"calc-addon-2-title":
+						"Verteiler-Konfektionierung (Glasfaserspleißen)",
+					"calc-addon-2-desc":
+						"Spleißboxen, Patchpanels in Serverschränken und Anschlussdosen.",
+					"calc-addon-3-title":
+						"OTDR-Abnahmemessungen und Streckenzertifizierung",
+					"calc-addon-3-desc":
+						"Messprotokolle im .sor-Format aus beiden Richtungen für jede Faser.",
+					"calc-sum-title": "Kostenvoranschlag Zusammenfassung",
+					"calc-sum-row-1": "Gewählte Trassenart:",
+					"calc-sum-row-2": "Streckenlänge:",
+					"calc-sum-row-3": "Kabelkapazität:",
+					"calc-sum-row-4": "Planungsentwurf:",
+					"calc-sum-row-5": "Spleißen und Anschluss:",
+					"calc-sum-row-6": "Zertifizierte Messung:",
+					"calc-price-badge": "Geschätzte Netto-Investitionskosten",
+					"calc-price-sub":
+						"Diese Kalkulation dient nur zur Veranschaulichung und stellt kein Angebot im Sinne des Zivilgesetzbuches dar.",
+					"calc-btn-action":
+						"Kostenloses Audit für diese Trasse anfordern",
+					"calc-footer-note":
+						"Kostenlose Vor-Ort-Begehung innerhalb von 48 Std. garantiert",
+					"steps-badge": "Schritt für Schritt",
+					"steps-title":
+						"Wie läuft der Ablauf der Trassenverlegung ab?",
+					"steps-desc":
+						"Wir kümmern uns um jedes Detail des Investitionsprozesses und entlasten den Investor vollständig von administrativen Aufgaben.",
+					"steps-1-title": "Audit & Vor-Ort-Begehung",
+					"steps-1-desc":
+						"Wir analysieren kostenlos die Geländebedingungen und vorhandene Pläne. Wir legen die wirtschaftlichste Trasse fest.",
+					"steps-2-title": "Planung & Genehmigungen",
+					"steps-2-desc":
+						"Wir erstellen die vollständige Dokumentation, vertreten Sie vor Behörden und holen alle Baugenehmigungen ein.",
+					"steps-3-title": "Installationsarbeiten",
+					"steps-3-desc":
+						"Wir führen Erdarbeiten, Spülbohrungen durch und blasen Glasfaserkabel mit zertifizierten Premium-Maschinen ein.",
+					"steps-4-title": "Spleißung, Messung & Abnahme",
+					"steps-4-desc":
+						"Wir verbinden die Fasern im Lichtbogen, messen die Parameter und übergeben die komplette as-built Dokumentation.",
+					"faq-badge": "Wissensdatenbank",
+					"faq-title": "Häufig gestellte Fragen (FAQ)",
+					"faq-desc":
+						"Haben Sie Fragen zum Arbeitsablauf oder zur Technologieauswahl? Lesen Sie unsere Antworten.",
+					"faq-1-q":
+						"Was ist der Vorteil von Erdkabeln gegenüber Luftkabeln?",
+					"faq-1-a":
+						"Erdverlegte Leitungen sind absolut wetterfest (Stürme, Niederschläge, Frost, Vereisung). Sie besitzen eine erheblich längere physikalische Haltbarkeit und stören das Landschaftsbild nicht. Obwohl der Bau teurer ist, sind die späteren Betriebskosten nahezu gleich null.",
+					"faq-2-q":
+						"Wie lange dauern die Formalitäten und behördlichen Genehmigungen?",
+					"faq-2-a":
+						"Die Erstellung der technischen Pläne dauert etwa 2-4 Wochen. Das Genehmigungsverfahren (ZUD-Abstimmung, Straßennutzungsrechte, Umweltprüfungen und Eigentümerzustimmungen) dauert jedoch im Schnitt 1 bis 4 Monate. Wir regeln das komplett für Sie.",
+					"faq-3-q":
+						"Was sind OTDR-Messungen und warum sind sie notwendig?",
+					"faq-3-a":
+						"OTDR-Messungen (Optical Time Domain Reflectometer) sind zerstörungsfreie Prüfungen der Glasfaserleitung durch Lichtimpulse. Sie ermöglichen es uns, eventuelle Beschädigungen oder Knicke zentimetergenau zu lokalisieren und die präzise Dämpfung jedes einzelnen Spleißes zu messen.",
+					"faq-4-q": "Führen Sie grabenlose Hausanschlüsse durch?",
+					"faq-4-a":
+						"Ja, wir verfügen über Erdraketen für pneumatische Durchschläge und arbeiten bei Großprojekten im HDD-Spülbohrverfahren. Dadurch verlegen wir Rohre unter Straßen, Zäunen und Gleisen, ohne das Gelände zu beschädigen.",
+					"contact-badge": "Wir freuen uns auf Ihre Anfrage",
+					"contact-title":
+						"Kontaktieren Sie uns und lassen Sie es uns gemeinsam bauen",
+					"contact-desc":
+						"Benötigen Sie ein sofortiges Angebot, eine ingenieurtechnische Beratung oder ein Ausschreibungsangebot? Schreiben Sie uns oder rufen Sie uns an. Unser Team antwortet innerhalb von maximal 24 Arbeitsstunden.",
+					"contact-addr-title": "Adresse von Büro & Lager",
+					"contact-addr-hours": "Geöffnet: Mo-Fr 7:00 - 17:00 Uhr",
+					"contact-phone-title": "Kontakttelefon",
+					"contact-phone-sub":
+						"Technischer Support und Störungsmeldung rund um die Uhr (24/7)",
+					"contact-email-title": "E-Mail-Adresse",
+					"contact-email-sub": "Gewerbliche Angebote",
+					"contact-ref":
+						"Die auf der Website gezeigten Visualisierungen und Technologien sind direkt von den Qualitätsstandards und technischen Schemata von FibraTech inspiriert (Musterreferenz: image_4931a4.png).",
+					"form-title": "Eine schnelle Nachricht senden",
+					"form-label-name": "Name / Firma *",
+					"form-label-phone": "Telefonnummer *",
+					"form-label-email": "E-Mail-Adresse *",
+					"form-label-subj": "Betreff der Anfrage",
+					"form-label-msg": "Nachricht / Streckenspezifikation *",
+					"form-consent":
+						"Ich willige in die Verarbeitung meiner personenbezogenen Daten gemäß der DSGVO zum Zweck der Beantwortung der Anfrage ein. Verantwortlicher für die Daten ist FibraTech. *",
+					"form-submit-btn": "Anfrage absenden",
+					"footer-desc":
+						"Der führende Experte im Glasfaserstreckenbau. Wir liefern absolut zuverlässige Verbindungen mit höchsten Ausführungs- und Messstandards.",
+					"footer-menu-title": "Menülinks",
+					"footer-spec-title": "Spezialisierung",
+					"footer-spec-1":
+						"Glasfasernetzausbau FTTH (Fiber to the Home)",
+					"footer-spec-2": "Einmoden-Glasfaser Lichtbogenspleißen",
+					"footer-spec-3": "ZUD-Abstimmungen und Entwurfsplanung",
+					"footer-spec-4": "Einblasen von Mikrokabeln",
+					"footer-spec-5": "Reflektometrische OTDR-Messungen",
+					"footer-alarm-title": "Notfallkontakt",
+					"footer-alarm-desc":
+						"Hauptleitung beschädigt? Unsere Notfallbereitschaft rückt sofort aus.",
+					"footer-alarm-btn": "Hotline 24/7",
+					"footer-copyright": "Alle Rechte vorbehalten.",
+					"footer-link-privacy": "Datenschutzerklärung",
+					"footer-link-cookies": "Cookie-Richtlinie",
+					"form-opt-1":
+						"Hausanschluss/Netzbau für Unternehmen / Bauträger",
+					"form-opt-2":
+						"Geodätische Abstimmungen und Entwurfsplanung",
+					"form-opt-3":
+						"Spleißen und reflektometrische OTDR-Messungen",
+					"form-opt-4":
+						"Wartungsverträge (SLA) / Störungsbeseitigung",
+					"form-opt-5": "Andere Anfrage",
+				},
+			};
+
+			// Funkcja zmiany języka strony
+			function changeLanguage(lang) {
+				if (!TRANSLATIONS[lang]) return;
+				currentLang = lang;
+
+				// Aktualizacja klas aktywnych przycisków w menu desktopowym
+				["pl", "en", "de"].forEach((l) => {
+					const btn = document.getElementById(`lang-${l}`);
+					const mobBtn = document.getElementById(`mob-lang-${l}`);
+					if (l === lang) {
+						btn.className =
+							"px-2 py-1 text-xs font-bold rounded transition-all bg-brand-deep text-white shadow";
+						mobBtn.className =
+							"px-1.5 py-0.5 font-bold rounded transition-all bg-brand-deep text-white shadow";
+					} else {
+						btn.className =
+							"px-2 py-1 text-xs font-bold rounded transition-all text-gray-600 hover:text-brand-deep";
+						mobBtn.className =
+							"px-1.5 py-0.5 font-bold rounded transition-all text-gray-500 hover:text-brand-deep";
+					}
+				});
+
+				// Tłumaczenie wszystkich oznaczonych elementów na stronie
+				const translatableElements =
+					document.querySelectorAll("[data-i18n]");
+				translatableElements.forEach((el) => {
+					const key = el.getAttribute("data-i18n");
+					if (TRANSLATIONS[lang][key]) {
+						el.textContent = TRANSLATIONS[lang][key];
+					}
+				});
+
+				// Tłumaczenie selecta w formularzu
+				document.getElementById("opt-budowa").textContent =
+					TRANSLATIONS[lang]["form-opt-1"];
+				document.getElementById("opt-projekt").textContent =
+					TRANSLATIONS[lang]["form-opt-2"];
+				document.getElementById("opt-spawanie").textContent =
+					TRANSLATIONS[lang]["form-opt-3"];
+				document.getElementById("opt-serwis").textContent =
+					TRANSLATIONS[lang]["form-opt-4"];
+				document.getElementById("opt-inne").textContent =
+					TRANSLATIONS[lang]["form-opt-5"];
+
+				// Tłumaczenie placeholdera w wiadomości
+				const placeholders = {
+					pl: "Opisz szczegóły planowanej inwestycji...",
+					en: "Describe the details of your planned investment...",
+					de: "Beschreiben Sie die Details Ihrer geplanten Investition...",
+				};
+				document
+					.getElementById("message")
+					.setAttribute("placeholder", placeholders[lang]);
+
+				// Ponowne przeliczenie kalkulatora i dostosowanie wyświetlanych w nim nazw jednostek
+				calculatePrice();
+			}
+
+			// Obsługa menu mobilnego
+			const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+			const mobileMenu = document.getElementById("mobile-menu");
+			const menuIcon = document.getElementById("menu-icon");
+
+			mobileMenuBtn.addEventListener("click", () => {
+				const isHidden = mobileMenu.classList.contains("hidden");
+				if (isHidden) {
+					mobileMenu.classList.remove("hidden");
+					menuIcon.classList.remove("fa-bars");
+					menuIcon.classList.add("fa-xmark");
+				} else {
+					mobileMenu.classList.add("hidden");
+					menuIcon.classList.remove("fa-xmark");
+					menuIcon.classList.add("fa-bars");
+				}
+			});
+
+			// Zamknięcie menu mobilnego po kliknięciu w link
+			const mobileLinks = mobileMenu.querySelectorAll("a");
+			mobileLinks.forEach((link) => {
+				link.addEventListener("click", () => {
+					mobileMenu.classList.add("hidden");
+					menuIcon.classList.remove("fa-xmark");
+					menuIcon.classList.add("fa-bars");
+				});
+			});
+
+			// Obsługa akordeonów FAQ
+			function toggleAccordion(id) {
+				const content = document.getElementById(`faq-content-${id}`);
+				const icon = document.getElementById(`faq-icon-${id}`);
+
+				if (content.classList.contains("hidden")) {
+					content.classList.remove("hidden");
+					icon.classList.add("rotate-180");
+				} else {
+					content.classList.add("hidden");
+					icon.classList.remove("rotate-180");
+				}
+			}
+
+			// --- INTERAKTYWNY KALKULATOR CENY ---
+			// Cenniki bazowe (netto)
+			const PRICES = {
+				ziemna: {
+					meter: 25, // cena za metr wykopu + rurociąg + wdmuchiwanie
+					fiber_multiplier: {
+						4: 1.0,
+						8: 1.1,
+						12: 1.25,
+						24: 1.45,
+						48: 1.8,
+						96: 2.4,
+					},
+				},
+				napowietrzna: {
+					meter: 15, // zawieszenie na słupach
+					fiber_multiplier: {
+						4: 1.0,
+						8: 1.15,
+						12: 1.3,
+						24: 1.6,
+						48: 2.0,
+						96: 2.8,
+					},
+				},
+				wewnetrzna: {
+					meter: 35, // korytka, przepusty, trudniejsze warunki wewn.
+					fiber_multiplier: {
+						4: 1.0,
+						8: 1.1,
+						12: 1.2,
+						24: 1.35,
+						48: 1.6,
+						96: 2.2,
+					},
+				},
+				addons: {
+					project: 2500, // stały koszt projektu budowlanego z uzgodnieniami
+					welds: 60, // koszt za pojedynczy spaw (mufy + przełącznica)
+					otdr_base: 500, // stała opłata przygotowania pomiarów
+					otdr_per_fiber: 15, // koszt pomiaru jednego włókna z obu stron
+				},
+			};
+
+			function updateDistanceValue(val) {
+				document.getElementById("range_value").textContent = `${val} m`;
+			}
+
+			function calculatePrice() {
+				// Pobranie wartości z formularza kalkulatora
+				const installType = document.querySelector(
+					'input[name="install_type"]:checked',
+				).value;
+				const distance = parseInt(
+					document.getElementById("distance").value,
+				);
+				const fiberCount = document.querySelector(
+					'input[name="fibers"]:checked',
+				).value;
+
+				const isProjectNeeded =
+					document.getElementById("project_needed").checked;
+				const isWeldsNeeded =
+					document.getElementById("welds_needed").checked;
+				const isOtdrNeeded =
+					document.getElementById("otdr_needed").checked;
+
+				// Wybór schematu cenowego
+				const scheme = PRICES[installType];
+				const multiplier = scheme.fiber_multiplier[fiberCount] || 1.0;
+
+				// 1. Koszt fizycznej instalacji i materiału kabla
+				let baseInstallationCost = distance * scheme.meter * multiplier;
+
+				// 2. Usługi dodatkowe
+				let projectCost = isProjectNeeded ? PRICES.addons.project : 0;
+
+				// Spawy (Załóżmy liczbę spawów proporcjonalną do liczby włókien)
+				let weldsCost = 0;
+				if (isWeldsNeeded) {
+					// Średnio 2 spawy na włókno (jeden na początku, jeden na końcu linii)
+					const totalWeldsCount = parseInt(fiberCount) * 2;
+					weldsCost = totalWeldsCount * PRICES.addons.welds;
+				}
+
+				// Pomiary OTDR
+				let otdrCost = 0;
+				if (isOtdrNeeded) {
+					otdrCost =
+						PRICES.addons.otdr_base +
+						parseInt(fiberCount) * PRICES.addons.otdr_per_fiber * 2;
+				}
+
+				// Całkowita kalkulacja
+				const grandTotal =
+					baseInstallationCost + projectCost + weldsCost + otdrCost;
+
+				// Słowniczek typów instalacji na potrzeby podsumowania i wyceny
+				const labelInstallTypes = {
+					pl: {
+						ziemna: "Doziemna",
+						napowietrzna: "Napowietrzna",
+						wewnetrzna: "Wewnętrzna",
+					},
+					en: {
+						ziemna: "Underground",
+						napowietrzna: "Aerial",
+						wewnetrzna: "Indoor",
+					},
+					de: {
+						ziemna: "Unterirdisch",
+						napowietrzna: "Oberirdisch",
+						wewnetrzna: "Inhouse-Verkabelung",
+					},
+				};
+
+				const labelFibers = {
+					pl: "włókna",
+					en: "fibers",
+					de: "Fasern",
+				};
+
+				const yesNoLabels = {
+					pl: { yes: "Tak", no: "Nie" },
+					en: { yes: "Yes", no: "No" },
+					de: { yes: "Ja", no: "Nein" },
+				};
+
+				document.getElementById("sum_type").textContent =
+					labelInstallTypes[currentLang][installType];
+				document.getElementById("sum_distance").textContent =
+					`${distance} m`;
+				document.getElementById("sum_fibers").textContent =
+					`${fiberCount} ${labelFibers[currentLang]} (${fiberCount}J)`;
+				document.getElementById("sum_project").textContent =
+					isProjectNeeded
+						? yesNoLabels[currentLang].yes
+						: yesNoLabels[currentLang].no;
+				document.getElementById("sum_welds").textContent = isWeldsNeeded
+					? yesNoLabels[currentLang].yes
+					: yesNoLabels[currentLang].no;
+				document.getElementById("sum_otdr").textContent = isOtdrNeeded
+					? yesNoLabels[currentLang].yes
+					: yesNoLabels[currentLang].no;
+
+				// Formatowanie i wyświetlenie ceny
+				document.getElementById("total_price").textContent =
+					`${grandTotal.toLocaleString("pl-PL", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} PLN`;
+			}
+
+			// Przeniesienie podsumowania kalkulatora do właściwego formularza kontaktowego (w wybranym języku)
+			function sendEstimationToContact() {
+				const installType = document.querySelector(
+					'input[name="install_type"]:checked',
+				).value;
+				const distance = document.getElementById("distance").value;
+				const fiberCount = document.querySelector(
+					'input[name="fibers"]:checked',
+				).value;
+				const project = document.getElementById("project_needed")
+					.checked
+					? "TAK/YES/JA"
+					: "NIE/NO/NEIN";
+				const welds = document.getElementById("welds_needed").checked
+					? "TAK/YES/JA"
+					: "NIE/NO/NEIN";
+				const otdr = document.getElementById("otdr_needed").checked
+					? "TAK/YES/JA"
+					: "NIE/NO/NEIN";
+				const price =
+					document.getElementById("total_price").textContent;
+
+				// Komunikaty dostosowane do języków
+				const messages = {
+					pl: `Dzień dobry,\n\nChciałbym zlecić bezpłatną wycenę trasy o następujących parametrach:\n- Typ instalacji: ${installType.toUpperCase()}\n- Szacowana długość: ${distance} m\n- Liczba włókien: ${fiberCount}J\n- Projekt budowlany: ${project}\n- Spawanie przełącznic: ${welds}\n- Pomiary OTDR: ${otdr}\n- Szacunkowy koszt z kalkulatora: ${price}\n\nProszę o kontakt w celu umówienia wizji lokalnej.`,
+					en: `Hello,\n\nI would like to request a free audit for a route with the following specifications:\n- Installation type: ${installType.toUpperCase()}\n- Estimated length: ${distance} m\n- Fiber count: ${fiberCount}J\n- Technical design: ${project}\n- Splicing and termination: ${welds}\n- OTDR measurements: ${otdr}\n- Estimated calculator price: ${price}\n\nPlease contact me to arrange a site survey.`,
+					de: `Guten Tag,\n\nich möchte ein kostenloses Audit für eine Trasse mit folgenden Spezifikationen anfordern:\n- Installationsart: ${installType.toUpperCase()}\n- Geschätzte Länge: ${distance} m\n- Glasfaseranzahl: ${fiberCount}J\n- Planungsentwurf: ${project}\n- Spleißung und Anschluss: ${welds}\n- OTDR-Messungen: ${otdr}\n- Geschätzte Kosten laut Rechner: ${price}\n\nBitte kontaktieren Sie mich zwecks einer Vor-Ort-Begehung.`,
+				};
+
+				document.getElementById("message").value =
+					messages[currentLang];
+				document.getElementById("subject").value = "budowa";
+
+				// Przejście scroll-to do formularza kontaktowego
+				document
+					.getElementById("kontakt")
+					.scrollIntoView({ behavior: "smooth" });
+			}
+
+			// Obsługa wysyłki formularza (Bezpieczny i estetyczny callback, zlokalizowany)
+			function handleFormSubmit(event) {
+				event.preventDefault();
+
+				const name = document.getElementById("name").value;
+				const statusBox = document.getElementById("status-box");
+
+				const sendingText = {
+					pl: "Wysyłanie zapytania...",
+					en: "Sending inquiry...",
+					de: "Senden der Anfrage...",
+				};
+				const successText = {
+					pl: `<i class="fa-solid fa-circle-check mr-2"></i> Dziękujemy <strong>${name}</strong>! Twoje zapytanie zostało zarejestrowane. Nasz inżynier skontaktuje się z Tobą w ciągu 24h.`,
+					en: `<i class="fa-solid fa-circle-check mr-2"></i> Thank you <strong>${name}</strong>! Your inquiry has been registered. Our engineer will contact you within 24 hours.`,
+					de: `<i class="fa-solid fa-circle-check mr-2"></i> Vielen Dank <strong>${name}</strong>! Ihre Anfrage wurde registriert. Unser Techniker wird sich innerhalb von 24 Stunden mit Ihnen in Verbindung setzen.`,
+				};
+
+				// Wizualny loader / stan wysyłania
+				statusBox.className =
+					"p-4 rounded-xl text-sm font-semibold bg-blue-50 text-brand-deep block mb-4";
+				statusBox.textContent = sendingText[currentLang];
+
+				// Symulacja pomyślnego wysłania zapytania bez używania zakazanego alert()
+				setTimeout(() => {
+					statusBox.className =
+						"p-4 rounded-xl text-sm font-semibold bg-green-100 text-green-700 block mb-4";
+					statusBox.innerHTML = successText[currentLang];
+
+					// Resetowanie formularza
+					document.getElementById("contact-form").reset();
+				}, 1200);
+			}
+
+			// Inicjalizacja kalkulatora po załadowaniu okna
+			window.onload = function () {
+				calculatePrice();
+			};
+		</script>
+	</body>
+</html>
