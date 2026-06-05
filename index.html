@@ -3,23 +3,24 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>ENEV.TECH — Budowa Sieci Światłowodowych</title>
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<title>FiberNet Pro – Budowa Sieci Światłowodowych</title>
 		<link
-			href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
 			rel="stylesheet"
 		/>
 		<style>
 			:root {
-				--deep: #050f1a;
-				--navy: #071e34;
-				--blue: #0a4d8c;
-				--mid: #1a6eb5;
-				--cyan: #00c8e8;
-				--light-cyan: #5ee8ff;
-				--white: #f0faff;
-				--glass: rgba(0, 200, 232, 0.08);
-				--glass-border: rgba(0, 200, 232, 0.18);
+				--blue-deep: #0a1628;
+				--blue-mid: #0d2547;
+				--teal: #1a9dc8;
+				--teal-light: #35c4ef;
+				--teal-glow: rgba(26, 157, 200, 0.18);
+				--teal-pale: #e0f7fd;
+				--white: #ffffff;
+				--gray-100: #f0f6fa;
+				--gray-300: #b0c8d8;
+				--gray-500: #607a8a;
+				--accent: #00e5ff;
 			}
 
 			*,
@@ -35,329 +36,482 @@
 			}
 
 			body {
-				background: var(--deep);
-				color: var(--white);
 				font-family: "DM Sans", sans-serif;
-				font-weight: 300;
+				background: var(--blue-deep);
+				color: var(--white);
 				overflow-x: hidden;
 			}
 
-			/* ─── ANIMATED BACKGROUND ─── */
-			.bg-grid {
-				position: fixed;
-				inset: 0;
-				z-index: 0;
-				background-image:
-					linear-gradient(
-						rgba(0, 200, 232, 0.04) 1px,
-						transparent 1px
-					),
-					linear-gradient(
-						90deg,
-						rgba(0, 200, 232, 0.04) 1px,
-						transparent 1px
-					);
-				background-size: 60px 60px;
-				pointer-events: none;
-			}
-
-			.bg-glow {
-				position: fixed;
-				width: 700px;
-				height: 700px;
-				border-radius: 50%;
-				background: radial-gradient(
-					circle,
-					rgba(0, 200, 232, 0.12) 0%,
-					transparent 70%
-				);
-				top: -200px;
-				left: -150px;
-				pointer-events: none;
-				animation: drift 12s ease-in-out infinite alternate;
-				z-index: 0;
-			}
-			.bg-glow2 {
-				position: fixed;
-				width: 500px;
-				height: 500px;
-				border-radius: 50%;
-				background: radial-gradient(
-					circle,
-					rgba(10, 77, 140, 0.25) 0%,
-					transparent 70%
-				);
-				bottom: -100px;
-				right: -100px;
-				pointer-events: none;
-				animation: drift 16s ease-in-out infinite alternate-reverse;
-				z-index: 0;
-			}
-
-			@keyframes drift {
-				from {
-					transform: translate(0, 0);
-				}
-				to {
-					transform: translate(60px, 40px);
-				}
-			}
-
-			/* ─── NAV ─── */
-			nav {
+			/* ── LANGUAGE SWITCHER ── */
+			.lang-bar {
 				position: fixed;
 				top: 0;
 				left: 0;
 				right: 0;
-				z-index: 100;
+				z-index: 1000;
+				background: rgba(10, 22, 40, 0.95);
+				backdrop-filter: blur(12px);
+				border-bottom: 1px solid rgba(26, 157, 200, 0.2);
+			}
+
+			.lang-bar-inner {
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 0 24px;
+				height: 64px;
 				display: flex;
 				align-items: center;
 				justify-content: space-between;
-				padding: 20px 60px;
-				background: rgba(5, 15, 26, 0.85);
-				backdrop-filter: blur(12px);
-				border-bottom: 1px solid var(--glass-border);
 			}
 
 			.logo {
+				display: flex;
+				align-items: center;
+				gap: 10px;
 				font-family: "Syne", sans-serif;
+				font-size: 1.35rem;
 				font-weight: 800;
-				font-size: 1.5rem;
-				letter-spacing: -0.5px;
-			}
-			.logo span {
-				color: var(--cyan);
+				color: var(--white);
+				text-decoration: none;
+				letter-spacing: -0.02em;
 			}
 
-			nav ul {
-				list-style: none;
+			.logo-icon {
+				width: 32px;
+				height: 32px;
+				background: linear-gradient(135deg, var(--teal), var(--accent));
+				border-radius: 8px;
 				display: flex;
-				gap: 36px;
+				align-items: center;
+				justify-content: center;
 			}
-			nav ul a {
-				color: rgba(240, 250, 255, 0.7);
+
+			.logo-icon svg {
+				width: 18px;
+				height: 18px;
+			}
+
+			.nav-right {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+			}
+
+			.nav-links {
+				display: flex;
+				align-items: center;
+				gap: 28px;
+				margin-right: 24px;
+				list-style: none;
+			}
+
+			.nav-links a {
+				color: var(--gray-300);
 				text-decoration: none;
-				font-size: 0.9rem;
-				letter-spacing: 0.5px;
+				font-size: 0.875rem;
+				font-weight: 500;
 				transition: color 0.2s;
 			}
-			nav ul a:hover {
-				color: var(--cyan);
+			.nav-links a:hover {
+				color: var(--teal-light);
 			}
 
-			.nav-cta {
-				background: var(--cyan);
-				color: var(--deep) !important;
-				font-weight: 500;
-				padding: 10px 24px;
-				border-radius: 4px;
-				transition:
-					background 0.2s,
-					transform 0.2s !important;
+			.lang-btn {
+				display: flex;
+				align-items: center;
+				gap: 5px;
+				padding: 6px 14px;
+				border: 1px solid rgba(26, 157, 200, 0.35);
+				background: transparent;
+				border-radius: 20px;
+				color: var(--gray-300);
+				font-size: 0.8rem;
+				font-weight: 600;
+				font-family: "DM Sans", sans-serif;
+				cursor: pointer;
+				transition: all 0.2s;
+				letter-spacing: 0.03em;
 			}
-			.nav-cta:hover {
-				background: var(--light-cyan);
-				transform: translateY(-1px);
+			.lang-btn:hover,
+			.lang-btn.active {
+				background: var(--teal);
+				border-color: var(--teal);
+				color: var(--white);
 			}
 
-			/* ─── HERO ─── */
+			.flag {
+				font-size: 1rem;
+			}
+
+			.hamburger {
+				display: none;
+				flex-direction: column;
+				gap: 5px;
+				background: none;
+				border: none;
+				cursor: pointer;
+				padding: 4px;
+				margin-left: 12px;
+			}
+			.hamburger span {
+				display: block;
+				width: 24px;
+				height: 2px;
+				background: var(--gray-300);
+				border-radius: 2px;
+				transition: all 0.3s;
+			}
+
+			.mobile-menu {
+				display: none;
+				position: fixed;
+				top: 64px;
+				left: 0;
+				right: 0;
+				background: rgba(10, 22, 40, 0.98);
+				backdrop-filter: blur(12px);
+				border-bottom: 1px solid rgba(26, 157, 200, 0.15);
+				padding: 20px 24px;
+				z-index: 999;
+				flex-direction: column;
+				gap: 16px;
+			}
+			.mobile-menu.open {
+				display: flex;
+			}
+			.mobile-menu a {
+				color: var(--gray-300);
+				text-decoration: none;
+				font-size: 1rem;
+				padding: 8px 0;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+			}
+
+			/* ── HERO ── */
 			.hero {
-				position: relative;
-				z-index: 1;
+				padding-top: 64px;
 				min-height: 100vh;
 				display: flex;
 				align-items: center;
-				padding: 140px 60px 80px;
+				position: relative;
 				overflow: hidden;
 			}
 
-			.hero-fiber {
+			.hero-bg {
+				position: absolute;
+				inset: 0;
+				background:
+					radial-gradient(
+						ellipse 80% 60% at 60% 40%,
+						rgba(26, 157, 200, 0.13) 0%,
+						transparent 70%
+					),
+					radial-gradient(
+						ellipse 50% 80% at 90% 80%,
+						rgba(0, 229, 255, 0.07) 0%,
+						transparent 60%
+					),
+					linear-gradient(
+						160deg,
+						#0a1628 0%,
+						#0d2547 50%,
+						#0a1e35 100%
+					);
+			}
+
+			.grid-lines {
+				position: absolute;
+				inset: 0;
+				background-image:
+					linear-gradient(
+						rgba(26, 157, 200, 0.06) 1px,
+						transparent 1px
+					),
+					linear-gradient(
+						90deg,
+						rgba(26, 157, 200, 0.06) 1px,
+						transparent 1px
+					);
+				background-size: 60px 60px;
+				mask-image: radial-gradient(
+					ellipse 70% 70% at 50% 50%,
+					black 30%,
+					transparent 100%
+				);
+			}
+
+			.fiber-lines {
 				position: absolute;
 				right: 0;
 				top: 0;
-				bottom: 0;
 				width: 55%;
+				height: 100%;
+				opacity: 0.25;
 				pointer-events: none;
 			}
-			.fiber-svg {
-				width: 100%;
-				height: 100%;
-			}
 
-			.hero-content {
-				max-width: 580px;
+			.hero-inner {
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 80px 24px;
 				position: relative;
 				z-index: 2;
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 60px;
+				align-items: center;
 			}
 
-			.hero-badge {
+			.hero-tag {
 				display: inline-flex;
 				align-items: center;
 				gap: 8px;
-				background: var(--glass);
-				border: 1px solid var(--glass-border);
-				border-radius: 100px;
+				background: rgba(26, 157, 200, 0.12);
+				border: 1px solid rgba(26, 157, 200, 0.3);
+				border-radius: 20px;
 				padding: 6px 16px;
-				font-size: 0.78rem;
-				letter-spacing: 1px;
+				font-size: 0.8rem;
+				font-weight: 600;
+				color: var(--teal-light);
+				letter-spacing: 0.08em;
 				text-transform: uppercase;
-				color: var(--cyan);
-				margin-bottom: 28px;
+				margin-bottom: 24px;
 			}
-			.badge-dot {
+
+			.hero-tag::before {
+				content: "";
 				width: 6px;
 				height: 6px;
+				background: var(--accent);
 				border-radius: 50%;
-				background: var(--cyan);
 				animation: pulse 2s infinite;
 			}
+
 			@keyframes pulse {
 				0%,
 				100% {
 					opacity: 1;
+					transform: scale(1);
 				}
 				50% {
-					opacity: 0.3;
+					opacity: 0.5;
+					transform: scale(1.4);
 				}
 			}
 
 			h1 {
 				font-family: "Syne", sans-serif;
-				font-size: clamp(2.8rem, 5.5vw, 4.8rem);
+				font-size: clamp(2.4rem, 5vw, 3.8rem);
 				font-weight: 800;
-				line-height: 1.05;
-				letter-spacing: -2px;
-				margin-bottom: 24px;
+				line-height: 1.1;
+				letter-spacing: -0.03em;
+				margin-bottom: 20px;
 			}
-			h1 em {
-				font-style: normal;
-				color: transparent;
-				-webkit-text-stroke: 1.5px var(--cyan);
+
+			h1 .highlight {
+				background: linear-gradient(
+					90deg,
+					var(--teal-light),
+					var(--accent)
+				);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
 			}
 
 			.hero-desc {
 				font-size: 1.05rem;
+				color: var(--gray-300);
 				line-height: 1.7;
-				color: rgba(240, 250, 255, 0.65);
-				max-width: 460px;
-				margin-bottom: 40px;
+				max-width: 480px;
+				margin-bottom: 36px;
+				font-weight: 300;
 			}
 
-			.hero-btns {
+			.hero-ctas {
 				display: flex;
-				gap: 16px;
+				gap: 14px;
 				flex-wrap: wrap;
 			}
 
 			.btn-primary {
-				background: var(--cyan);
-				color: var(--deep);
-				font-family: "DM Sans", sans-serif;
-				font-weight: 500;
-				font-size: 0.95rem;
-				padding: 14px 32px;
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				padding: 14px 28px;
+				background: linear-gradient(135deg, var(--teal), #0d8baf);
+				color: var(--white);
 				border: none;
-				border-radius: 4px;
+				border-radius: 8px;
+				font-size: 0.95rem;
+				font-weight: 600;
+				font-family: "DM Sans", sans-serif;
 				cursor: pointer;
-				transition: all 0.2s;
 				text-decoration: none;
+				transition: all 0.25s;
+				box-shadow: 0 8px 28px rgba(26, 157, 200, 0.35);
 			}
 			.btn-primary:hover {
-				background: var(--light-cyan);
 				transform: translateY(-2px);
-				box-shadow: 0 12px 30px rgba(0, 200, 232, 0.3);
+				box-shadow: 0 12px 36px rgba(26, 157, 200, 0.5);
 			}
 
 			.btn-outline {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				padding: 14px 28px;
 				background: transparent;
-				color: var(--white);
-				font-family: "DM Sans", sans-serif;
-				font-weight: 400;
+				color: var(--teal-light);
+				border: 1px solid rgba(26, 157, 200, 0.4);
+				border-radius: 8px;
 				font-size: 0.95rem;
-				padding: 13px 32px;
-				border: 1px solid var(--glass-border);
-				border-radius: 4px;
+				font-weight: 500;
+				font-family: "DM Sans", sans-serif;
 				cursor: pointer;
-				transition: all 0.2s;
 				text-decoration: none;
+				transition: all 0.25s;
 			}
 			.btn-outline:hover {
-				border-color: var(--cyan);
-				color: var(--cyan);
+				background: rgba(26, 157, 200, 0.1);
+				border-color: var(--teal);
 			}
 
 			.hero-stats {
-				display: flex;
-				gap: 48px;
-				margin-top: 56px;
-				padding-top: 40px;
-				border-top: 1px solid var(--glass-border);
-			}
-			.stat-num {
-				font-family: "Syne", sans-serif;
-				font-size: 2.2rem;
-				font-weight: 800;
-				color: var(--cyan);
-				line-height: 1;
-			}
-			.stat-label {
-				font-size: 0.8rem;
-				color: rgba(240, 250, 255, 0.5);
-				margin-top: 4px;
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 1px;
+				background: rgba(26, 157, 200, 0.15);
+				border: 1px solid rgba(26, 157, 200, 0.15);
+				border-radius: 12px;
+				overflow: hidden;
+				margin-top: 48px;
 			}
 
-			/* ─── USŁUGI ─── */
-			section {
+			.stat-cell {
+				background: rgba(10, 22, 40, 0.8);
+				padding: 24px 20px;
+				text-align: center;
+			}
+
+			.stat-num {
+				font-family: "Syne", sans-serif;
+				font-size: 2rem;
+				font-weight: 800;
+				background: linear-gradient(
+					135deg,
+					var(--teal-light),
+					var(--accent)
+				);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+				line-height: 1;
+				margin-bottom: 6px;
+			}
+
+			.stat-label {
+				font-size: 0.78rem;
+				color: var(--gray-500);
+				font-weight: 500;
+				letter-spacing: 0.03em;
+			}
+
+			/* Hero visual */
+			.hero-visual {
 				position: relative;
-				z-index: 1;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.network-diagram {
+				width: 100%;
+				max-width: 460px;
+				animation: float 6s ease-in-out infinite;
+			}
+
+			@keyframes float {
+				0%,
+				100% {
+					transform: translateY(0);
+				}
+				50% {
+					transform: translateY(-12px);
+				}
+			}
+
+			/* ── SECTION COMMONS ── */
+			section {
+				padding: 100px 0;
 			}
 
 			.section-inner {
-				padding: 100px 60px;
 				max-width: 1200px;
 				margin: 0 auto;
+				padding: 0 24px;
 			}
 
-			.section-tag {
-				display: inline-block;
+			.section-label {
 				font-size: 0.75rem;
-				letter-spacing: 2px;
+				font-weight: 700;
+				letter-spacing: 0.12em;
 				text-transform: uppercase;
-				color: var(--cyan);
-				margin-bottom: 16px;
+				color: var(--teal);
+				margin-bottom: 12px;
 			}
 
 			h2 {
 				font-family: "Syne", sans-serif;
-				font-size: clamp(2rem, 3.5vw, 3rem);
-				font-weight: 700;
-				letter-spacing: -1px;
+				font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+				font-weight: 800;
+				letter-spacing: -0.02em;
+				line-height: 1.15;
 				margin-bottom: 16px;
 			}
 
 			.section-sub {
-				color: rgba(240, 250, 255, 0.55);
 				font-size: 1rem;
+				color: var(--gray-300);
 				line-height: 1.7;
-				max-width: 500px;
-				margin-bottom: 60px;
+				max-width: 560px;
+				font-weight: 300;
+			}
+
+			/* ── SERVICES ── */
+			#services {
+				background: linear-gradient(
+					180deg,
+					var(--blue-deep) 0%,
+					#0b1f38 100%
+				);
+			}
+
+			.services-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-end;
+				margin-bottom: 56px;
+				gap: 24px;
+				flex-wrap: wrap;
 			}
 
 			.services-grid {
 				display: grid;
 				grid-template-columns: repeat(3, 1fr);
-				gap: 24px;
+				gap: 20px;
 			}
 
 			.service-card {
-				background: var(--glass);
-				border: 1px solid var(--glass-border);
-				border-radius: 12px;
-				padding: 36px 32px;
+				background: rgba(255, 255, 255, 0.03);
+				border: 1px solid rgba(26, 157, 200, 0.15);
+				border-radius: 16px;
+				padding: 32px 28px;
 				transition: all 0.3s;
 				position: relative;
 				overflow: hidden;
 			}
+
 			.service-card::before {
 				content: "";
 				position: absolute;
@@ -368,243 +522,354 @@
 				background: linear-gradient(
 					90deg,
 					transparent,
-					var(--cyan),
+					var(--teal),
 					transparent
 				);
 				opacity: 0;
 				transition: opacity 0.3s;
 			}
+
 			.service-card:hover {
-				background: rgba(0, 200, 232, 0.1);
-				border-color: rgba(0, 200, 232, 0.35);
+				background: rgba(26, 157, 200, 0.06);
+				border-color: rgba(26, 157, 200, 0.35);
 				transform: translateY(-4px);
-				box-shadow: 0 20px 40px rgba(0, 200, 232, 0.1);
+				box-shadow: 0 20px 48px rgba(0, 0, 0, 0.3);
 			}
+
 			.service-card:hover::before {
 				opacity: 1;
 			}
 
 			.service-icon {
-				width: 52px;
-				height: 52px;
-				background: rgba(0, 200, 232, 0.12);
-				border: 1px solid rgba(0, 200, 232, 0.25);
-				border-radius: 10px;
+				width: 48px;
+				height: 48px;
+				background: linear-gradient(
+					135deg,
+					rgba(26, 157, 200, 0.2),
+					rgba(0, 229, 255, 0.1)
+				);
+				border: 1px solid rgba(26, 157, 200, 0.25);
+				border-radius: 12px;
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				margin-bottom: 24px;
-				font-size: 1.5rem;
+				margin-bottom: 20px;
+				font-size: 1.4rem;
 			}
 
 			.service-card h3 {
 				font-family: "Syne", sans-serif;
 				font-size: 1.1rem;
 				font-weight: 700;
-				margin-bottom: 12px;
+				margin-bottom: 10px;
+				letter-spacing: -0.01em;
 			}
 
 			.service-card p {
-				font-size: 0.9rem;
-				color: rgba(240, 250, 255, 0.55);
-				line-height: 1.7;
+				font-size: 0.875rem;
+				color: var(--gray-300);
+				line-height: 1.65;
+				font-weight: 300;
 			}
 
-			/* ─── O NAS ─── */
-			.about-section {
-				background: rgba(7, 30, 52, 0.5);
+			/* ── WHY US ── */
+			#why {
+				background: #0b1f38;
 			}
 
-			.about-inner {
+			.why-grid {
 				display: grid;
 				grid-template-columns: 1fr 1fr;
 				gap: 80px;
 				align-items: center;
-				padding: 100px 60px;
-				max-width: 1200px;
-				margin: 0 auto;
 			}
 
-			.about-visual {
-				position: relative;
-			}
-
-			.about-box {
-				background: var(--glass);
-				border: 1px solid var(--glass-border);
-				border-radius: 16px;
-				padding: 50px;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				min-height: 320px;
-				position: relative;
-				overflow: hidden;
-			}
-
-			.circuit-svg {
-				width: 100%;
-				opacity: 0.8;
-			}
-
-			.about-content h2 {
-				margin-bottom: 20px;
-			}
-
-			.about-text {
-				color: rgba(240, 250, 255, 0.6);
-				line-height: 1.8;
-				margin-bottom: 16px;
-			}
-
-			.about-features {
+			.why-list {
 				list-style: none;
 				display: flex;
 				flex-direction: column;
-				gap: 12px;
-				margin-top: 32px;
+				gap: 20px;
+				margin-top: 36px;
 			}
-			.about-features li {
+
+			.why-item {
 				display: flex;
-				align-items: center;
-				gap: 12px;
-				font-size: 0.95rem;
+				gap: 16px;
+				align-items: flex-start;
 			}
-			.check {
-				width: 22px;
-				height: 22px;
-				background: rgba(0, 200, 232, 0.12);
-				border: 1px solid rgba(0, 200, 232, 0.4);
+
+			.why-check {
+				flex-shrink: 0;
+				width: 28px;
+				height: 28px;
+				background: linear-gradient(135deg, var(--teal), #0d8baf);
 				border-radius: 50%;
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				font-size: 0.7rem;
-				color: var(--cyan);
-				flex-shrink: 0;
+				font-size: 0.75rem;
+				margin-top: 2px;
 			}
 
-			/* ─── PROCES ─── */
-			.process-grid {
+			.why-item-text strong {
+				display: block;
+				font-size: 0.95rem;
+				font-weight: 600;
+				margin-bottom: 4px;
+			}
+
+			.why-item-text span {
+				font-size: 0.85rem;
+				color: var(--gray-300);
+				line-height: 1.6;
+				font-weight: 300;
+			}
+
+			.why-visual {
+				position: relative;
+			}
+
+			.cert-cards {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 16px;
+			}
+
+			.cert-card {
+				background: rgba(255, 255, 255, 0.03);
+				border: 1px solid rgba(26, 157, 200, 0.15);
+				border-radius: 12px;
+				padding: 24px 20px;
+				text-align: center;
+			}
+
+			.cert-card .cert-icon {
+				font-size: 2rem;
+				margin-bottom: 10px;
+			}
+			.cert-card strong {
+				display: block;
+				font-family: "Syne", sans-serif;
+				font-size: 0.9rem;
+				font-weight: 700;
+				margin-bottom: 4px;
+			}
+			.cert-card span {
+				font-size: 0.78rem;
+				color: var(--gray-500);
+			}
+
+			/* ── PROCESS ── */
+			#process {
+				background: linear-gradient(
+					180deg,
+					#0b1f38 0%,
+					var(--blue-deep) 100%
+				);
+			}
+
+			.process-steps {
 				display: grid;
 				grid-template-columns: repeat(4, 1fr);
-				gap: 2px;
+				gap: 0;
+				margin-top: 56px;
 				position: relative;
 			}
 
-			.process-step {
-				background: var(--glass);
-				border: 1px solid var(--glass-border);
-				padding: 36px 28px;
-				position: relative;
-				transition: background 0.3s;
+			.process-steps::before {
+				content: "";
+				position: absolute;
+				top: 28px;
+				left: 12.5%;
+				right: 12.5%;
+				height: 1px;
+				background: linear-gradient(
+					90deg,
+					transparent,
+					var(--teal),
+					var(--teal),
+					transparent
+				);
+				opacity: 0.3;
 			}
-			.process-step:hover {
-				background: rgba(0, 200, 232, 0.08);
+
+			.step {
+				text-align: center;
+				padding: 0 16px;
 			}
 
 			.step-num {
+				width: 56px;
+				height: 56px;
+				background: linear-gradient(135deg, var(--teal), #0d8baf);
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
 				font-family: "Syne", sans-serif;
-				font-size: 3rem;
+				font-size: 1.1rem;
 				font-weight: 800;
-				color: transparent;
-				-webkit-text-stroke: 1px rgba(0, 200, 232, 0.3);
-				line-height: 1;
-				margin-bottom: 20px;
+				margin: 0 auto 20px;
+				position: relative;
+				z-index: 2;
+				box-shadow: 0 0 0 8px rgba(26, 157, 200, 0.1);
 			}
 
-			.process-step h3 {
+			.step h3 {
 				font-family: "Syne", sans-serif;
 				font-size: 1rem;
 				font-weight: 700;
-				margin-bottom: 10px;
+				margin-bottom: 8px;
 			}
 
-			.process-step p {
-				font-size: 0.85rem;
-				color: rgba(240, 250, 255, 0.5);
-				line-height: 1.7;
+			.step p {
+				font-size: 0.82rem;
+				color: var(--gray-300);
+				line-height: 1.6;
+				font-weight: 300;
 			}
 
-			/* ─── CTA ─── */
-			.cta-section {
-				background: linear-gradient(
-					135deg,
-					rgba(10, 77, 140, 0.3) 0%,
-					rgba(0, 200, 232, 0.1) 100%
-				);
-				border-top: 1px solid var(--glass-border);
-				border-bottom: 1px solid var(--glass-border);
+			/* ── CONTACT ── */
+			#contact {
+				background: var(--blue-deep);
 			}
 
-			.cta-inner {
-				max-width: 1200px;
-				margin: 0 auto;
-				padding: 100px 60px;
+			.contact-wrap {
 				display: grid;
-				grid-template-columns: 1fr auto;
-				align-items: center;
-				gap: 60px;
-			}
-
-			.cta-inner h2 {
-				font-size: clamp(2rem, 3vw, 2.8rem);
-			}
-			.cta-inner p {
-				color: rgba(240, 250, 255, 0.55);
-				margin-top: 12px;
-				font-size: 0.95rem;
-			}
-
-			.cta-actions {
-				display: flex;
-				flex-direction: column;
-				gap: 12px;
-				min-width: 220px;
+				grid-template-columns: 1fr 1fr;
+				gap: 80px;
+				align-items: start;
 			}
 
 			.contact-info {
-				font-size: 0.85rem;
-				color: rgba(240, 250, 255, 0.4);
-				text-align: center;
-			}
-			.contact-info a {
-				color: var(--cyan);
-				text-decoration: none;
+				display: flex;
+				flex-direction: column;
+				gap: 24px;
+				margin-top: 36px;
 			}
 
-			/* ─── FOOTER ─── */
+			.contact-item {
+				display: flex;
+				gap: 16px;
+				align-items: flex-start;
+			}
+
+			.contact-icon {
+				width: 44px;
+				height: 44px;
+				background: rgba(26, 157, 200, 0.12);
+				border: 1px solid rgba(26, 157, 200, 0.2);
+				border-radius: 10px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 1.1rem;
+				flex-shrink: 0;
+			}
+
+			.contact-item strong {
+				display: block;
+				font-size: 0.85rem;
+				font-weight: 600;
+				margin-bottom: 2px;
+				color: var(--teal-light);
+			}
+
+			.contact-item span {
+				font-size: 0.9rem;
+				color: var(--gray-300);
+			}
+
+			.contact-form {
+				background: rgba(255, 255, 255, 0.03);
+				border: 1px solid rgba(26, 157, 200, 0.15);
+				border-radius: 16px;
+				padding: 36px;
+			}
+
+			.form-group {
+				margin-bottom: 18px;
+			}
+
+			.form-group label {
+				display: block;
+				font-size: 0.82rem;
+				font-weight: 600;
+				color: var(--gray-300);
+				margin-bottom: 6px;
+				letter-spacing: 0.02em;
+			}
+
+			.form-group input,
+			.form-group textarea,
+			.form-group select {
+				width: 100%;
+				background: rgba(255, 255, 255, 0.05);
+				border: 1px solid rgba(26, 157, 200, 0.2);
+				border-radius: 8px;
+				color: var(--white);
+				padding: 12px 14px;
+				font-family: "DM Sans", sans-serif;
+				font-size: 0.9rem;
+				outline: none;
+				transition:
+					border-color 0.2s,
+					background 0.2s;
+			}
+
+			.form-group input:focus,
+			.form-group textarea:focus,
+			.form-group select:focus {
+				border-color: var(--teal);
+				background: rgba(26, 157, 200, 0.06);
+			}
+
+			.form-group textarea {
+				resize: vertical;
+				min-height: 120px;
+			}
+
+			.form-group select option {
+				background: var(--blue-mid);
+			}
+
+			/* ── FOOTER ── */
 			footer {
-				position: relative;
-				z-index: 1;
-				background: var(--navy);
-				border-top: 1px solid var(--glass-border);
-				padding: 60px 60px 32px;
+				background: #060f1c;
+				border-top: 1px solid rgba(26, 157, 200, 0.1);
+				padding: 48px 0 32px;
+			}
+
+			.footer-inner {
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 0 24px;
 			}
 
 			.footer-top {
 				display: grid;
 				grid-template-columns: 2fr 1fr 1fr 1fr;
-				gap: 60px;
+				gap: 48px;
 				margin-bottom: 48px;
 			}
 
 			.footer-brand p {
-				color: rgba(240, 250, 255, 0.45);
-				font-size: 0.85rem;
+				font-size: 0.875rem;
+				color: var(--gray-500);
 				line-height: 1.7;
 				margin-top: 12px;
 				max-width: 260px;
+				font-weight: 300;
 			}
 
 			.footer-col h4 {
 				font-family: "Syne", sans-serif;
 				font-size: 0.85rem;
 				font-weight: 700;
-				letter-spacing: 1px;
+				letter-spacing: 0.05em;
 				text-transform: uppercase;
-				margin-bottom: 20px;
-				color: var(--cyan);
+				color: var(--teal-light);
+				margin-bottom: 16px;
 			}
 
 			.footer-col ul {
@@ -613,891 +878,1469 @@
 				flex-direction: column;
 				gap: 10px;
 			}
-			.footer-col ul a {
-				color: rgba(240, 250, 255, 0.45);
-				font-size: 0.85rem;
+
+			.footer-col ul li a {
+				color: var(--gray-500);
 				text-decoration: none;
+				font-size: 0.875rem;
 				transition: color 0.2s;
 			}
-			.footer-col ul a:hover {
-				color: var(--white);
+			.footer-col ul li a:hover {
+				color: var(--teal-light);
 			}
 
 			.footer-bottom {
-				border-top: 1px solid var(--glass-border);
-				padding-top: 28px;
+				border-top: 1px solid rgba(255, 255, 255, 0.05);
+				padding-top: 24px;
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
+				flex-wrap: wrap;
+				gap: 12px;
 			}
 
 			.footer-bottom p {
-				color: rgba(240, 250, 255, 0.3);
 				font-size: 0.8rem;
+				color: var(--gray-500);
 			}
 
-			/* ─── FIBER ANIMATION ─── */
-			.fiber-line {
-				stroke-dasharray: 400;
-				stroke-dashoffset: 400;
-				animation: drawLine 3s ease forwards;
-			}
-			@keyframes drawLine {
-				to {
-					stroke-dashoffset: 0;
-				}
-			}
-
-			/* ─── SCROLL FADE ─── */
-			.fade-in {
+			/* ── SCROLL REVEAL ── */
+			.reveal {
 				opacity: 0;
-				transform: translateY(30px);
-				transition: all 0.7s ease;
+				transform: translateY(28px);
+				transition:
+					opacity 0.7s ease,
+					transform 0.7s ease;
 			}
-			.fade-in.visible {
+			.reveal.visible {
 				opacity: 1;
-				transform: none;
+				transform: translateY(0);
 			}
 
+			/* ── RESPONSIVE ── */
 			@media (max-width: 900px) {
-				nav {
-					padding: 16px 24px;
+				.hero-inner {
+					grid-template-columns: 1fr;
+					gap: 40px;
 				}
-				nav ul {
+				.hero-visual {
 					display: none;
-				}
-				.hero {
-					padding: 120px 24px 60px;
-				}
-				.hero-fiber {
-					opacity: 0.3;
-					width: 100%;
-				}
-				.section-inner {
-					padding: 70px 24px;
 				}
 				.services-grid {
-					grid-template-columns: 1fr;
+					grid-template-columns: repeat(2, 1fr);
 				}
-				.about-inner {
+				.why-grid {
 					grid-template-columns: 1fr;
-					padding: 70px 24px;
+					gap: 40px;
 				}
-				.about-visual {
+				.process-steps {
+					grid-template-columns: repeat(2, 1fr);
+					gap: 32px;
+				}
+				.process-steps::before {
 					display: none;
 				}
-				.process-grid {
-					grid-template-columns: 1fr 1fr;
-				}
-				.cta-inner {
+				.contact-wrap {
 					grid-template-columns: 1fr;
-					padding: 70px 24px;
+					gap: 40px;
 				}
 				.footer-top {
 					grid-template-columns: 1fr 1fr;
 					gap: 32px;
-					padding: 0 0;
 				}
-				footer {
-					padding: 48px 24px 24px;
+				.nav-links {
+					display: none;
+				}
+			}
+
+			@media (max-width: 600px) {
+				section {
+					padding: 72px 0;
+				}
+				.services-grid {
+					grid-template-columns: 1fr;
+				}
+				.hero-stats {
+					grid-template-columns: 1fr;
+				}
+				.cert-cards {
+					grid-template-columns: 1fr;
+				}
+				.footer-top {
+					grid-template-columns: 1fr;
+					gap: 28px;
+				}
+				.hamburger {
+					display: flex;
 				}
 				.footer-bottom {
 					flex-direction: column;
-					gap: 12px;
+					text-align: center;
 				}
-				.hero-stats {
-					gap: 28px;
+				.lang-btn span:last-child {
+					display: none;
 				}
 			}
 		</style>
 	</head>
 	<body>
-		<div class="bg-grid"></div>
-		<div class="bg-glow"></div>
-		<div class="bg-glow2"></div>
-
-		<!-- NAV -->
-		<nav>
-			<div class="logo">ENEV<span>TECH</span></div>
-			<ul>
-				<li><a href="#uslugi">Usługi</a></li>
-				<li><a href="#o-nas">O nas</a></li>
-				<li><a href="#proces">Proces</a></li>
-				<li><a href="#kontakt" class="nav-cta">Kontakt</a></li>
-			</ul>
-		</nav>
-
-		<!-- HERO -->
-		<section class="hero">
-			<div class="hero-fiber" aria-hidden="true">
-				<svg
-					class="fiber-svg"
-					viewBox="0 0 700 800"
-					fill="none"
-					xmlns="http://www.w3.org/2000/svg"
-				>
-					<!-- Fiber optic cables abstract art -->
-					<path
-						d="M600 0 Q 500 200 450 400 Q 400 600 500 800"
-						stroke="url(#fiber1)"
-						stroke-width="2"
-						fill="none"
-						class="fiber-line"
-						style="animation-delay: 0s"
-					/>
-					<path
-						d="M650 0 Q 520 250 480 450 Q 450 600 560 800"
-						stroke="url(#fiber2)"
-						stroke-width="1.5"
-						fill="none"
-						class="fiber-line"
-						style="animation-delay: 0.3s"
-					/>
-					<path
-						d="M580 0 Q 460 180 420 380 Q 380 580 460 800"
-						stroke="url(#fiber3)"
-						stroke-width="1"
-						fill="none"
-						class="fiber-line"
-						style="animation-delay: 0.6s"
-					/>
-					<path
-						d="M700 100 Q 600 300 560 500 Q 520 680 620 800"
-						stroke="url(#fiber4)"
-						stroke-width="1.5"
-						fill="none"
-						class="fiber-line"
-						style="animation-delay: 0.2s"
-					/>
-					<path
-						d="M550 0 Q 440 200 400 430 Q 370 620 420 800"
-						stroke="url(#fiber5)"
-						stroke-width="1"
-						fill="none"
-						class="fiber-line"
-						style="animation-delay: 0.8s"
-					/>
-					<path
-						d="M680 0 Q 580 220 540 460 Q 500 670 580 800"
-						stroke="url(#fiber6)"
-						stroke-width="0.8"
-						fill="none"
-						class="fiber-line"
-						style="animation-delay: 1s"
-					/>
-
-					<!-- Glowing nodes -->
-					<circle
-						cx="450"
-						cy="400"
-						r="6"
-						fill="#00c8e8"
-						opacity="0.8"
-					>
-						<animate
-							attributeName="opacity"
-							values="0.8;0.2;0.8"
-							dur="2s"
-							repeatCount="indefinite"
-						/>
-						<animate
-							attributeName="r"
-							values="6;10;6"
-							dur="2s"
-							repeatCount="indefinite"
-						/>
-					</circle>
-					<circle
-						cx="480"
-						cy="450"
-						r="4"
-						fill="#00c8e8"
-						opacity="0.6"
-					>
-						<animate
-							attributeName="opacity"
-							values="0.6;0.1;0.6"
-							dur="2.5s"
-							repeatCount="indefinite"
-						/>
-					</circle>
-					<circle
-						cx="560"
-						cy="500"
-						r="5"
-						fill="#5ee8ff"
-						opacity="0.7"
-					>
-						<animate
-							attributeName="opacity"
-							values="0.7;0.2;0.7"
-							dur="1.8s"
-							repeatCount="indefinite"
-						/>
-					</circle>
-					<circle
-						cx="420"
-						cy="380"
-						r="3"
-						fill="#00c8e8"
-						opacity="0.5"
-					>
-						<animate
-							attributeName="opacity"
-							values="0.5;0.1;0.5"
-							dur="3s"
-							repeatCount="indefinite"
-						/>
-					</circle>
-
-					<!-- Data packet animations -->
-					<circle r="3" fill="#00c8e8" opacity="0.9">
-						<animateMotion
-							dur="4s"
-							repeatCount="indefinite"
-							path="M600 0 Q 500 200 450 400 Q 400 600 500 800"
-						/>
-						<animate
-							attributeName="opacity"
-							values="0;1;1;0"
-							dur="4s"
-							repeatCount="indefinite"
-						/>
-					</circle>
-					<circle r="2" fill="#5ee8ff" opacity="0.7">
-						<animateMotion
-							dur="5s"
-							repeatCount="indefinite"
-							begin="1.5s"
-							path="M650 0 Q 520 250 480 450 Q 450 600 560 800"
-						/>
-						<animate
-							attributeName="opacity"
-							values="0;0.8;0.8;0"
-							dur="5s"
-							repeatCount="indefinite"
-							begin="1.5s"
-						/>
-					</circle>
-					<circle r="2.5" fill="#00c8e8" opacity="0.8">
-						<animateMotion
-							dur="3.5s"
-							repeatCount="indefinite"
-							begin="0.8s"
-							path="M700 100 Q 600 300 560 500 Q 520 680 620 800"
-						/>
-					</circle>
-
-					<defs>
-						<linearGradient
-							id="fiber1"
-							x1="0%"
-							y1="0%"
-							x2="0%"
-							y2="100%"
-						>
-							<stop
-								offset="0%"
-								stop-color="#00c8e8"
-								stop-opacity="0.8"
-							/>
-							<stop
-								offset="100%"
-								stop-color="#0a4d8c"
-								stop-opacity="0.2"
-							/>
-						</linearGradient>
-						<linearGradient
-							id="fiber2"
-							x1="0%"
-							y1="0%"
-							x2="0%"
-							y2="100%"
-						>
-							<stop
-								offset="0%"
-								stop-color="#5ee8ff"
-								stop-opacity="0.6"
-							/>
-							<stop
-								offset="100%"
-								stop-color="#1a6eb5"
-								stop-opacity="0.1"
-							/>
-						</linearGradient>
-						<linearGradient
-							id="fiber3"
-							x1="0%"
-							y1="0%"
-							x2="0%"
-							y2="100%"
-						>
-							<stop
-								offset="0%"
-								stop-color="#00c8e8"
-								stop-opacity="0.4"
-							/>
-							<stop
-								offset="100%"
-								stop-color="#0a4d8c"
-								stop-opacity="0"
-							/>
-						</linearGradient>
-						<linearGradient
-							id="fiber4"
-							x1="0%"
-							y1="0%"
-							x2="0%"
-							y2="100%"
-						>
-							<stop
-								offset="0%"
-								stop-color="#1a6eb5"
-								stop-opacity="0.7"
-							/>
-							<stop
-								offset="100%"
-								stop-color="#00c8e8"
-								stop-opacity="0.2"
-							/>
-						</linearGradient>
-						<linearGradient
-							id="fiber5"
-							x1="0%"
-							y1="0%"
-							x2="0%"
-							y2="100%"
-						>
-							<stop
-								offset="0%"
-								stop-color="#5ee8ff"
-								stop-opacity="0.3"
-							/>
-							<stop
-								offset="100%"
-								stop-color="#0a4d8c"
-								stop-opacity="0.1"
-							/>
-						</linearGradient>
-						<linearGradient
-							id="fiber6"
-							x1="0%"
-							y1="0%"
-							x2="0%"
-							y2="100%"
-						>
-							<stop
-								offset="0%"
-								stop-color="#00c8e8"
-								stop-opacity="0.5"
-							/>
-							<stop
-								offset="100%"
-								stop-color="#1a6eb5"
-								stop-opacity="0"
-							/>
-						</linearGradient>
-					</defs>
-				</svg>
-			</div>
-
-			<div class="hero-content">
-				<div class="hero-badge">
-					<span class="badge-dot"></span>
-					Profesjonalne sieci światłowodowe
-				</div>
-				<h1>Budujemy<br /><em>Szybkość</em><br />Przyszłości</h1>
-				<p class="hero-desc">
-					Kompleksowa budowa, instalacja i serwis sieci
-					światłowodowych dla firm, deweloperów i samorządów.
-					Gwarantujemy najwyższą jakość wykonania.
-				</p>
-				<div class="hero-btns">
-					<a href="#kontakt" class="btn-primary">Bezpłatna wycena</a>
-					<a href="#uslugi" class="btn-outline">Nasze usługi</a>
-				</div>
-				<div class="hero-stats">
-					<div>
-						<div class="stat-num">850+</div>
-						<div class="stat-label">Km ułożonego kabla</div>
-					</div>
-					<div>
-						<div class="stat-num">320</div>
-						<div class="stat-label">Zrealizowanych projektów</div>
-					</div>
-					<div>
-						<div class="stat-num">5 lat</div>
-						<div class="stat-label">Doświadczenia</div>
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<!-- USŁUGI -->
-		<section id="uslugi">
-			<div class="section-inner">
-				<span class="section-tag">Co oferujemy</span>
-				<h2>Kompleksowe Usługi<br />Światłowodowe</h2>
-				<p class="section-sub">
-					Od projektu po odbiór techniczny — realizujemy każdy etap
-					inwestycji w infrastrukturę sieciową.
-				</p>
-
-				<div class="services-grid">
-					<div class="service-card fade-in">
-						<div class="service-icon">🔧</div>
-						<h3>Budowa Infrastruktury</h3>
-						<p>
-							Projektowanie i budowa sieci szkieletowych,
-							dystrybucyjnych i dostępowych. Kompleksowa
-							realizacja od wykopu po spawanie.
-						</p>
-					</div>
-					<div
-						class="service-card fade-in"
-						style="transition-delay: 0.1s"
-					>
-						<div class="service-icon">🏗️</div>
-						<h3>Instalacje w Budynkach</h3>
-						<p>
-							Okablowanie wewnętrzne FTTH/FTTB. Instalacje w
-							biurowcach, halach przemysłowych i kompleksach
-							mieszkaniowych.
-						</p>
-					</div>
-					<div
-						class="service-card fade-in"
-						style="transition-delay: 0.2s"
-					>
-						<div class="service-icon">📡</div>
-						<h3>Sieci Telekomunikacyjne</h3>
-						<p>
-							Budowa sieci dla operatorów telekomunikacyjnych.
-							Integracja z istniejącą infrastrukturą i systemami
-							zarządzania siecią.
-						</p>
-					</div>
-					<div
-						class="service-card fade-in"
-						style="transition-delay: 0.3s"
-					>
-						<div class="service-icon">⚙️</div>
-						<h3>Spawanie Optyczne</h3>
-						<p>
-							Precyzyjne spawanie włókien optycznych z pomiarem
-							OTDR. Certyfikowane spawarki i doświadczeni
-							technicy.
-						</p>
-					</div>
-					<div
-						class="service-card fade-in"
-						style="transition-delay: 0.4s"
-					>
-						<div class="service-icon">📋</div>
-						<h3>Projektowanie Sieci</h3>
-						<p>
-							Kompleksowe projekty techniczne i budowlane.
-							Uzgodnienia z gestorami sieci, opracowanie
-							dokumentacji powykonawczej.
-						</p>
-					</div>
-					<div
-						class="service-card fade-in"
-						style="transition-delay: 0.5s"
-					>
-						<div class="service-icon">🔍</div>
-						<h3>Serwis i Pomiary</h3>
-						<p>
-							Lokalizacja uszkodzeń, pomiary reflektometryczne
-							OTDR, okresowe przeglądy techniczne i usuwanie
-							awarii 24/7.
-						</p>
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<!-- O NAS -->
-		<section id="o-nas" class="about-section">
-			<div class="about-inner">
-				<div class="about-visual">
-					<div class="about-box">
+		<!-- ── NAV ── -->
+		<header class="lang-bar">
+			<div class="lang-bar-inner">
+				<a href="#" class="logo">
+					<div class="logo-icon">
 						<svg
-							class="circuit-svg"
-							viewBox="0 0 400 300"
+							viewBox="0 0 24 24"
 							fill="none"
-							xmlns="http://www.w3.org/2000/svg"
+							stroke="white"
+							stroke-width="2.5"
+							stroke-linecap="round"
 						>
-							<!-- Circuit board pattern -->
-							<line
-								x1="50"
-								y1="150"
-								x2="150"
-								y2="150"
-								stroke="#00c8e8"
-								stroke-width="1.5"
-								opacity="0.6"
+							<circle cx="12" cy="12" r="3" />
+							<path
+								d="M12 2v4M12 18v4M2 12h4M18 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M5.6 18.4l2.8-2.8M15.6 8.4l2.8-2.8"
 							/>
-							<line
-								x1="150"
-								y1="150"
-								x2="150"
-								y2="80"
-								stroke="#00c8e8"
-								stroke-width="1.5"
-								opacity="0.6"
-							/>
-							<line
-								x1="150"
-								y1="80"
-								x2="250"
-								y2="80"
-								stroke="#00c8e8"
-								stroke-width="1.5"
-								opacity="0.6"
-							/>
-							<line
-								x1="250"
-								y1="80"
-								x2="250"
-								y2="150"
-								stroke="#00c8e8"
-								stroke-width="1.5"
-								opacity="0.6"
-							/>
-							<line
-								x1="250"
-								y1="150"
-								x2="350"
-								y2="150"
-								stroke="#00c8e8"
-								stroke-width="1.5"
-								opacity="0.6"
-							/>
-							<line
-								x1="150"
-								y1="150"
-								x2="150"
-								y2="220"
-								stroke="#1a6eb5"
-								stroke-width="1.5"
-								opacity="0.5"
-							/>
-							<line
-								x1="150"
-								y1="220"
-								x2="250"
-								y2="220"
-								stroke="#1a6eb5"
-								stroke-width="1.5"
-								opacity="0.5"
-							/>
-							<line
-								x1="250"
-								y1="220"
-								x2="250"
-								y2="150"
-								stroke="#1a6eb5"
-								stroke-width="1.5"
-								opacity="0.5"
-							/>
-							<line
-								x1="100"
-								y1="150"
-								x2="100"
-								y2="50"
-								stroke="#0a4d8c"
-								stroke-width="1"
-								opacity="0.4"
-							/>
-							<line
-								x1="300"
-								y1="150"
-								x2="300"
-								y2="250"
-								stroke="#0a4d8c"
-								stroke-width="1"
-								opacity="0.4"
-							/>
-							<!-- Nodes -->
-							<circle
-								cx="150"
-								cy="150"
-								r="8"
-								fill="#00c8e8"
-								opacity="0.8"
-							/>
-							<circle
-								cx="250"
-								cy="150"
-								r="8"
-								fill="#00c8e8"
-								opacity="0.8"
-							/>
-							<circle
-								cx="150"
-								cy="80"
-								r="5"
-								fill="#5ee8ff"
-								opacity="0.7"
-							/>
-							<circle
-								cx="250"
-								cy="80"
-								r="5"
-								fill="#5ee8ff"
-								opacity="0.7"
-							/>
-							<circle
-								cx="150"
-								cy="220"
-								r="5"
-								fill="#1a6eb5"
-								opacity="0.7"
-							/>
-							<circle
-								cx="250"
-								cy="220"
-								r="5"
-								fill="#1a6eb5"
-								opacity="0.7"
-							/>
-							<!-- Center element -->
-							<rect
-								x="165"
-								y="130"
-								width="70"
-								height="40"
-								rx="4"
-								fill="none"
-								stroke="#00c8e8"
-								stroke-width="1.5"
-								opacity="0.8"
-							/>
-							<text
-								x="200"
-								y="154"
-								text-anchor="middle"
-								fill="#00c8e8"
-								font-size="10"
-								font-family="monospace"
-								opacity="0.9"
-							>
-								ENEV.TECH
-							</text>
-							<!-- Moving data -->
-							<circle r="3" fill="#00c8e8" opacity="0.9">
-								<animateMotion
-									dur="3s"
-									repeatCount="indefinite"
-									path="M50 150 L150 150 L150 80 L250 80 L250 150 L350 150"
-								/>
-							</circle>
-							<circle r="2" fill="#5ee8ff" opacity="0.7">
-								<animateMotion
-									dur="4s"
-									repeatCount="indefinite"
-									begin="1s"
-									path="M150 220 L250 220 L250 150 L150 150 L150 220"
-								/>
-							</circle>
 						</svg>
 					</div>
-				</div>
+					ENEV.TECH
+				</a>
 
-				<div class="about-content fade-in">
-					<span class="section-tag">O Firmie</span>
-					<h2>5 Lat<br />Doświadczenia</h2>
-					<p class="about-text">
-						ENEV.TECH to zespół doświadczonych techników
-						specjalizujących się w budowie sieci światłowodowych. Od
-						2020 roku realizujemy projekty dla operatorów telekomów,
-						samorządów i przedsiębiorstw w całej Polsce.
-					</p>
-					<p class="about-text">
-						Posiadamy pełne zaplecze techniczne, flotę pojazdów
-						specjalistycznych oraz certyfikowanych spawaczy z
-						wieloletnim doświadczeniem w pracy ze złączami
-						optycznymi.
-					</p>
-					<ul class="about-features">
+				<div class="nav-right">
+					<ul class="nav-links">
 						<li>
-							<span class="check">✓</span> Certyfikat ISO
-							9001:2015 i uprawnienia budowlane
+							<a href="#services" data-i18n="nav_services"
+								>Usługi</a
+							>
+						</li>
+						<li><a href="#why" data-i18n="nav_why">O nas</a></li>
+						<li>
+							<a href="#process" data-i18n="nav_process"
+								>Realizacja</a
+							>
 						</li>
 						<li>
-							<span class="check">✓</span> Autoryzowany partner
-							Corning i Prysmian Group
-						</li>
-						<li>
-							<span class="check">✓</span> Własny sprzęt pomiarowy
-							— reflektometry OTDR
-						</li>
-						<li>
-							<span class="check">✓</span> Pogotowie techniczne
-							24/7 przez cały rok
-						</li>
-						<li>
-							<span class="check">✓</span> Realizacje na terenie
-							całej Polski i Niemiec
+							<a href="#contact" data-i18n="nav_contact"
+								>Kontakt</a
+							>
 						</li>
 					</ul>
+					<button class="lang-btn active" onclick="setLang('pl')">
+						<span class="flag">🇵🇱</span> <span>PL</span>
+					</button>
+					<button class="lang-btn" onclick="setLang('en')">
+						<span class="flag">🇬🇧</span> <span>EN</span>
+					</button>
+					<button class="lang-btn" onclick="setLang('de')">
+						<span class="flag">🇩🇪</span> <span>DE</span>
+					</button>
+					<button
+						class="hamburger"
+						onclick="toggleMenu()"
+						aria-label="Menu"
+					>
+						<span></span><span></span><span></span>
+					</button>
 				</div>
 			</div>
-		</section>
+		</header>
 
-		<!-- PROCES -->
-		<section id="proces">
-			<div class="section-inner">
-				<span class="section-tag">Jak pracujemy</span>
-				<h2>Nasz Proces Realizacji</h2>
-				<p class="section-sub">
-					Każdy projekt prowadzimy przez cztery etapy zapewniające
-					najwyższą jakość i terminowość.
-				</p>
+		<div class="mobile-menu" id="mobileMenu">
+			<a href="#services" onclick="toggleMenu()" data-i18n="nav_services"
+				>Usługi</a
+			>
+			<a href="#why" onclick="toggleMenu()" data-i18n="nav_why">O nas</a>
+			<a href="#process" onclick="toggleMenu()" data-i18n="nav_process"
+				>Realizacja</a
+			>
+			<a href="#contact" onclick="toggleMenu()" data-i18n="nav_contact"
+				>Kontakt</a
+			>
+		</div>
 
-				<div class="process-grid">
-					<div class="process-step fade-in">
-						<div class="step-num">01</div>
-						<h3>Analiza & Projekt</h3>
-						<p>
-							Oględziny terenu, inwentaryzacja infrastruktury,
-							opracowanie projektu technicznego i kosztorysu.
-						</p>
-					</div>
-					<div
-						class="process-step fade-in"
-						style="transition-delay: 0.15s"
-					>
-						<div class="step-num">02</div>
-						<h3>Uzgodnienia</h3>
-						<p>
-							Pozyskanie decyzji administracyjnych, uzgodnienia z
-							gestorami sieci i właścicielami terenów.
-						</p>
-					</div>
-					<div
-						class="process-step fade-in"
-						style="transition-delay: 0.3s"
-					>
-						<div class="step-num">03</div>
-						<h3>Realizacja</h3>
-						<p>
-							Roboty ziemne, układanie kabli, spawanie włókien,
-							montaż szaf i urządzeń aktywnych.
-						</p>
-					</div>
-					<div
-						class="process-step fade-in"
-						style="transition-delay: 0.45s"
-					>
-						<div class="step-num">04</div>
-						<h3>Odbiór & Serwis</h3>
-						<p>
-							Pomiary OTDR, dokumentacja powykonawcza, szkolenie
-							personelu i kontrakt serwisowy.
-						</p>
-					</div>
-				</div>
-			</div>
-		</section>
+		<!-- ── HERO ── -->
+		<section class="hero" id="home">
+			<div class="hero-bg"></div>
+			<div class="grid-lines"></div>
 
-		<!-- CTA -->
-		<section id="kontakt" class="cta-section">
-			<div class="cta-inner">
-				<div>
-					<h2>Gotowi na<br />szybką sieć?</h2>
-					<p>
-						Skontaktuj się z nami — przygotujemy bezpłatną wycenę i
-						harmonogram prac w ciągu 48 godzin.
+			<div class="hero-inner">
+				<div class="hero-content">
+					<div class="hero-tag" data-i18n="hero_tag">
+						Specjaliści od sieci światłowodowych
+					</div>
+					<h1>
+						<span data-i18n="hero_h1a">Budujemy</span><br />
+						<span class="highlight" data-i18n="hero_h1b"
+							>Sieci Przyszłości</span
+						><br />
+						<span data-i18n="hero_h1c">dla Twojego biznesu</span>
+					</h1>
+					<p class="hero-desc" data-i18n="hero_desc">
+						Projektujemy i realizujemy infrastrukturę światłowodową
+						najwyższej klasy. Od audytu po serwis — jesteśmy z Tobą
+						na każdym etapie.
 					</p>
-				</div>
-				<div class="cta-actions">
-					<a
-						href="mailto:kontakt@.pl"
-						class="btn-primary"
-						style="text-align: center"
-						>Napisz do nas</a
-					>
-					<a
-						href="tel:+48100100200"
-						class="btn-outline"
-						style="text-align: center"
-						>+48 100 100 200</a
-					>
-					<div class="contact-info">
-						lub wyślij zapytanie na<br /><a href="mailto:mail@.pl"
-							>mail@.pl</a
+					<div class="hero-ctas">
+						<a
+							href="#contact"
+							class="btn-primary"
+							data-i18n="hero_cta1"
 						>
+							✦ Bezpłatna wycena
+						</a>
+						<a
+							href="#services"
+							class="btn-outline"
+							data-i18n="hero_cta2"
+						>
+							Nasze usługi →
+						</a>
+					</div>
+				</div>
+
+				<div class="hero-visual">
+					<svg
+						class="network-diagram"
+						viewBox="0 0 460 420"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<!-- Background glow -->
+						<ellipse
+							cx="230"
+							cy="210"
+							rx="200"
+							ry="180"
+							fill="rgba(26,157,200,0.05)"
+						/>
+
+						<!-- Fiber lines -->
+						<path
+							d="M80 200 C 140 160, 180 140, 230 130"
+							stroke="url(#grad1)"
+							stroke-width="2"
+							opacity="0.7"
+						/>
+						<path
+							d="M80 200 C 100 230, 140 250, 230 270"
+							stroke="url(#grad1)"
+							stroke-width="2"
+							opacity="0.7"
+						/>
+						<path
+							d="M380 180 C 320 150, 290 140, 230 130"
+							stroke="url(#grad2)"
+							stroke-width="2"
+							opacity="0.7"
+						/>
+						<path
+							d="M380 240 C 320 260, 280 268, 230 270"
+							stroke="url(#grad2)"
+							stroke-width="2"
+							opacity="0.7"
+						/>
+						<path
+							d="M230 130 L 230 270"
+							stroke="url(#grad1)"
+							stroke-width="2.5"
+							opacity="0.8"
+						/>
+						<path
+							d="M230 200 L 80 200"
+							stroke="url(#grad1)"
+							stroke-width="1.5"
+							stroke-dasharray="4 4"
+							opacity="0.4"
+						/>
+						<path
+							d="M230 200 L 380 200"
+							stroke="url(#grad2)"
+							stroke-width="1.5"
+							stroke-dasharray="4 4"
+							opacity="0.4"
+						/>
+
+						<!-- Extra branches -->
+						<path
+							d="M230 200 L 160 100"
+							stroke="rgba(26,157,200,0.4)"
+							stroke-width="1.5"
+							stroke-dasharray="4 4"
+						/>
+						<path
+							d="M230 200 L 300 320"
+							stroke="rgba(26,157,200,0.4)"
+							stroke-width="1.5"
+							stroke-dasharray="4 4"
+						/>
+						<path
+							d="M230 200 L 140 330"
+							stroke="rgba(26,157,200,0.3)"
+							stroke-width="1"
+							stroke-dasharray="3 5"
+						/>
+						<path
+							d="M230 200 L 320 90"
+							stroke="rgba(26,157,200,0.3)"
+							stroke-width="1"
+							stroke-dasharray="3 5"
+						/>
+
+						<!-- Animated pulses -->
+						<circle r="4" fill="#00e5ff" opacity="0.9">
+							<animateMotion dur="3s" repeatCount="indefinite">
+								<mpath href="#pulse1" />
+							</animateMotion>
+						</circle>
+						<circle r="3" fill="#35c4ef" opacity="0.7">
+							<animateMotion
+								dur="4s"
+								repeatCount="indefinite"
+								begin="1s"
+							>
+								<mpath href="#pulse2" />
+							</animateMotion>
+						</circle>
+						<circle r="3.5" fill="#00e5ff" opacity="0.8">
+							<animateMotion
+								dur="3.5s"
+								repeatCount="indefinite"
+								begin="0.5s"
+							>
+								<mpath href="#pulse3" />
+							</animateMotion>
+						</circle>
+
+						<path
+							id="pulse1"
+							d="M80 200 C 140 160, 180 140, 230 130 L 230 270 C 280 268, 320 260, 380 240"
+							fill="none"
+						/>
+						<path
+							id="pulse2"
+							d="M380 180 C 320 150, 290 140, 230 130 C 180 140, 140 160, 80 200"
+							fill="none"
+						/>
+						<path
+							id="pulse3"
+							d="M230 200 L 160 100 M 230 200 L 300 320"
+							fill="none"
+						/>
+
+						<!-- Nodes -->
+						<!-- Central hub -->
+						<circle
+							cx="230"
+							cy="200"
+							r="22"
+							fill="rgba(26,157,200,0.15)"
+							stroke="rgba(26,157,200,0.6)"
+							stroke-width="2"
+						/>
+						<circle
+							cx="230"
+							cy="200"
+							r="12"
+							fill="rgba(26,157,200,0.3)"
+							stroke="var(--teal)"
+							stroke-width="1.5"
+						/>
+						<circle cx="230" cy="200" r="5" fill="#00e5ff" />
+
+						<!-- Secondary nodes -->
+						<circle
+							cx="80"
+							cy="200"
+							r="14"
+							fill="rgba(26,157,200,0.1)"
+							stroke="rgba(26,157,200,0.4)"
+							stroke-width="1.5"
+						/>
+						<circle
+							cx="80"
+							cy="200"
+							r="6"
+							fill="rgba(26,157,200,0.6)"
+						/>
+
+						<circle
+							cx="380"
+							cy="180"
+							r="14"
+							fill="rgba(26,157,200,0.1)"
+							stroke="rgba(26,157,200,0.4)"
+							stroke-width="1.5"
+						/>
+						<circle
+							cx="380"
+							cy="180"
+							r="6"
+							fill="rgba(26,157,200,0.6)"
+						/>
+
+						<circle
+							cx="380"
+							cy="240"
+							r="12"
+							fill="rgba(26,157,200,0.1)"
+							stroke="rgba(26,157,200,0.35)"
+							stroke-width="1.5"
+						/>
+						<circle
+							cx="380"
+							cy="240"
+							r="5"
+							fill="rgba(26,157,200,0.5)"
+						/>
+
+						<circle
+							cx="230"
+							cy="130"
+							r="12"
+							fill="rgba(26,157,200,0.1)"
+							stroke="rgba(26,157,200,0.35)"
+							stroke-width="1.5"
+						/>
+						<circle
+							cx="230"
+							cy="130"
+							r="5"
+							fill="rgba(26,157,200,0.5)"
+						/>
+
+						<circle
+							cx="230"
+							cy="270"
+							r="12"
+							fill="rgba(26,157,200,0.1)"
+							stroke="rgba(26,157,200,0.35)"
+							stroke-width="1.5"
+						/>
+						<circle
+							cx="230"
+							cy="270"
+							r="5"
+							fill="rgba(26,157,200,0.5)"
+						/>
+
+						<!-- Small leaf nodes -->
+						<circle
+							cx="160"
+							cy="100"
+							r="8"
+							fill="rgba(0,229,255,0.15)"
+							stroke="rgba(0,229,255,0.4)"
+							stroke-width="1"
+						/>
+						<circle
+							cx="300"
+							cy="320"
+							r="8"
+							fill="rgba(0,229,255,0.15)"
+							stroke="rgba(0,229,255,0.4)"
+							stroke-width="1"
+						/>
+						<circle
+							cx="140"
+							cy="330"
+							r="6"
+							fill="rgba(0,229,255,0.1)"
+							stroke="rgba(0,229,255,0.3)"
+							stroke-width="1"
+						/>
+						<circle
+							cx="320"
+							cy="90"
+							r="6"
+							fill="rgba(0,229,255,0.1)"
+							stroke="rgba(0,229,255,0.3)"
+							stroke-width="1"
+						/>
+
+						<!-- Ring pulse around center -->
+						<circle
+							cx="230"
+							cy="200"
+							r="32"
+							fill="none"
+							stroke="rgba(26,157,200,0.15)"
+							stroke-width="1"
+						>
+							<animate
+								attributeName="r"
+								values="22;42;22"
+								dur="3s"
+								repeatCount="indefinite"
+							/>
+							<animate
+								attributeName="opacity"
+								values="0.5;0;0.5"
+								dur="3s"
+								repeatCount="indefinite"
+							/>
+						</circle>
+
+						<!-- Labels -->
+						<text
+							x="46"
+							y="222"
+							font-size="9"
+							fill="rgba(176,200,216,0.7)"
+							font-family="sans-serif"
+						>
+							Node A
+						</text>
+						<text
+							x="348"
+							y="172"
+							font-size="9"
+							fill="rgba(176,200,216,0.7)"
+							font-family="sans-serif"
+						>
+							Node B
+						</text>
+						<text
+							x="348"
+							y="258"
+							font-size="9"
+							fill="rgba(176,200,216,0.7)"
+							font-family="sans-serif"
+						>
+							Node C
+						</text>
+						<text
+							x="200"
+							y="122"
+							font-size="9"
+							fill="rgba(176,200,216,0.7)"
+							font-family="sans-serif"
+						>
+							HUB
+						</text>
+						<text
+							x="204"
+							y="292"
+							font-size="9"
+							fill="rgba(176,200,216,0.7)"
+							font-family="sans-serif"
+						>
+							HUB 2
+						</text>
+
+						<defs>
+							<linearGradient
+								id="grad1"
+								x1="0%"
+								y1="0%"
+								x2="100%"
+								y2="0%"
+							>
+								<stop offset="0%" stop-color="#1a9dc8" />
+								<stop offset="100%" stop-color="#00e5ff" />
+							</linearGradient>
+							<linearGradient
+								id="grad2"
+								x1="100%"
+								y1="0%"
+								x2="0%"
+								y2="0%"
+							>
+								<stop offset="0%" stop-color="#1a9dc8" />
+								<stop offset="100%" stop-color="#00e5ff" />
+							</linearGradient>
+						</defs>
+					</svg>
+				</div>
+			</div>
+
+			<div
+				style="
+					max-width: 1200px;
+					margin: 0 auto;
+					padding: 0 24px 80px;
+					position: relative;
+					z-index: 2;
+				"
+			>
+				<div class="hero-stats reveal">
+					<div class="stat-cell">
+						<div class="stat-num">100+</div>
+						<div class="stat-label" data-i18n="stat1">
+							Zrealizowanych projektów
+						</div>
+					</div>
+					<div class="stat-cell">
+						<div class="stat-num">5 lat</div>
+						<div class="stat-label" data-i18n="stat2">
+							Doświadczenia na rynku
+						</div>
+					</div>
+					<div class="stat-cell">
+						<div class="stat-num">99.9%</div>
+						<div class="stat-label" data-i18n="stat3">
+							Gwarantowana dostępność
+						</div>
 					</div>
 				</div>
 			</div>
 		</section>
 
-		<!-- FOOTER -->
-		<footer>
-			<div class="footer-top">
-				<div class="footer-brand">
-					<div class="logo">ENEV<span>TECH</span></div>
-					<p>
-						Profesjonalna budowa i serwis sieci światłowodowych dla
-						firm, operatorów i samorządów na terenie Polski i
-						Europy.
+		<!-- ── SERVICES ── -->
+		<section id="services">
+			<div class="section-inner">
+				<div class="services-header reveal">
+					<div>
+						<div class="section-label" data-i18n="services_label">
+							Co oferujemy
+						</div>
+						<h2 data-i18n="services_h2">
+							Kompleksowe usługi<br />światłowodowe
+						</h2>
+					</div>
+					<p class="section-sub" data-i18n="services_sub">
+						Od projektu po odbiór końcowy — realizujemy każdy etap
+						inwestycji w infrastrukturę teletechniczną.
 					</p>
 				</div>
-				<div class="footer-col">
-					<h4>Usługi</h4>
-					<ul>
-						<li><a href="#">Budowa sieci</a></li>
-						<li><a href="#">Instalacje FTTH</a></li>
-						<li><a href="#">Spawanie optyczne</a></li>
-						<li><a href="#">Pomiary OTDR</a></li>
-						<li><a href="#">Projektowanie</a></li>
-					</ul>
-				</div>
-				<div class="footer-col">
-					<h4>Firma</h4>
-					<ul>
-						<li><a href="#">O nas</a></li>
-						<li><a href="#">Realizacje</a></li>
-						<li><a href="#">Certyfikaty</a></li>
-						<li><a href="#">Kariera</a></li>
-					</ul>
-				</div>
-				<div class="footer-col">
-					<h4>Kontakt</h4>
-					<ul>
-						<li><a href="#">ul. Światłowodowa 12</a></li>
-						<li><a href="#">80-001 Gdańsk</a></li>
-						<li><a href="tel:+48800100200">+48 800 100 200</a></li>
-						<li>
-							<a href="mailto:kontakt@.pl">kontakt@.pl</a>
-						</li>
-					</ul>
+
+				<div class="services-grid">
+					<div class="service-card reveal">
+						<div class="service-icon">🔧</div>
+						<h3 data-i18n="s1_title">Budowa infrastruktury</h3>
+						<p data-i18n="s1_desc">
+							Realizujemy wykopy, przeciski i ułożenie kabli
+							światłowodowych w terenie zurbanizowanym i otwartym.
+							Współpracujemy z geodetami i urzędami.
+						</p>
+					</div>
+					<div class="service-card reveal">
+						<div class="service-icon">📐</div>
+						<h3 data-i18n="s2_title">Projektowanie sieci</h3>
+						<p data-i18n="s2_desc">
+							Tworzymy pełną dokumentację techniczną: projekt
+							koncepcyjny, budowlany i wykonawczy. Uwzględniamy
+							przyszłościową skalowalność sieci.
+						</p>
+					</div>
+					<div class="service-card reveal">
+						<div class="service-icon">🔗</div>
+						<h3 data-i18n="s3_title">Spawanie i łączenie</h3>
+						<p data-i18n="s3_desc">
+							Precyzyjne spawanie termiczne i mechaniczne włókien
+							optycznych. Wykonujemy pomiary OTDR i tworzymy
+							dokumentację powykonawczą.
+						</p>
+					</div>
+					<div class="service-card reveal">
+						<div class="service-icon">📡</div>
+						<h3 data-i18n="s4_title">Sieci FTTH/FTTB</h3>
+						<p data-i18n="s4_desc">
+							Budujemy sieci dostępowe do budynków mieszkalnych i
+							biurowych. Montujemy szafy ODF, splittery pasywne i
+							urządzenia aktywne.
+						</p>
+					</div>
+					<div class="service-card reveal">
+						<div class="service-icon">🛡️</div>
+						<h3 data-i18n="s5_title">Serwis i utrzymanie</h3>
+						<p data-i18n="s5_desc">
+							Całodobowy nadzór nad siecią, szybkie usuwanie
+							awarii, przeglądy periodyczne i rozbudowa
+							istniejącej infrastruktury.
+						</p>
+					</div>
+					<div class="service-card reveal">
+						<div class="service-icon">📊</div>
+						<h3 data-i18n="s6_title">Audyt i pomiary</h3>
+						<p data-i18n="s6_desc">
+							Ocena stanu technicznego istniejącej sieci, pomiary
+							tłumienności, identyfikacja uszkodzeń i sporządzenie
+							raportów inwentaryzacyjnych.
+						</p>
+					</div>
 				</div>
 			</div>
-			<div class="footer-bottom">
-				<p>© 2026 ENEV.TECH Sp. z o.o. Wszelkie prawa zastrzeżone.</p>
-				<p>Polityka prywatności · Regulamin</p>
+		</section>
+
+		<!-- ── WHY US ── -->
+		<section id="why">
+			<div class="section-inner">
+				<div class="why-grid">
+					<div>
+						<div class="section-label reveal" data-i18n="why_label">
+							Dlaczego my
+						</div>
+						<h2 class="reveal" data-i18n="why_h2">
+							Zaufaj doświadczonym specjalistom
+						</h2>
+						<ul class="why-list">
+							<li class="why-item reveal">
+								<div class="why-check">✓</div>
+								<div class="why-item-text">
+									<strong data-i18n="w1_t"
+										>Certyfikowani inżynierowie</strong
+									>
+									<span data-i18n="w1_d"
+										>Posiadamy uprawnienia budowlane i
+										certyfikaty producentów kabli (Corning,
+										Draka, Belden).</span
+									>
+								</div>
+							</li>
+							<li class="why-item reveal">
+								<div class="why-check">✓</div>
+								<div class="why-item-text">
+									<strong data-i18n="w2_t"
+										>Nowoczesny sprzęt</strong
+									>
+									<span data-i18n="w2_d"
+										>Dysponujemy spawarkami Fujikura i
+										reflektometrami OTDR najnowszej
+										generacji.</span
+									>
+								</div>
+							</li>
+							<li class="why-item reveal">
+								<div class="why-check">✓</div>
+								<div class="why-item-text">
+									<strong data-i18n="w3_t"
+										>Terminowość realizacji</strong
+									>
+									<span data-i18n="w3_d"
+										>98% projektów oddajemy w terminie.
+										Precyzyjne harmonogramy i zarządzanie
+										podwykonawcami.</span
+									>
+								</div>
+							</li>
+							<li class="why-item reveal">
+								<div class="why-check">✓</div>
+								<div class="why-item-text">
+									<strong data-i18n="w4_t"
+										>Kompleksowa dokumentacja</strong
+									>
+									<span data-i18n="w4_d"
+										>Dostarczamy pełny pakiet: projekty,
+										protokoły, pomiary OTDR, inwentaryzacja
+										geodezyjna.</span
+									>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="why-visual reveal">
+						<div class="cert-cards">
+							<div class="cert-card">
+								<div class="cert-icon">🏅</div>
+								<strong>ISO 9001</strong>
+								<span data-i18n="cert1"
+									>Zarządzanie jakością</span
+								>
+							</div>
+							<div class="cert-card">
+								<div class="cert-icon">⚡</div>
+								<strong>UDT / SEP</strong>
+								<span data-i18n="cert2"
+									>Uprawnienia elektryczne</span
+								>
+							</div>
+							<div class="cert-card">
+								<div class="cert-icon">🛰️</div>
+								<strong>Corning CST</strong>
+								<span data-i18n="cert3"
+									>Certyfikowany instalator</span
+								>
+							</div>
+							<div class="cert-card">
+								<div class="cert-icon">🔒</div>
+								<strong>RODO / GDPR</strong>
+								<span data-i18n="cert4"
+									>Bezpieczeństwo danych</span
+								>
+							</div>
+						</div>
+
+						<div
+							style="
+								margin-top: 20px;
+								background: rgba(26, 157, 200, 0.07);
+								border: 1px solid rgba(26, 157, 200, 0.2);
+								border-radius: 12px;
+								padding: 20px 24px;
+								display: flex;
+								gap: 16px;
+								align-items: center;
+							"
+						>
+							<div style="font-size: 2rem">📞</div>
+							<div>
+								<div
+									style="
+										font-size: 0.78rem;
+										color: var(--teal-light);
+										font-weight: 600;
+										margin-bottom: 2px;
+									"
+									data-i18n="hotline_label"
+								>
+									Linia awaryjna 24/7
+								</div>
+								<div
+									style="
+										font-family:
+											&quot;Syne&quot;, sans-serif;
+										font-size: 1.2rem;
+										font-weight: 800;
+									"
+								>
+									+48 800 123 456
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ── PROCESS ── -->
+		<section id="process">
+			<div class="section-inner">
+				<div
+					style="text-align: center; margin-bottom: 16px"
+					class="reveal"
+				>
+					<div class="section-label" data-i18n="process_label">
+						Jak działamy
+					</div>
+					<h2 data-i18n="process_h2">
+						Przejrzysty proces realizacji
+					</h2>
+				</div>
+				<div class="process-steps">
+					<div class="step reveal">
+						<div class="step-num">01</div>
+						<h3 data-i18n="p1_t">Analiza i wycena</h3>
+						<p data-i18n="p1_d">
+							Bezpłatna wizja lokalna, pomiar terenu i
+							przygotowanie szczegółowej oferty w ciągu 48h.
+						</p>
+					</div>
+					<div class="step reveal">
+						<div class="step-num">02</div>
+						<h3 data-i18n="p2_t">Projektowanie</h3>
+						<p data-i18n="p2_d">
+							Opracowanie dokumentacji technicznej i uzyskanie
+							niezbędnych pozwoleń i uzgodnień.
+						</p>
+					</div>
+					<div class="step reveal">
+						<div class="step-num">03</div>
+						<h3 data-i18n="p3_t">Realizacja</h3>
+						<p data-i18n="p3_d">
+							Profesjonalne ułożenie kabli, spawanie, montaż szaf
+							i urządzeń aktywnych z bieżącym nadzorem.
+						</p>
+					</div>
+					<div class="step reveal">
+						<div class="step-num">04</div>
+						<h3 data-i18n="p4_t">Odbiór i serwis</h3>
+						<p data-i18n="p4_d">
+							Pomiary, dokumentacja powykonawcza, szkolenie
+							użytkowników i opieka serwisowa.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ── CONTACT ── -->
+		<section id="contact">
+			<div class="section-inner">
+				<div class="contact-wrap">
+					<div>
+						<div
+							class="section-label reveal"
+							data-i18n="contact_label"
+						>
+							Napisz do nas
+						</div>
+						<h2 class="reveal" data-i18n="contact_h2">
+							Zacznijmy współpracę
+						</h2>
+						<p class="section-sub reveal" data-i18n="contact_sub">
+							Wypełnij formularz lub skontaktuj się bezpośrednio.
+							Odpowiadamy w ciągu 24 godzin roboczych.
+						</p>
+
+						<div class="contact-info">
+							<div class="contact-item reveal">
+								<div class="contact-icon">📍</div>
+								<div>
+									<strong data-i18n="addr_label"
+										>Adres</strong
+									>
+									<span
+										>ul. Światłowodowa 12, 80-001
+										Gdańsk</span
+									>
+								</div>
+							</div>
+							<div class="contact-item reveal">
+								<div class="contact-icon">📞</div>
+								<div>
+									<strong data-i18n="phone_label"
+										>Telefon</strong
+									>
+									<span>+48 58 123 45 67</span>
+								</div>
+							</div>
+							<div class="contact-item reveal">
+								<div class="contact-icon">✉️</div>
+								<div>
+									<strong data-i18n="email_label"
+										>Email</strong
+									>
+									<span>biuro@a.pl</span>
+								</div>
+							</div>
+							<div class="contact-item reveal">
+								<div class="contact-icon">🕐</div>
+								<div>
+									<strong data-i18n="hours_label"
+										>Godziny pracy</strong
+									>
+									<span data-i18n="hours_val"
+										>Pon–Pt: 8:00–17:00 | Awarie 24/7</span
+									>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="contact-form reveal">
+						<div class="form-group">
+							<label data-i18n="form_name"
+								>Imię i nazwisko *</label
+							>
+							<input type="text" placeholder="Jan Kowalski" />
+						</div>
+						<div class="form-group">
+							<label data-i18n="form_company">Firma</label>
+							<input type="text" placeholder="Nazwa firmy" />
+						</div>
+						<div class="form-group">
+							<label data-i18n="form_email">Email *</label>
+							<input type="email" placeholder="jan@firma.pl" />
+						</div>
+						<div class="form-group">
+							<label data-i18n="form_phone">Telefon</label>
+							<input type="tel" placeholder="+48 ..." />
+						</div>
+						<div class="form-group">
+							<label data-i18n="form_service"
+								>Rodzaj usługi</label
+							>
+							<select>
+								<option data-i18n="form_opt0">
+									Wybierz usługę...
+								</option>
+								<option data-i18n="form_opt1">
+									Budowa infrastruktury
+								</option>
+								<option data-i18n="form_opt2">
+									Projektowanie sieci
+								</option>
+								<option data-i18n="form_opt3">
+									Spawanie i pomiary
+								</option>
+								<option data-i18n="form_opt4">
+									Serwis i utrzymanie
+								</option>
+								<option data-i18n="form_opt5">Inne</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label data-i18n="form_msg">Wiadomość *</label>
+							<textarea
+								placeholder="Opisz swój projekt..."
+							></textarea>
+						</div>
+						<button
+							class="btn-primary"
+							style="width: 100%; justify-content: center"
+							data-i18n="form_send"
+						>
+							✦ Wyślij wiadomość
+						</button>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ── FOOTER ── -->
+		<footer>
+			<div class="footer-inner">
+				<div class="footer-top">
+					<div class="footer-brand">
+						<a
+							href="#"
+							class="logo"
+							style="margin-bottom: 12px; display: inline-flex"
+						>
+							<div class="logo-icon">
+								<svg
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="white"
+									stroke-width="2.5"
+									stroke-linecap="round"
+								>
+									<circle cx="12" cy="12" r="3" />
+									<path
+										d="M12 2v4M12 18v4M2 12h4M18 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M5.6 18.4l2.8-2.8M15.6 8.4l2.8-2.8"
+									/>
+								</svg>
+							</div>
+							ENEV.TECH
+						</a>
+						<p data-i18n="footer_brand_desc">
+							Specjaliści od budowy, projektowania i serwisu sieci
+							światłowodowych. Zaufanie ponad 100 klientów od 2020
+							roku.
+						</p>
+					</div>
+					<div class="footer-col">
+						<h4 data-i18n="footer_services">Usługi</h4>
+						<ul>
+							<li>
+								<a href="#services" data-i18n="fs1"
+									>Budowa infrastruktury</a
+								>
+							</li>
+							<li>
+								<a href="#services" data-i18n="fs2"
+									>Projektowanie sieci</a
+								>
+							</li>
+							<li>
+								<a href="#services" data-i18n="fs3"
+									>Spawanie OTDR</a
+								>
+							</li>
+							<li>
+								<a href="#services" data-i18n="fs4"
+									>Sieci FTTH/FTTB</a
+								>
+							</li>
+							<li>
+								<a href="#services" data-i18n="fs5"
+									>Serwis 24/7</a
+								>
+							</li>
+						</ul>
+					</div>
+					<div class="footer-col">
+						<h4 data-i18n="footer_company">Firma</h4>
+						<ul>
+							<li><a href="#why" data-i18n="fc1">O nas</a></li>
+							<li>
+								<a href="#process" data-i18n="fc2"
+									>Realizacje</a
+								>
+							</li>
+							<li>
+								<a href="#contact" data-i18n="fc3">Kontakt</a>
+							</li>
+							<li><a href="#" data-i18n="fc4">Kariera</a></li>
+						</ul>
+					</div>
+					<div class="footer-col">
+						<h4 data-i18n="footer_legal">Prawne</h4>
+						<ul>
+							<li>
+								<a href="#" data-i18n="fl1"
+									>Polityka prywatności</a
+								>
+							</li>
+							<li><a href="#" data-i18n="fl2">Regulamin</a></li>
+							<li><a href="#" data-i18n="fl3">Cookies</a></li>
+							<li><a href="#" data-i18n="fl4">RODO</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="footer-bottom">
+					<p data-i18n="footer_copy">
+						© 2026 ENEV.TECH Pro Sp. z o.o. Wszelkie prawa
+						zastrzeżone.
+					</p>
+					<p>NIP: 583-123-45-67 | KRS: 0000123456</p>
+				</div>
 			</div>
 		</footer>
 
 		<script>
-			// Intersection Observer for fade-in animations
+			// ── TRANSLATIONS ──
+			const i18n = {
+				pl: {
+					nav_services: "Usługi",
+					nav_why: "O nas",
+					nav_process: "Realizacja",
+					nav_contact: "Kontakt",
+					hero_tag: "Specjaliści od sieci światłowodowych",
+					hero_h1a: "Budujemy",
+					hero_h1b: "Sieci Przyszłości",
+					hero_h1c: "dla Twojego biznesu",
+					hero_desc:
+						"Projektujemy i realizujemy infrastrukturę światłowodową najwyższej klasy. Od audytu po serwis — jesteśmy z Tobą na każdym etapie.",
+					hero_cta1: "✦ Bezpłatna wycena",
+					hero_cta2: "Nasze usługi →",
+					stat1: "Zrealizowanych projektów",
+					stat2: "Doświadczenia na rynku",
+					stat3: "Gwarantowana dostępność",
+					services_label: "Co oferujemy",
+					services_h2: "Kompleksowe usługi\nświatłowodowe",
+					services_sub:
+						"Od projektu po odbiór końcowy — realizujemy każdy etap inwestycji w infrastrukturę teletechniczną.",
+					s1_title: "Budowa infrastruktury",
+					s1_desc:
+						"Realizujemy wykopy, przeciski i ułożenie kabli światłowodowych w terenie zurbanizowanym i otwartym.",
+					s2_title: "Projektowanie sieci",
+					s2_desc:
+						"Tworzymy pełną dokumentację techniczną: projekt koncepcyjny, budowlany i wykonawczy.",
+					s3_title: "Spawanie i łączenie",
+					s3_desc:
+						"Precyzyjne spawanie termiczne i mechaniczne włókien optycznych. Pomiary OTDR i dokumentacja.",
+					s4_title: "Sieci FTTH/FTTB",
+					s4_desc:
+						"Budujemy sieci dostępowe do budynków mieszkalnych i biurowych. Montujemy szafy ODF i splittery.",
+					s5_title: "Serwis i utrzymanie",
+					s5_desc:
+						"Całodobowy nadzór nad siecią, szybkie usuwanie awarii i rozbudowa istniejącej infrastruktury.",
+					s6_title: "Audyt i pomiary",
+					s6_desc:
+						"Ocena stanu technicznego sieci, pomiary tłumienności, identyfikacja uszkodzeń i raporty.",
+					why_label: "Dlaczego my",
+					why_h2: "Zaufaj doświadczonym specjalistom",
+					w1_t: "Certyfikowani inżynierowie",
+					w1_d: "Posiadamy uprawnienia budowlane i certyfikaty producentów kabli (Corning, Draka, Belden).",
+					w2_t: "Nowoczesny sprzęt",
+					w2_d: "Dysponujemy spawarkami Fujikura i reflektometrami OTDR najnowszej generacji.",
+					w3_t: "Terminowość realizacji",
+					w3_d: "98% projektów oddajemy w terminie. Precyzyjne harmonogramy i zarządzanie podwykonawcami.",
+					w4_t: "Kompleksowa dokumentacja",
+					w4_d: "Dostarczamy pełny pakiet: projekty, protokoły, pomiary OTDR, inwentaryzacja geodezyjna.",
+					cert1: "Zarządzanie jakością",
+					cert2: "Uprawnienia elektryczne",
+					cert3: "Certyfikowany instalator",
+					cert4: "Bezpieczeństwo danych",
+					hotline_label: "Linia awaryjna 24/7",
+					process_label: "Jak działamy",
+					process_h2: "Przejrzysty proces realizacji",
+					p1_t: "Analiza i wycena",
+					p1_d: "Bezpłatna wizja lokalna i szczegółowa oferta w ciągu 48h.",
+					p2_t: "Projektowanie",
+					p2_d: "Dokumentacja techniczna i uzyskanie niezbędnych pozwoleń.",
+					p3_t: "Realizacja",
+					p3_d: "Profesjonalne ułożenie kabli, spawanie i montaż urządzeń.",
+					p4_t: "Odbiór i serwis",
+					p4_d: "Pomiary, dokumentacja powykonawcza i opieka serwisowa.",
+					contact_label: "Napisz do nas",
+					contact_h2: "Zacznijmy współpracę",
+					contact_sub:
+						"Wypełnij formularz lub skontaktuj się bezpośrednio. Odpowiadamy w ciągu 24 godzin roboczych.",
+					addr_label: "Adres",
+					phone_label: "Telefon",
+					email_label: "Email",
+					hours_label: "Godziny pracy",
+					hours_val: "Pon–Pt: 8:00–17:00 | Awarie 24/7",
+					form_name: "Imię i nazwisko *",
+					form_company: "Firma",
+					form_email: "Email *",
+					form_phone: "Telefon",
+					form_service: "Rodzaj usługi",
+					form_msg: "Wiadomość *",
+					form_opt0: "Wybierz usługę...",
+					form_opt1: "Budowa infrastruktury",
+					form_opt2: "Projektowanie sieci",
+					form_opt3: "Spawanie i pomiary",
+					form_opt4: "Serwis i utrzymanie",
+					form_opt5: "Inne",
+					form_send: "✦ Wyślij wiadomość",
+					footer_brand_desc:
+						"Specjaliści od budowy, projektowania i serwisu sieci światłowodowych. Zaufanie ponad 500 klientów od 2012 roku.",
+					footer_services: "Usługi",
+					footer_company: "Firma",
+					footer_legal: "Prawne",
+					fs1: "Budowa infrastruktury",
+					fs2: "Projektowanie sieci",
+					fs3: "Spawanie OTDR",
+					fs4: "Sieci FTTH/FTTB",
+					fs5: "Serwis 24/7",
+					fc1: "O nas",
+					fc2: "Realizacje",
+					fc3: "Kontakt",
+					fc4: "Kariera",
+					fl1: "Polityka prywatności",
+					fl2: "Regulamin",
+					fl3: "Cookies",
+					fl4: "RODO",
+					footer_copy:
+						"© 2025 ENEV.TECH Pro Sp. z o.o. Wszelkie prawa zastrzeżone.",
+				},
+				en: {
+					nav_services: "Services",
+					nav_why: "About",
+					nav_process: "Process",
+					nav_contact: "Contact",
+					hero_tag: "Fiber Optic Network Specialists",
+					hero_h1a: "We Build",
+					hero_h1b: "Future Networks",
+					hero_h1c: "for your business",
+					hero_desc:
+						"We design and deploy premium fiber optic infrastructure. From audit to service — we're with you every step of the way.",
+					hero_cta1: "✦ Free Quote",
+					hero_cta2: "Our Services →",
+					stat1: "Completed Projects",
+					stat2: "Years of Experience",
+					stat3: "Guaranteed Uptime",
+					services_label: "What we offer",
+					services_h2: "Comprehensive fiber\noptic services",
+					services_sub:
+						"From design to final handover — we handle every phase of your telecom infrastructure investment.",
+					s1_title: "Infrastructure Build",
+					s1_desc:
+						"We carry out trenching, directional drilling and fiber cable laying in urban and open terrain.",
+					s2_title: "Network Design",
+					s2_desc:
+						"Full technical documentation: concept, construction and executive design with future scalability in mind.",
+					s3_title: "Splicing & Joining",
+					s3_desc:
+						"Precision thermal and mechanical splicing of optical fibers. OTDR measurements and as-built documentation.",
+					s4_title: "FTTH/FTTB Networks",
+					s4_desc:
+						"We build access networks to residential and office buildings. ODF cabinets, passive splitters, active equipment.",
+					s5_title: "Service & Maintenance",
+					s5_desc:
+						"24/7 network monitoring, rapid fault resolution and expansion of existing fiber infrastructure.",
+					s6_title: "Audit & Measurements",
+					s6_desc:
+						"Technical assessment, attenuation measurements, fault identification and full inventory reports.",
+					why_label: "Why us",
+					why_h2: "Trust experienced specialists",
+					w1_t: "Certified Engineers",
+					w1_d: "We hold construction licenses and manufacturer certifications (Corning, Draka, Belden).",
+					w2_t: "Modern Equipment",
+					w2_d: "We use Fujikura fusion splicers and latest-generation OTDR reflectometers.",
+					w3_t: "On-Time Delivery",
+					w3_d: "98% of projects delivered on schedule. Precise timelines and subcontractor management.",
+					w4_t: "Full Documentation",
+					w4_d: "Complete package: designs, protocols, OTDR measurements, geodetic inventory.",
+					cert1: "Quality Management",
+					cert2: "Electrical Licenses",
+					cert3: "Certified Installer",
+					cert4: "Data Security",
+					hotline_label: "Emergency Hotline 24/7",
+					process_label: "How we work",
+					process_h2: "Transparent delivery process",
+					p1_t: "Analysis & Quote",
+					p1_d: "Free site visit and detailed offer within 48 hours.",
+					p2_t: "Design",
+					p2_d: "Technical documentation and obtaining all required permits.",
+					p3_t: "Execution",
+					p3_d: "Professional cable laying, splicing and equipment installation.",
+					p4_t: "Handover & Service",
+					p4_d: "Measurements, as-built documentation and ongoing support.",
+					contact_label: "Get in touch",
+					contact_h2: "Let's start working together",
+					contact_sub:
+						"Fill in the form or contact us directly. We respond within 24 business hours.",
+					addr_label: "Address",
+					phone_label: "Phone",
+					email_label: "Email",
+					hours_label: "Working Hours",
+					hours_val: "Mon–Fri: 8:00–17:00 | Faults 24/7",
+					form_name: "Full Name *",
+					form_company: "Company",
+					form_email: "Email *",
+					form_phone: "Phone",
+					form_service: "Service Type",
+					form_msg: "Message *",
+					form_opt0: "Select a service...",
+					form_opt1: "Infrastructure Build",
+					form_opt2: "Network Design",
+					form_opt3: "Splicing & Measurements",
+					form_opt4: "Service & Maintenance",
+					form_opt5: "Other",
+					form_send: "✦ Send Message",
+					footer_brand_desc:
+						"Specialists in fiber optic network construction, design and service. Trusted by over 500 clients since 2012.",
+					footer_services: "Services",
+					footer_company: "Company",
+					footer_legal: "Legal",
+					fs1: "Infrastructure Build",
+					fs2: "Network Design",
+					fs3: "Splicing OTDR",
+					fs4: "FTTH/FTTB Networks",
+					fs5: "24/7 Service",
+					fc1: "About Us",
+					fc2: "Projects",
+					fc3: "Contact",
+					fc4: "Careers",
+					fl1: "Privacy Policy",
+					fl2: "Terms of Use",
+					fl3: "Cookies",
+					fl4: "GDPR",
+					footer_copy:
+						"© 2025 ENEV.TECH Pro Sp. z o.o. All rights reserved.",
+				},
+				de: {
+					nav_services: "Leistungen",
+					nav_why: "Über uns",
+					nav_process: "Ablauf",
+					nav_contact: "Kontakt",
+					hero_tag: "Glasfasernetz-Spezialisten",
+					hero_h1a: "Wir bauen",
+					hero_h1b: "Zukunftsnetze",
+					hero_h1c: "für Ihr Unternehmen",
+					hero_desc:
+						"Wir planen und realisieren erstklassige Glasfaserinfrastrukturen. Von der Prüfung bis zum Service — wir begleiten Sie auf jedem Schritt.",
+					hero_cta1: "✦ Kostenloses Angebot",
+					hero_cta2: "Unsere Leistungen →",
+					stat1: "Abgeschlossene Projekte",
+					stat2: "Jahre Erfahrung",
+					stat3: "Garantierte Verfügbarkeit",
+					services_label: "Was wir anbieten",
+					services_h2: "Umfassende Glasfaser-\ndienstleistungen",
+					services_sub:
+						"Von der Planung bis zur Abnahme — wir übernehmen jede Phase Ihrer Telekommunikationsinfrastruktur.",
+					s1_title: "Infrastrukturaufbau",
+					s1_desc:
+						"Wir führen Grabungsarbeiten, Durchbohrungen und das Verlegen von Glasfaserkabeln in urbanen und freien Geländen durch.",
+					s2_title: "Netzplanung",
+					s2_desc:
+						"Vollständige technische Dokumentation: Konzept-, Bau- und Ausführungsplanung mit Blick auf künftige Skalierbarkeit.",
+					s3_title: "Spleißen & Verbinden",
+					s3_desc:
+						"Präzises thermisches und mechanisches Spleißen von Lichtwellenleitern. OTDR-Messungen und Bestandsdokumentation.",
+					s4_title: "FTTH/FTTB-Netze",
+					s4_desc:
+						"Wir bauen Zugangsnetzwerke für Wohn- und Bürogebäude. ODF-Schränke, passive Splitter, aktive Geräte.",
+					s5_title: "Service & Wartung",
+					s5_desc:
+						"Rund-um-die-Uhr-Überwachung, schnelle Störungsbeseitigung und Erweiterung bestehender Glasfaserinfrastruktur.",
+					s6_title: "Prüfung & Messungen",
+					s6_desc:
+						"Technische Zustandsbewertung, Dämpfungsmessungen, Fehleridentifikation und vollständige Bestandsberichte.",
+					why_label: "Warum wir",
+					why_h2: "Vertrauen Sie erfahrenen Spezialisten",
+					w1_t: "Zertifizierte Ingenieure",
+					w1_d: "Wir besitzen Baugenehmigungen und Herstellerzertifikate (Corning, Draka, Belden).",
+					w2_t: "Modernste Geräte",
+					w2_d: "Wir verwenden Fujikura-Spleißgeräte und OTDR-Reflektometer der neuesten Generation.",
+					w3_t: "Termingerechte Lieferung",
+					w3_d: "98% der Projekte werden termingerecht abgeliefert. Präzise Zeitpläne und Subunternehmermanagement.",
+					w4_t: "Vollständige Dokumentation",
+					w4_d: "Komplettpaket: Pläne, Protokolle, OTDR-Messungen, geodätische Inventur.",
+					cert1: "Qualitätsmanagement",
+					cert2: "Elektrische Zulassungen",
+					cert3: "Zertifizierter Installateur",
+					cert4: "Datensicherheit",
+					hotline_label: "Notfall-Hotline 24/7",
+					process_label: "Wie wir arbeiten",
+					process_h2: "Transparenter Realisierungsprozess",
+					p1_t: "Analyse & Angebot",
+					p1_d: "Kostenloser Vor-Ort-Termin und detailliertes Angebot innerhalb von 48 Stunden.",
+					p2_t: "Planung",
+					p2_d: "Technische Dokumentation und Einholung aller erforderlichen Genehmigungen.",
+					p3_t: "Ausführung",
+					p3_d: "Professionelles Kabelverlegen, Spleißen und Gerätemontage.",
+					p4_t: "Abnahme & Service",
+					p4_d: "Messungen, Bestandsdokumentation und laufender Kundensupport.",
+					contact_label: "Kontakt aufnehmen",
+					contact_h2: "Starten wir die Zusammenarbeit",
+					contact_sub:
+						"Füllen Sie das Formular aus oder kontaktieren Sie uns direkt. Wir antworten innerhalb von 24 Arbeitsstunden.",
+					addr_label: "Adresse",
+					phone_label: "Telefon",
+					email_label: "E-Mail",
+					hours_label: "Öffnungszeiten",
+					hours_val: "Mo–Fr: 8:00–17:00 | Störungen 24/7",
+					form_name: "Vollständiger Name *",
+					form_company: "Unternehmen",
+					form_email: "E-Mail *",
+					form_phone: "Telefon",
+					form_service: "Leistungsart",
+					form_msg: "Nachricht *",
+					form_opt0: "Leistung auswählen...",
+					form_opt1: "Infrastrukturaufbau",
+					form_opt2: "Netzplanung",
+					form_opt3: "Spleißen & Messungen",
+					form_opt4: "Service & Wartung",
+					form_opt5: "Sonstiges",
+					form_send: "✦ Nachricht senden",
+					footer_brand_desc:
+						"Spezialisten für Bau, Planung und Service von Glasfasernetzen. Das Vertrauen von über 500 Kunden seit 2012.",
+					footer_services: "Leistungen",
+					footer_company: "Unternehmen",
+					footer_legal: "Rechtliches",
+					fs1: "Infrastrukturaufbau",
+					fs2: "Netzplanung",
+					fs3: "Spleißen OTDR",
+					fs4: "FTTH/FTTB-Netze",
+					fs5: "24/7-Service",
+					fc1: "Über uns",
+					fc2: "Referenzen",
+					fc3: "Kontakt",
+					fc4: "Karriere",
+					fl1: "Datenschutzrichtlinie",
+					fl2: "Nutzungsbedingungen",
+					fl3: "Cookies",
+					fl4: "DSGVO",
+					footer_copy:
+						"© 2025 ENEV.TECH Pro Sp. z o.o. Alle Rechte vorbehalten.",
+				},
+			};
+
+			let currentLang = "pl";
+
+			function setLang(lang) {
+				currentLang = lang;
+				document.documentElement.lang = lang;
+				const t = i18n[lang];
+				document.querySelectorAll("[data-i18n]").forEach((el) => {
+					const key = el.getAttribute("data-i18n");
+					if (t[key] !== undefined) el.textContent = t[key];
+				});
+				document
+					.querySelectorAll(".lang-btn")
+					.forEach((btn) => btn.classList.remove("active"));
+				event.currentTarget.classList.add("active");
+			}
+
+			// ── MOBILE MENU ──
+			function toggleMenu() {
+				document.getElementById("mobileMenu").classList.toggle("open");
+			}
+
+			// ── SCROLL REVEAL ──
 			const observer = new IntersectionObserver(
 				(entries) => {
-					entries.forEach((el) => {
-						if (el.isIntersecting) {
-							el.target.classList.add("visible");
+					entries.forEach((e) => {
+						if (e.isIntersecting) {
+							e.target.classList.add("visible");
 						}
 					});
 				},
-				{ threshold: 0.1 },
+				{ threshold: 0.12 },
 			);
 
 			document
-				.querySelectorAll(".fade-in")
+				.querySelectorAll(".reveal")
 				.forEach((el) => observer.observe(el));
+
+			// ── STAGGERED CARDS ──
+			document.querySelectorAll(".service-card").forEach((card, i) => {
+				card.style.transitionDelay = `${i * 80}ms`;
+			});
 		</script>
 	</body>
 </html>
