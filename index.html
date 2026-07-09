@@ -39,8 +39,6 @@
 				overflow-x: hidden;
 				line-height: 1.65;
 			}
-
-			/* ━━━ NAVBAR ━━━ */
 			.navbar {
 				position: fixed;
 				top: 0;
@@ -249,8 +247,6 @@
 				border-color: var(--teal);
 				color: var(--white);
 			}
-
-			/* ━━━ HERO ━━━ */
 			.hero {
 				padding-top: var(--nav-h);
 				min-height: 100vh;
@@ -346,8 +342,6 @@
 					transform: scale(1.5);
 				}
 			}
-
-			/* H1 — Sora font, very readable */
 			h1 {
 				font-family: "Sora", sans-serif;
 				font-size: clamp(2.4rem, 5vw, 4rem);
@@ -422,8 +416,6 @@
 				background: rgba(26, 157, 200, 0.09);
 				border-color: var(--teal);
 			}
-
-			/* Stats — right column, below SVG */
 			.hero-inline-stats {
 				display: flex;
 				gap: 0;
@@ -464,8 +456,6 @@
 				font-weight: 500;
 				line-height: 1.3;
 			}
-
-			/* Hero visual — right column: SVG on top, stats below */
 			.hero-visual {
 				display: flex;
 				flex-direction: column;
@@ -487,13 +477,9 @@
 					transform: translateY(-14px);
 				}
 			}
-
-			/* Logo upload zone */
 			.logo-upload-zone {
 				display: none;
 			}
-
-			/* ━━━ SECTIONS ━━━ */
 			section {
 				padding: 88px 0;
 			}
@@ -525,8 +511,6 @@
 				max-width: 580px;
 				font-weight: 400;
 			}
-
-			/* ━━━ SERVICES ━━━ */
 			#services {
 				background: linear-gradient(
 					180deg,
@@ -604,8 +588,6 @@
 				color: var(--gray-300);
 				line-height: 1.68;
 			}
-
-			/* ━━━ WHY US ━━━ */
 			#why {
 				background: #0b1e38;
 			}
@@ -697,8 +679,6 @@
 				font-size: 1.35rem;
 				font-weight: 800;
 			}
-
-			/* ━━━ PROCESS ━━━ */
 			#process {
 				background: linear-gradient(
 					180deg,
@@ -763,8 +743,6 @@
 				color: var(--gray-300);
 				line-height: 1.65;
 			}
-
-			/* ━━━ CALCULATOR ━━━ */
 			#calculator {
 				background: linear-gradient(
 					180deg,
@@ -927,8 +905,6 @@
 				grid-template-columns: 1fr 1fr;
 				gap: 18px;
 			}
-
-			/* Results */
 			.calc-result-label {
 				font-size: 0.78rem;
 				font-weight: 700;
@@ -998,8 +974,6 @@
 				line-height: 1.55;
 				margin-bottom: 20px;
 			}
-
-			/* ━━━ CONTACT ━━━ */
 			#contact {
 				background: var(--blue-deep);
 			}
@@ -1086,8 +1060,6 @@
 			.f-group select option {
 				background: var(--blue-mid);
 			}
-
-			/* ━━━ FOOTER ━━━ */
 			footer {
 				background: #050c18;
 				border-top: 1px solid rgba(26, 157, 200, 0.1);
@@ -1147,8 +1119,6 @@
 				font-size: 0.85rem;
 				color: var(--gray-500);
 			}
-
-			/* ━━━ REVEAL ━━━ */
 			.reveal {
 				opacity: 0;
 				transform: translateY(28px);
@@ -1160,8 +1130,6 @@
 				opacity: 1;
 				transform: translateY(0);
 			}
-
-			/* ━━━ RESPONSIVE ━━━ */
 			@media (max-width: 1024px) {
 				.hero-inner {
 					grid-template-columns: 1fr;
@@ -1264,7 +1232,6 @@
 		</style>
 	</head>
 	<body>
-		<!-- ━━━ NAVBAR ━━━ -->
 		<nav class="navbar">
 			<div class="navbar-inner">
 				<a href="#" class="logo" id="logoLink">
@@ -2302,9 +2269,7 @@
 				</div>
 			</div>
 		</footer>
-
 		<script>
-			/* ━━━ TRANSLATIONS ━━━ */
 			const T = {
 				pl: {
 					nav_services: "Usługi",
@@ -2681,9 +2646,6 @@
 						"© 2026 ENVE.TECH Sp. z o.o. Alle Rechte vorbehalten.",
 				},
 			};
-
-			/* ━━━ CURRENCY CONFIG ━━━ */
-			// PLN base prices — EN/DE divide by exchange rate to show EUR
 			const CURRENCY = {
 				pl: {
 					code: "PLN",
@@ -2711,8 +2673,6 @@
 				},
 			};
 			let currentLang = "pl";
-
-			/* ━━━ LANGUAGE ━━━ */
 			function setLang(lang, btn) {
 				currentLang = lang;
 				document.documentElement.lang = lang;
@@ -2731,10 +2691,8 @@
 						)
 							b.classList.add("active");
 					});
-				calculateCosts(); // recalculate with new currency
+				calculateCosts();
 			}
-
-			/* ━━━ MOBILE MENU ━━━ */
 			function toggleMenu() {
 				document.getElementById("drawer").classList.toggle("open");
 				document.getElementById("hamburger").classList.toggle("open");
@@ -2743,8 +2701,6 @@
 				document.getElementById("drawer").classList.remove("open");
 				document.getElementById("hamburger").classList.remove("open");
 			}
-
-			/* ━━━ CALCULATOR ━━━ */
 			const rangeInput = document.getElementById("calc-range");
 			const rangeVal = document.getElementById("range-val");
 			const typeSelect = document.getElementById("calc-type");
@@ -2775,7 +2731,6 @@
 				rangeVal.textContent = distance + " m";
 				updateRangeTrack();
 
-				// Calculate in PLN base, then convert
 				const installPLN = distance * costPerMeter;
 				const splicesPLN = splicesCount * cur.spliceUnit;
 				const otdrPLN = isOtdr
@@ -2802,9 +2757,6 @@
 			splicesInput.addEventListener("input", calculateCosts);
 			otdrSelect.addEventListener("change", calculateCosts);
 			calculateCosts();
-
-			/* ━━━ LOGO UPLOAD ━━━ */
-			// Clicking the logo box opens file picker
 			document
 				.getElementById("logoBox")
 				.addEventListener("click", function (e) {
@@ -2823,7 +2775,6 @@
 						const box = document.getElementById("logoBox");
 						box.innerHTML = "";
 						box.appendChild(img);
-						// Also update footer logo
 						const fBox = document.getElementById("footerLogoBox");
 						if (fBox) {
 							const img2 = img.cloneNode();
@@ -2833,8 +2784,6 @@
 					};
 					inp.click();
 				});
-
-			/* ━━━ SCROLL REVEAL ━━━ */
 			const obs = new IntersectionObserver(
 				(entries) => {
 					entries.forEach((e) => {
