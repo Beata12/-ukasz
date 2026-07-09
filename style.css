@@ -27,6 +27,7 @@ body {
 	color: var(--white);
 	overflow-x: hidden;
 	line-height: 1.65;
+	font-display: swap;
 }
 .navbar {
 	position: fixed;
